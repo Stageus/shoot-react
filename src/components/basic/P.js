@@ -6,7 +6,7 @@ const P = styled.p`
     margin: 0;
     padding: ${props => props.padding || "0px"};
     font-size: ${props => props.fontSize || "15px"};
-    font-weight: ${props => props.fontWeight || "300"};
+    font-weight: ${props => props.fontWeight || "400"};
     color: ${props => props.color || "black"};
 `
 

@@ -22,8 +22,8 @@ const MdButton = styled(Button)`
 `
 
 const LgButton = styled(Button)`
-    width: 458px;
-    height: 58px;
+    width: 400px;
+    height: 48px;
 `
 
 export {Button, SmButton, MdButton, LgButton}

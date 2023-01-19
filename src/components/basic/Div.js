@@ -1,37 +1,26 @@
 import styled from "styled-components"
 
 const Div = styled.div`
-    width: ${props => props.width || "fit-content"};
-    height: ${props => props.height || "fit-content"};
-    margin: ${props => props.margin || "0px"};
-    padding: ${props => props.padding || "0px"};
-    background-color: ${props => props.backgroundColor || "inherit"};
-    z-index: ${props => props.zIndex || "auto"};
+  width: ${props => props.width || "fit-content"};
+  height: ${props => props.height || "fit-content"};
+  margin: ${props => props.margin || "0px"};
+  padding: ${props => props.padding || "0px"};
+  background-color: ${props => props.backgroundColor || "inherit"};
+  z-index: ${props => props.zIndex || "auto"};
+  border: ${props => props.border || "none"};
+  border-radius: ${props => props.borderRadius || "none"};
+  position: ${props => props.position || "static"};
+  transform: ${props => props.transform || "none"};
+  top: ${props => props.top || ""};
+  bottom: ${props => props.bottom || ""};
+  right: ${props => props.right || ""};
+  left: ${props => props.left || ""};
+  display: ${props => props.display || "block"};;
+  align-items: ${props => props.alignItems || "center"};
+  justify-content: ${props => props.justifyContent || "center"};
+  flex-direction: ${props => props.direction || "row"};
+  flex-wrap: ${props => props.wrap || "wrap"};
+  ${props => props.pointer && "cursor:pointer;"}
 `
 
-const BorderDiv = styled(Div)`
-    border: ${props => props.border || "none"};
-    border-radius: ${props => props.borderRadius || "none"};
-`
-
-const PositionDiv = styled(Div)`
-    position: ${props => props.position || "static"};
-    top: ${props => props.top || ""};
-    bottom: ${props => props.bottom || ""};
-    right: ${props => props.right || ""};
-    left: ${props => props.left || ""};
-`
-
-const PointerDiv = styled(Div)`
-    cursor: pointer;
-`
-
-const FlexDiv = styled(Div)`
-    display: flex;
-    align-items: ${props => props.alignItems || "center"};
-    justify-content: ${props => props.justifyContent || "center"};
-    flex-direction: ${props => props.direction || "row"};
-    flex-wrap: wrap;
-`
-
-export {Div, BorderDiv, PositionDiv, PointerDiv, FlexDiv}
+export default Div
