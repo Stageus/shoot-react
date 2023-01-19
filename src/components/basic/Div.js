@@ -21,6 +21,7 @@ const Div = styled.div`
   flex-direction: ${props => props.direction || "row"};
   flex-wrap: ${props => props.wrap || "wrap"};
   ${props => props.pointer && "cursor:pointer;"}
-`
+  box-shadow: ${props => props.shadow || ""}
+    `
 
 export default Div
