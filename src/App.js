@@ -1,25 +1,19 @@
-// import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import {Route, Routes, useLocation} from "react-router-dom";
+import {ThemeProvider} from 'styled-components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        {/*<img src={logo} className="App-logo" alt="logo" />*/}
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import GlobalStyles from './globalStyles';
+import theme from './theme';
+
+
+const App = () => {
+
+    return (
+        // store 사용으로 props도 없어짐
+        <ThemeProvider theme={theme}>
+            <GlobalStyles/>
+        </ThemeProvider>
+    )
 }
 
-export default App;
+export default App
