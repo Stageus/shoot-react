@@ -5,7 +5,7 @@ const Div = styled.div`
   height: ${props => props.height || "fit-content"};
   margin: ${props => props.margin || "0px"};
   padding: ${props => props.padding || "0px"};
-  background-color: ${props => props.backgroundColor || "inherit"};
+  background-color: ${props => props.theme.color[props.backgroundColor] || 'inherit'};
   z-index: ${props => props.zIndex || "auto"};
   border: ${props => props.border || "none"};
   border-radius: ${props => props.borderRadius || "none"};
@@ -22,6 +22,6 @@ const Div = styled.div`
   flex-wrap: ${props => props.wrap || "wrap"};
   ${props => props.pointer && "cursor:pointer;"}
   box-shadow: ${props => props.shadow || ""}
-    `
+`
 
 export default Div
