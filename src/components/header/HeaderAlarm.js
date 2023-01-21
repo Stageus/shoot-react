@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 
-import theme from "../../theme"
 import Img from "../basic/Img"
 import Div from "../basic/Div"
 import { H2 } from "../basic/H"
@@ -26,7 +25,7 @@ const HeaderAlarm = () => {
         return (
             <Div pointer position="relative" width="100%" margin="0 0 20px 0">
                 <Div>
-                    <P fontSize="12px">
+                    <P fontSize="sm">
                         {
                             element.notification_type === 0 && `${element.notify_channel_name}이(가) 회원님의 게시글을 좋아합니다` ||
                             element.notification_type === 1 && `회원님의 게시글에 새로운 댓글이 등록되었습니다` ||
@@ -38,7 +37,7 @@ const HeaderAlarm = () => {
                         }
                     </P>
                 </Div>
-                <Div position="absolute" bottom="-15px" right="0"><P fontSize="12px" color={theme.color.gray}>{element.notification_time}</P></Div>
+                <Div position="absolute" bottom="-15px" right="0"><P fontSize="xs" color="gray">{element.notification_time}</P></Div>
             </Div>
         )
     })
@@ -53,8 +52,8 @@ const HeaderAlarm = () => {
             <Div pointer width="24px">
                 <Img onClick={openAlarmContainerEvent} src="./assets/images/bellOn.svg"/>
             </Div>
-            <Div width="245px" position="absolute" bottom="0" right="0" transform="translate(0, 100%)" backgroundColor={theme.color.white} border={`1px solid ${theme.color.gray}`} borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
-                <Div position="fixed" top="5px" left="16px" zIndex="4px" backgroundColor={theme.color.white}><H2 fontWeight="700">알림</H2></Div>
+            <Div width="245px" position="absolute" bottom="0" right="0" transform="translate(0, 100%)" backgroundColor="white" borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
+                <Div position="fixed" top="5px" left="16px" zIndex="4px" backgroundColor="white"><H2 fontWeight={700}>알림</H2></Div>
                 <AlarmContainer margin="40px 0 0" padding="0 16px">
                     {alarmContent}
                 </AlarmContainer>

@@ -23,7 +23,7 @@ const PostDetail = () => {
         profileImg:"./assets/images/user.svg",
         email: "test1@naver.com"
     }
-    const vote = false
+    const vote = true
 
     const openDetailModal = () => {
         alert("본문열기")
@@ -50,14 +50,14 @@ const PostDetail = () => {
             <Img src="./assets/images/postThumbnail.png"/>
             <Div position="absolute" bottom="0" width="90%" margin="5%">
                 <Div display="flex" alignItems="end" margin="15px 0">
-                    <Div><H1 fontSize="18px">게시글 타이틀</H1></Div>
+                    <Div><H1 fontSize="lg">게시글 타이틀</H1></Div>
                     {
-                        vote === true && <Div pointer margin="0 5px"><P onClick={openDetailModal} fontSize="12px" color="#C8C8C8">투표하기</P></Div>
+                        vote === true && <Div pointer margin="0 5px"><P onClick={openDetailModal} fontSize="sm" color="gray">투표하기</P></Div>
                     }
                 </Div>
                 <Div display="flex" width="100%" justifyContent="space-between">
                     <Profile profileObject={testObject1} name="test1"/>
-                    <MdButton onClick={subscribeChannel} backgroundColor="#FF6B6B"><P color="#FFFFFF" fontSize="15px" fontWeight="400">구독</P></MdButton>
+                    <MdButton onClick={subscribeChannel} backgroundColor="primary"><P color="white">구독</P></MdButton>
                 </Div>
             </Div>
             <Div display="flex" direction="column" position="absolute" right="0" bottom="0" transform="translate(100%, 0)" padding="0 5px">

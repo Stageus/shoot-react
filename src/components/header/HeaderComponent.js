@@ -20,7 +20,7 @@ const Header = styled.header`
     width: 100%;
     height: 60px;
     z-index: 3;
-    background-color: white;
+    background-color: ${props => props.theme.color.white};
 `
 
 const SearchInput = styled(Input)`
@@ -32,7 +32,7 @@ const SearchInput = styled(Input)`
 `
 
 const HeaderComponent = () => {
-    const loginCheck = false
+    const loginCheck = true
 
     const tmpSearchHistoryList = [
         {search_idx: 1, contents: "이러저러한 검색어 1번 검색어"},
@@ -132,33 +132,33 @@ const HeaderComponent = () => {
     return (
         <Header>
             <Div onClick={moveHomeEvent} pointer height="50%" margin="0 0 0 40px"><Img src="./assets/images/shootLogo.svg"/></Div>
-            <Div display="flex" position="relative" width="400px" height="34px" border={`1px solid ${theme.color.gray}`} borderRadius="99px">
+            <Div display="flex" position="relative" width="400px" height="34px" border="1px solid #C8C8C8" borderRadius="99px">
                 <SearchInput onClick={openSearchHistoryEvent} id="searchInput" type="text" placeholder="검색" margin="0 0 0 11px" padding="0" border="0"/>
                 <Div onClick={searchEvent} pointer height="24px" margin="0 5px"><Img src="./assets/images/search.svg"/></Div>
                 <Div onClick={e => {
                     insertSearchValueEvent(e)
                     deleteSearchHistoryEvent(e)
-                }} width="345px" padding="10px" position="absolute" left="10px" bottom="0" transform="translate(0, 100%)" backgroundColor={`${theme.color.white}`}borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
+                }} width="345px" padding="10px" position="absolute" left="10px" bottom="0" transform="translate(0, 100%)" backgroundColor="white" borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                     <Div display="flex" justifyContent="space-between" width="100%">
-                        <Div><P fontSize="12px" color={theme.color.gray}>최근검색어</P></Div>
+                        <Div><P fontSize="sm" color="gray">최근검색어</P></Div>
                         {
-                            tmpSearchHistoryList.length !== 0 && <Div pointer><P onClick={deleteSearchHistoryAllEvent} fontSize="9px" color={theme.color.gray}>전체 삭제</P></Div>
+                            tmpSearchHistoryList.length !== 0 && <Div pointer><P onClick={deleteSearchHistoryAllEvent} fontSize="xs" color="gray">전체 삭제</P></Div>
                         }
                     </Div>
                     {
                         tmpSearchHistoryList.length !== 0 && searchHistoryContent ||
-                        <Div margin="14px auto"><P fontSize="12px">검색 기록이 존재하지 않습니다.</P></Div>
+                        <Div margin="14px auto"><P fontSize="sm">검색 기록이 존재하지 않습니다.</P></Div>
                     }
                     <Div display="flex" justifyContent="right" width="100%">
-                        <Div onClick={toggleSearchHistorySaveEvent} pointer><P fontSize="9px" color={theme.color.gray}>자동저장 {isSave ? "끄기" : "켜기"}</P></Div>
+                        <Div onClick={toggleSearchHistorySaveEvent} pointer><P fontSize="xs" color="gray">자동저장 {isSave ? "끄기" : "켜기"}</P></Div>
                     </Div>
                 </Div>
             </Div>
             <Div display="flex">
-                <MdButton onClick={moveUploadEvent} margin="0 15px 0 0" border={`2px solid ${theme.color.primary}`} backgroundColor={theme.color.white}>
+                <MdButton onClick={moveUploadEvent} margin="0 15px 0 0" border="2px solid #FF6B6B" backgroundColor="white">
                     <Div display="flex" width="100%" height="100%" borderRadius="5px">
                         <Div width="12px" height="12px" margin="0 12px 0 0"><Img src="./assets/images/uploadPlus.svg"/></Div>
-                        <Div><P color={theme.color.primary} fontSize="12px" fontWeight={700}>업로드</P></Div>
+                        <Div><P color="primary" fontSize="sm" fontWeight={700}>업로드</P></Div>
                     </Div>
                 </MdButton>
                 {
@@ -167,14 +167,14 @@ const HeaderComponent = () => {
                             <HeaderAlarm/>
                             <Div position="relative" margin="0 27px 0 0">
                                 <IconText onClick={openProfilePopupEvent} src="./assets/images/user.svg" text="HowToUseFigma" width="40px"/>
-                                <Div display="flex" direction="column" position="absolute" bottom="0" right="0" transform="translate( 0, 80% )" padding="10px" borderRadius="5px" backgroundColor={theme.color.white} shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
+                                <Div display="flex" direction="column" position="absolute" bottom="0" right="0" transform="translate( 0, 80% )" padding="10px" borderRadius="5px" backgroundColor="white" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                                     <IconText onClick={moveMyChannelEvent} src="./assets/images/edit.svg" text="내 채널"/>
                                     <IconText onClick={logoutLogic} src="./assets/images/report.svg" text="로그아웃"/>
                                 </Div>
                             </Div>
                         </React.Fragment> ||
                     loginCheck === false && 
-                        <MdButton onClick={moveLoginEvent} backgroundColor={theme.color.primary} margin="0 14px 0 0"><P fontSize="12px" fontWeight={700} color={theme.color.white}>로그인</P></MdButton>
+                        <MdButton onClick={moveLoginEvent} backgroundColor="primary" margin="0 14px 0 0"><P fontSize="sm" fontWeight={700} color="white">로그인</P></MdButton>
                 }
             </Div>
         </Header>
