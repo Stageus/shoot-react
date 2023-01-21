@@ -28,7 +28,7 @@ const Profile = props => {
             {
                 props.name && 
                 <Div margin="10px">
-                    <Div onClick={setMainContent} pointer><P fontWeight="700" fontSize={props.isSubscribe == undefined ? "18px" : "24px"}>{props.name}</P></Div>
+                    <Div onClick={setMainContent} pointer><P fontWeight="700" fontSize={props.isSubscribe !== undefined && "xl"}>{props.name}</P></Div>
                     {
                         props.email && <Div><P>{email}</P></Div>
                     }
@@ -36,8 +36,8 @@ const Profile = props => {
                         props.viewCount && <Div><P>{props.viewCount}</P></Div>
                     }
                     {
-                        props.isSubscribe === false && <MdButton onClick={setSubscribe} backgroundColor="#FF6B6B"><P color="#FFFFFF">구독</P></MdButton> ||
-                        props.isSubscribe === true && <MdButton onClick={removeSubscribe} border="2px solid #FF6B6B" backgroundColor="#FFFFFF"><P color="#FF6B6B">구독중</P></MdButton>
+                        props.isSubscribe === false && <MdButton onClick={setSubscribe} backgroundColor="primary"><P color="white">구독</P></MdButton> ||
+                        props.isSubscribe === true && <MdButton onClick={removeSubscribe} border="2px solid #FF6B6B" backgroundColor="white"><P color="primary">구독중</P></MdButton>
                     }
                 </Div>
             }

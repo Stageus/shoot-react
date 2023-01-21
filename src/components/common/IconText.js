@@ -20,7 +20,7 @@ const IconTextCircle = props => {
 
     return (
         <Div onClick={onClick} display="flex" direction="column" margin="3px 0" pointer>
-            <Div display="flex" width="48px" height="48px" backgroundColor="#EEEEEE" margin="3px 0" borderRadius="50%">
+            <Div display="flex" width="48px" height="48px" backgroundColor="lightGray" margin="3px 0" borderRadius="50%">
                 <Div width="50%" height="50%"><Img src={src}/></Div>
             </Div>
             <Div margin="2px"><P>{text}</P></Div>

@@ -7,8 +7,8 @@ const TextCounter = props => {
     const characterLimit = props.characterLimit
 
     return(
-        <Div position="absolute" bottom="-15px" right="5px">
-            <P fontSize="12px">{`23 / ${characterLimit}`}</P>
+        <Div position="absolute" bottom="20" right="5px">
+            <P fontSize="md">{`23 / ${characterLimit}`}</P>
         </Div>
     )
 }

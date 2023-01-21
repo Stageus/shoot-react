@@ -32,7 +32,7 @@ const PostItem = props => {
             </Div>
             <Div width="100%" padding="10px">
                 <Div position="relative" width="100%">
-                    <Div pointer><H1 fontSize="18px" onClick={movePostDetailEvent}>{post_title}</H1></Div>
+                    <Div pointer><H1 fontSize="lg" onClick={movePostDetailEvent}>{post_title}</H1></Div>
                 </Div>
                 <Profile profileObject={profileObject} name={name} viewCount={post_view_count}/>
             </Div>

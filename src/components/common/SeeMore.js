@@ -9,7 +9,7 @@ import {IconText} from "./IconText"
 
 const SeeMoreIcon = styled(Div)`
   &:hover {
-    background-color: #EEEEEE;
+    background-color: ${props => props.theme.color.lightGray};
   }
 `
 
@@ -55,7 +55,7 @@ const SeeMore = props => {
                 <Div width="60%" height="60%"><Img src="./assets/images/dots.svg"/></Div>
             </SeeMoreIcon>
             <Div width="100px" padding="5px" display="flex" flexDirection="column" position="absolute" bottom="0"
-                 left="-120px" borderRadius="5px" backgroundColor="#FFFFFF" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
+                 left="-120px" borderRadius="5px" backgroundColor="white" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                 {
                     props.share && <IconText onClick={clickShareEvent} src="./assets/images/share.svg" text="공유하기"/>
                 }
