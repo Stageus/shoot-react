@@ -19,26 +19,45 @@ const PostContainer = styled.article`
 `
 
 const PostDetail = () => {
+    const isVote = true
+    const isMyPost = true
+    const isSubscribe = true
+    const isLike = true
+    const isBookmark = true
+
     const testObject1 = {
         profileImg:"./assets/images/user.svg",
         email: "test1@naver.com"
     }
-    const vote = true
 
     const openDetailModal = () => {
         alert("본문열기")
     }
 
-    const subscribeChannel = () => {
-        alert(`${testObject1.email} 구독`)
+    const setSubscribe = () => {
+        alert("구독")
+    }
+
+    const removeSubscribe = () => {
+        alert("구독취소")
     }
 
     const like = () => {
-        alert("좋아요")
+        if (isLike) {
+            alert("좋아요 취소")
+        }
+        else {
+            alert("좋아요")
+        }
     }
 
     const bookmark = () => {
-        alert("즐겨찾기")
+        if (isBookmark) {
+            alert("즐겨찾기 취소")
+        }
+        else {
+            alert("즐겨찾기")
+        }
     }
 
     const openCommentModal = () => {
@@ -52,20 +71,26 @@ const PostDetail = () => {
                 <Div display="flex" alignItems="end" margin="15px 0">
                     <Div><H1 fontSize="lg">게시글 타이틀</H1></Div>
                     {
-                        vote === true && <Div pointer margin="0 5px"><P onClick={openDetailModal} fontSize="sm" color="gray">투표하기</P></Div>
+                        isVote === true && <Div pointer margin="0 5px"><P onClick={openDetailModal} fontSize="sm" color="gray">투표하기</P></Div>
                     }
                 </Div>
                 <Div display="flex" width="100%" justifyContent="space-between">
                     <Profile profileObject={testObject1} name="test1"/>
-                    <MdButton onClick={subscribeChannel} backgroundColor="primary"><P color="white">구독</P></MdButton>
+                    {
+                        isMyPost === false && isSubscribe === false && <MdButton onClick={setSubscribe} backgroundColor="primary"><P color="white">구독</P></MdButton> ||
+                        isMyPost === false && isSubscribe === true && <MdButton onClick={removeSubscribe} border="2px solid #FF6B6B" backgroundColor="white"><P color="primary">구독중</P></MdButton>
+                    }
                 </Div>
             </Div>
             <Div display="flex" direction="column" position="absolute" right="0" bottom="0" transform="translate(100%, 0)" padding="0 5px">
-                <IconTextCircle onClick={like} src="./assets/images/like.svg" text="1234"/>
-                <IconTextCircle onClick={bookmark} src="./assets/images/bookmark.svg" text="즐겨찾기"/>
+                <IconTextCircle onClick={like} src={isLike === false ? "./assets/images/like.svg" : "./assets/images/likeFill.svg"} text="1234"/>
+                <IconTextCircle onClick={bookmark} src={isBookmark === false ? "./assets/images/bookmark.svg" : "./assets/images/bookmarkFill.svg"} text="즐겨찾기"/>
                 <IconTextCircle onClick={openDetailModal} src="./assets/images/postContent.svg" text="본문보기"/>
                 <IconTextCircle onClick={openCommentModal} src="./assets/images/comment.svg" text="202"/>
-                <SeeMore share report/>
+                {
+                        isMyPost === false && <SeeMore share report parent="post" parentInfo="testUrl"/> ||
+                        isMyPost === true && <SeeMore share modify delete alarm={true} parent="post" parentInfo="testUrl"/>
+                }
             </Div>
         </PostContainer>
     )
