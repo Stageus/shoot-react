@@ -32,7 +32,10 @@ const SearchInput = styled(Input)`
 `
 
 const HeaderComponent = () => {
-    const loginCheck = true
+    const isLogin = true
+    const isSearchHistoryOpen = true
+    const isAutoSave = true
+    const isProfilePopupOpen = true
 
     const tmpSearchHistoryList = [
         {search_idx: 1, contents: "이러저러한 검색어 1번 검색어"},
@@ -54,7 +57,7 @@ const HeaderComponent = () => {
     }
 
     const openSearchHistoryEvent = () => {
-        if (loginCheck) {
+        if (isLogin) {
             alert("최근검색어 리스트 확인 기능 구현")
             alert("최근검색어 창 열기 이벤트 구현")
         }
@@ -98,9 +101,8 @@ const HeaderComponent = () => {
         alert("최근검색어 리스트 확인 기능 구현")
     }
 
-    const isSave = true
     const toggleSearchHistorySaveEvent = () => {
-        if (isSave) {
+        if (isAutoSave) {
             alert("자동저장 끄기 기능 구현")
         }
         else {
@@ -110,7 +112,12 @@ const HeaderComponent = () => {
     }
 
     const moveUploadEvent = () => {
-        alert("업로드 페이지로 이동 기능 구현")
+        if (isLogin === true) {
+            alert("업로드 페이지로 이동 기능 구현")
+        }
+        else {
+            alert("로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현")
+        }
     }
 
     const moveLoginEvent = () => {
@@ -138,7 +145,7 @@ const HeaderComponent = () => {
                 <Div onClick={e => {
                     insertSearchValueEvent(e)
                     deleteSearchHistoryEvent(e)
-                }} width="345px" padding="10px" position="absolute" left="10px" bottom="0" transform="translate(0, 100%)" backgroundColor="white" borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
+                }} display={isSearchHistoryOpen === true ? "block" : "none"} width="345px" padding="10px" position="absolute" left="10px" bottom="0" transform="translate(0, 100%)" backgroundColor="white" borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                     <Div display="flex" justifyContent="space-between" width="100%">
                         <Div><P fontSize="sm" color="gray">최근검색어</P></Div>
                         {
@@ -150,7 +157,7 @@ const HeaderComponent = () => {
                         <Div margin="14px auto"><P fontSize="sm">검색 기록이 존재하지 않습니다.</P></Div>
                     }
                     <Div display="flex" justifyContent="right" width="100%">
-                        <Div onClick={toggleSearchHistorySaveEvent} pointer><P fontSize="xs" color="gray">자동저장 {isSave ? "끄기" : "켜기"}</P></Div>
+                        <Div onClick={toggleSearchHistorySaveEvent} pointer><P fontSize="xs" color="gray">자동저장 {isAutoSave ? "끄기" : "켜기"}</P></Div>
                     </Div>
                 </Div>
             </Div>
@@ -162,18 +169,18 @@ const HeaderComponent = () => {
                     </Div>
                 </MdButton>
                 {
-                    loginCheck === true && 
+                    isLogin === true && 
                         <React.Fragment>
                             <HeaderAlarm/>
                             <Div position="relative" margin="0 27px 0 0">
                                 <IconText onClick={openProfilePopupEvent} src="./assets/images/user.svg" text="HowToUseFigma" width="40px"/>
-                                <Div display="flex" direction="column" position="absolute" bottom="0" right="0" transform="translate( 0, 80% )" padding="10px" borderRadius="5px" backgroundColor="white" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
+                                <Div display={isProfilePopupOpen === true ? "flex" : "none"} direction="column" position="absolute" bottom="0" right="0" transform="translate( 0, 80% )" padding="10px" borderRadius="5px" backgroundColor="white" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                                     <IconText onClick={moveMyChannelEvent} src="./assets/images/edit.svg" text="내 채널"/>
                                     <IconText onClick={logoutLogic} src="./assets/images/report.svg" text="로그아웃"/>
                                 </Div>
                             </Div>
                         </React.Fragment> ||
-                    loginCheck === false && 
+                    isLogin === false && 
                         <MdButton onClick={moveLoginEvent} backgroundColor="primary" margin="0 14px 0 0"><P fontSize="sm" fontWeight={700} color="white">로그인</P></MdButton>
                 }
             </Div>

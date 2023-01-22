@@ -12,6 +12,8 @@ const AlarmContainer = styled(Div)`
 `
 
 const HeaderAlarm = () => {
+    const isAlarmOpen = true
+
     const tmpAlarmList = [
         {notification_type: 0, notification_time: "10시간 전", notify_email: "veryhard@shoot.com", notify_channel_name: "힘들어", post_idx: 10, comment_idx: undefined, reply_comment_idx: undefined},
         {notification_type: 1, notification_time: "10시간 전", notify_email: "veryhard@shoot.com", notify_channel_name: "힘들어", post_idx: undefined, comment_idx: 20, reply_comment_idx: undefined},
@@ -52,7 +54,7 @@ const HeaderAlarm = () => {
             <Div pointer width="24px">
                 <Img onClick={openAlarmContainerEvent} src="./assets/images/bellOn.svg"/>
             </Div>
-            <Div width="245px" position="absolute" bottom="0" right="0" transform="translate(0, 100%)" backgroundColor="white" borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
+            <Div display={isAlarmOpen === true ? "block" : "none"} width="245px" position="absolute" bottom="0" right="0" transform="translate(0, 100%)" backgroundColor="white" borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                 <Div position="fixed" top="5px" left="16px" zIndex="4px" backgroundColor="white"><H2 fontWeight={700}>알림</H2></Div>
                 <AlarmContainer margin="40px 0 0" padding="0 16px">
                     {alarmContent}
