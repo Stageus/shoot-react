@@ -52,7 +52,7 @@ const HeaderAlarm = () => {
     return (
         <Div position="relative" width="24px" height="24px" margin="0 15px 0 0">
             <Div pointer width="24px">
-                <Img onClick={openAlarmContainerEvent} src="./assets/images/bellOn.svg"/>
+                <Img onClick={openAlarmContainerEvent} src="/assets/images/bellOn.svg"/>
             </Div>
             <Div display={isAlarmOpen === true ? "block" : "none"} width="245px" position="absolute" bottom="0" right="0" transform="translate(0, 100%)" backgroundColor="white" borderRadius="5px" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                 <Div position="fixed" top="5px" left="16px" zIndex="4px" backgroundColor="white"><H2 fontWeight={700}>알림</H2></Div>

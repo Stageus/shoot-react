@@ -26,7 +26,7 @@ const PostDetail = () => {
     const isBookmark = true
 
     const testObject1 = {
-        profileImg:"./assets/images/user.svg",
+        profileImg:"/assets/images/user.svg",
         email: "test1@naver.com"
     }
 
@@ -66,7 +66,7 @@ const PostDetail = () => {
 
     return (
         <PostContainer>
-            <Img src="./assets/images/postThumbnail.png"/>
+            <Img src="/assets/images/postThumbnail.png"/>
             <Div position="absolute" bottom="0" width="90%" margin="5%">
                 <Div display="flex" alignItems="end" margin="15px 0">
                     <Div><H1 fontSize="lg">게시글 타이틀</H1></Div>
@@ -83,10 +83,10 @@ const PostDetail = () => {
                 </Div>
             </Div>
             <Div display="flex" direction="column" position="absolute" right="0" bottom="0" transform="translate(100%, 0)" padding="0 5px">
-                <IconTextCircle onClick={like} src={isLike === false ? "./assets/images/like.svg" : "./assets/images/likeFill.svg"} text="1234"/>
-                <IconTextCircle onClick={bookmark} src={isBookmark === false ? "./assets/images/bookmark.svg" : "./assets/images/bookmarkFill.svg"} text="즐겨찾기"/>
-                <IconTextCircle onClick={openDetailModal} src="./assets/images/postContent.svg" text="본문보기"/>
-                <IconTextCircle onClick={openCommentModal} src="./assets/images/comment.svg" text="202"/>
+                <IconTextCircle onClick={like} src={isLike === false ? "/assets/images/like.svg" : "/assets/images/likeFill.svg"} text="1234"/>
+                <IconTextCircle onClick={bookmark} src={isBookmark === false ? "/assets/images/bookmark.svg" : "/assets/images/bookmarkFill.svg"} text="즐겨찾기"/>
+                <IconTextCircle onClick={openDetailModal} src="/assets/images/postContent.svg" text="본문보기"/>
+                <IconTextCircle onClick={openCommentModal} src="/assets/images/comment.svg" text="202"/>
                 {
                         isMyPost === false && <SeeMore share report parent="post" parentInfo="testUrl"/> ||
                         isMyPost === true && <SeeMore share modify delete alarm={true} parent="post" parentInfo="testUrl"/>

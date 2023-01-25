@@ -19,7 +19,6 @@ const SeeMore = props => {
 
     const clickShareEvent = () => {
         alert(`${parentInfo}이 url을 복사함`)
-        console.log("click")
         // alert 대신에 나중에 url 복사하는 기능으로 바꿔야함
     }
 
@@ -52,30 +51,30 @@ const SeeMore = props => {
     return (
         <Div width="48px" height="48px" position="relative">
             <SeeMoreIcon pointer width="100%" height="100%" display="flex" borderRadius="50%">
-                <Div width="60%" height="60%"><Img src="./assets/images/dots.svg"/></Div>
+                <Div width="60%" height="60%"><Img src="/assets/images/dots.svg"/></Div>
             </SeeMoreIcon>
             <Div width="100px" padding="5px" display="flex" flexDirection="column" position="absolute" bottom="0"
                  left="-120px" borderRadius="5px" backgroundColor="white" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
                 {
-                    props.share && <IconText onClick={clickShareEvent} src="./assets/images/share.svg" text="공유하기"/>
+                    props.share && <IconText onClick={clickShareEvent} src="/assets/images/share.svg" text="공유하기"/>
                 }
                 {
                     props.modify &&
-                    <IconText onClick={clickModifyEvent} src="./assets/images/edit.svg" text="수정하기"/>
+                    <IconText onClick={clickModifyEvent} src="/assets/images/edit.svg" text="수정하기"/>
                 }
                 {
                     props.delete &&
-                    <IconText onClick={clickDeleteEvent} src="./assets/images/trash.svg" text="삭제하기"/>
+                    <IconText onClick={clickDeleteEvent} src="/assets/images/trash.svg" text="삭제하기"/>
                 }
                 {
                     props.alarm === true &&
-                    <IconText onClick={clickAlarmEvent} src="./assets/images/bellOn.svg" text="알림켜짐"/> ||
+                    <IconText onClick={clickAlarmEvent} src="/assets/images/bellOn.svg" text="알림켜짐"/> ||
                     props.alarm === false &&
-                    <IconText onClick={clickAlarmEvent} src="./assets/images/bellOff.svg" text="알림꺼짐"/>
+                    <IconText onClick={clickAlarmEvent} src="/assets/images/bellOff.svg" text="알림꺼짐"/>
                 }
                 {
                     props.report &&
-                    <IconText onClick={clickReportEvent} src="./assets/images/report.svg" text="신고하기"/>
+                    <IconText onClick={clickReportEvent} src="/assets/images/report.svg" text="신고하기"/>
                 }
             </Div>
         </Div>

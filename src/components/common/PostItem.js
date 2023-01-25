@@ -1,5 +1,4 @@
 import React from "react"
-
 import styled from "styled-components"
 
 import Div from "../basic/Div"
@@ -30,8 +29,8 @@ const PostItem = props => {
             <Div onClick={movePostDetailEvent} borderRadius="5px" pointer width="100%">
                 <Img src={post_thumbnail}/>
             </Div>
-            <Div width="100%" padding="10px">
-                <Div position="relative" width="100%">
+            <Div width="94%" padding="0 3%">
+                <Div position="relative" width="100%" margin="10px 0">
                     <Div pointer><H1 fontSize="lg" onClick={movePostDetailEvent}>{post_title}</H1></Div>
                 </Div>
                 <Profile profileObject={profileObject} name={name} viewCount={post_view_count}/>

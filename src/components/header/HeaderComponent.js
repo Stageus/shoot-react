@@ -47,7 +47,7 @@ const HeaderComponent = () => {
         return (
             <Div key={`searchHistoryBox_${element.search_idx}`} className="searchHistoryBox" id={`searchHistoryBox_${element.search_idx}`} display="flex" width="100%" justifyContent="space-between" margin="5px 0">
                 <Div pointer><P id={`searchHistory_${element.search_idx}`} pointer>{element.contents}</P></Div>
-                <Div pointer width="15px" height="20px"><Img id={`deleteHistory_${element.search_idx}`} src="./assets/images/close.svg"/></Div>
+                <Div pointer width="15px" height="20px"><Img id={`deleteHistory_${element.search_idx}`} src="/assets/images/close.svg"/></Div>
             </Div>
         )
     })
@@ -138,10 +138,10 @@ const HeaderComponent = () => {
 
     return (
         <Header>
-            <Div onClick={moveHomeEvent} pointer height="50%" margin="0 0 0 40px"><Img src="./assets/images/shootLogo.svg"/></Div>
+            <Div onClick={moveHomeEvent} pointer height="50%" margin="0 0 0 40px"><Img src="/assets/images/shootLogo.svg"/></Div>
             <Div display="flex" position="relative" width="400px" height="34px" border="1px solid #C8C8C8" borderRadius="99px">
                 <SearchInput onClick={openSearchHistoryEvent} id="searchInput" type="text" placeholder="검색" margin="0 0 0 11px" padding="0" border="0"/>
-                <Div onClick={searchEvent} pointer height="24px" margin="0 5px"><Img src="./assets/images/search.svg"/></Div>
+                <Div onClick={searchEvent} pointer height="24px" margin="0 5px"><Img src="/assets/images/search.svg"/></Div>
                 <Div onClick={e => {
                     insertSearchValueEvent(e)
                     deleteSearchHistoryEvent(e)
@@ -164,7 +164,7 @@ const HeaderComponent = () => {
             <Div display="flex">
                 <MdButton onClick={moveUploadEvent} margin="0 15px 0 0" border="2px solid #FF6B6B" backgroundColor="white">
                     <Div display="flex" width="100%" height="100%" borderRadius="5px">
-                        <Div width="12px" height="12px" margin="0 12px 0 0"><Img src="./assets/images/uploadPlus.svg"/></Div>
+                        <Div width="12px" height="12px" margin="0 12px 0 0"><Img src="/assets/images/uploadPlus.svg"/></Div>
                         <Div><P color="primary" fontSize="sm" fontWeight={700}>업로드</P></Div>
                     </Div>
                 </MdButton>
@@ -173,10 +173,10 @@ const HeaderComponent = () => {
                         <React.Fragment>
                             <HeaderAlarm/>
                             <Div position="relative" margin="0 27px 0 0">
-                                <IconText onClick={openProfilePopupEvent} src="./assets/images/user.svg" text="HowToUseFigma" width="40px"/>
+                                <IconText onClick={openProfilePopupEvent} src="/assets/images/user.svg" text="HowToUseFigma" width="40px"/>
                                 <Div display={isProfilePopupOpen === true ? "flex" : "none"} direction="column" position="absolute" bottom="0" right="0" transform="translate( 0, 80% )" padding="10px" borderRadius="5px" backgroundColor="white" shadow="0 4px 4px 0 rgba(0,0,0,0.35)">
-                                    <IconText onClick={moveMyChannelEvent} src="./assets/images/edit.svg" text="내 채널"/>
-                                    <IconText onClick={logoutLogic} src="./assets/images/report.svg" text="로그아웃"/>
+                                    <IconText onClick={moveMyChannelEvent} src="/assets/images/edit.svg" text="내 채널"/>
+                                    <IconText onClick={logoutLogic} src="/assets/images/report.svg" text="로그아웃"/>
                                 </Div>
                             </Div>
                         </React.Fragment> ||
