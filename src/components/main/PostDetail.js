@@ -8,6 +8,7 @@ import { H1 } from "../basic/H"
 import P from "../basic/P"
 import { MdButton } from "../basic/Button"
 import Profile from "../common/Profile"
+import PostDetailLink from "./PostDetailLink"
 import { IconTextCircle } from "../common/IconText"
 import SeeMore from "../common/SeeMore"
 
@@ -18,16 +19,58 @@ const PostContainer = styled.article`
     margin: 50px 0;
 `
 
+const LinkContainer = styled(Div)`
+    overflow: hidden;
+`
+
 const PostDetail = () => {
     const isVote = true
     const isMyPost = true
     const isSubscribe = true
     const isLike = true
     const isBookmark = true
+    const currentLinkIdx = 2
 
     const testObject1 = {
         profileImg:"/assets/images/user.svg",
         email: "test1@naver.com"
+    }
+
+    const tmpLinkList = [
+        {
+            link_name: "shoot!",
+            link_url: "http://localhost:3000/"
+        },
+        {
+            link_name: "Hot!",
+            link_url: "http://localhost:3000/hot"
+        },
+        {
+            link_name: "100번째 포스트",
+            link_url: "http://localhost:3000/detail/post-id/100"
+        },
+        {
+            link_name: "게임",
+            link_url: "http://localhost:3000/category/게임"
+        },
+        {
+            link_name: "리그오브레전트",
+            link_url: "http://localhost:3000/hashtag/리그오브레전트"
+        }
+    ]
+
+    const tmpLinkContent = tmpLinkList.map( element => {
+        return (
+            <PostDetailLink name={element.link_name} link={element.link_url} />
+        )
+    })
+
+    const moveLinkLeftEvent = () => {
+        alert("스테이트 이용해서 현재 링크 -1")
+    }
+
+    const moveLinkRightEvent = () => {
+        alert("스테이트 이용해서 현재 링크 +1")
     }
 
     const openDetailModal = () => {
@@ -81,6 +124,20 @@ const PostDetail = () => {
                         isMyPost === false && isSubscribe === true && <MdButton onClick={removeSubscribe} border="2px solid #FF6B6B" backgroundColor="white"><P color="primary">구독중</P></MdButton>
                     }
                 </Div>
+                {
+                    tmpLinkList !== [] && 
+                    <LinkContainer position="relative" width="100%" margin="20px 0 0">
+                        {
+                            currentLinkIdx !== 0 && <Div onClick={moveLinkLeftEvent} pointer position="absolute" top="30px" left="0" width="40px" transform="scaleX(-1)"><Img src="/assets/images/menuArrow.svg"/></Div>
+                        }
+                        <Div display="flex" justifyContent="flex-start" wrap="nowrap" width="100%" margin={`0 0 0 -${currentLinkIdx}00%`}>
+                            {tmpLinkContent}
+                        </Div>
+                        {
+                            currentLinkIdx !== (tmpLinkList.length - 1) && <Div onClick={moveLinkRightEvent} pointer position="absolute" top="30px" right="0" width="40px"><Img src="/assets/images/menuArrow.svg"/></Div>
+                        }
+                    </LinkContainer>
+                }
             </Div>
             <Div display="flex" direction="column" position="absolute" right="0" bottom="0" transform="translate(100%, 0)" padding="0 5px">
                 <IconTextCircle onClick={like} src={isLike === false ? "/assets/images/like.svg" : "/assets/images/likeFill.svg"} text="1234"/>
