@@ -2,13 +2,13 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-import { LgButton } from "../component/basic/Button"
-import Div from "../component/basic/Div"
-import P from "../component/basic/P"
+import { LgButton } from "../components/basic/Button"
+import Div from "../components/basic/Div"
+import P from "../components/basic/P"
 
-import EmailSignUpForm from "../component/account/EmailSignUpForm"
-import PasswordSignUpForm from "../component/account/PasswordSignUpForm"
-import PersonalSignUpForm from "../component/account/PersonalSignUpForm"
+import EmailSignUpForm from "../components/account/EmailSignUpForm"
+import PasswordSignUpForm from "../components/account/PasswordSignUpForm"
+import PersonalSignUpForm from "../components/account/PersonalSignUpForm"
 
 const Signup = () => {
   return (

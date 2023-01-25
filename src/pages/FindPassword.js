@@ -1,10 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 
-import Div from "../component/basic/Div"
-import P from "../component/basic/P"
+import Div from "../components/basic/Div"
+import P from "../components/basic/P"
 
-import EmailSignUpForm from "../component/account/EmailSignUpForm"
+import EmailSignUpForm from "../components/account/EmailSignUpForm"
 
 const FindPassword = () => {
   return (

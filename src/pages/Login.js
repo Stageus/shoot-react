@@ -2,10 +2,10 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-import Div from "../component/basic/Div"
-import P from "../component/basic/P"
-import LoginForm from "../component/account/LoginForm"
-import SocialLoginForm from "../component/account/SocialLoginForm"
+import Div from "../components/basic/Div"
+import P from "../components/basic/P"
+import LoginForm from "../components/account/LoginForm"
+import SocialLoginForm from "../components/account/SocialLoginForm"
 
 const Login = () => {
   return (

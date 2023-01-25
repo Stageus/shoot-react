@@ -2,9 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import { Outlet } from "react-router-dom"
 
-import AdminNav from "../component/nav/AdminNav"
-import Div from "../component/basic/Div"
-import P from "../component/basic/P"
+import AdminNav from "../components/nav/AdminNav"
+import Div from "../components/basic/Div"
+import P from "../components/basic/P"
 
 const HeaderBox = styled.header`
   display: flex;

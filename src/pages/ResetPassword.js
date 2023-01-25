@@ -1,10 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 
-import { LgButton } from "../component/basic/Button"
-import Div from "../component/basic/Div"
-import PasswordSignUpForm from "../component/account/PasswordSignUpForm"
-import P from "../component/basic/P"
+import { LgButton } from "../components/basic/Button"
+import Div from "../components/basic/Div"
+import PasswordSignUpForm from "../components/account/PasswordSignUpForm"
+import P from "../components/basic/P"
 
 const RestPassword = () => {
   return (

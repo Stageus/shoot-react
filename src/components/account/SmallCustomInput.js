@@ -1,7 +1,7 @@
 import React from "react"
 
-import Input from "../../component/basic/Input"
-import Div from "../../component/basic/Div"
+import Input from "../../components/basic/Input"
+import Div from "../../components/basic/Div"
 
 const SmallCustomInput = (props) => {
   const placeholder = props.placeholder

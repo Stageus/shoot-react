@@ -1,8 +1,8 @@
 import React from "react"
 
-import Input from "../../component/basic/Input"
-import Div from "../../component/basic/Div"
-import Img from "../../component/basic/Img"
+import Input from "../../components/basic/Input"
+import Div from "../../components/basic/Div"
+import Img from "../../components/basic/Img"
 
 const CustomInput = (props) => {
   const placeholder = props.placeholder
