@@ -75,14 +75,14 @@ const Nav = () => {
   return (
     <Div display="flex">
       <NavBox>
-        <NavItem menu={"홈"} svg={"rightArrow"} />
+        <NavItem menu={"홈"} svg={"menuArrow"} />
 
         {categoryMenu.map(({ name, hashtags }) => (
           <NavItem
             key={name}
             menu={name}
             hashtags={hashtags}
-            svg={"rightArrow"}
+            svg={"menuArrow"}
             type={"open"}
           />
         ))}
@@ -95,7 +95,7 @@ const Nav = () => {
         <Div margin="0px 0px 10px 15px">
           <Div display="flex">
             <Div width="20px" height="20px" margin="0px 0px 0px 5px">
-              <Img src={"../assets/images/bulb.svg"} />
+              <Img src={"/assets/images/bulb.svg"} />
             </Div>
             <Div margin="0px 0px 0px 10px">
               <P fontSize="sm" fontWeight="700">

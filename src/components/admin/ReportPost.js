@@ -69,7 +69,7 @@ const ReportPost = () => {
               <TdStyle>
                 <Div display="flex" width="100%">
                   <Div width="20px" height="20px" pointer>
-                    <Img src="../../assets/images/delete.svg" />
+                    <Img src="/assets/images/delete.svg" />
                   </Div>
                 </Div>
               </TdStyle>

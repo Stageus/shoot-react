@@ -94,7 +94,7 @@ const Log = () => {
         />
         <Div display="flex" height="22px" margin="10px 10px 0px 0px">
           <Div width="20px" height="20px" pointer>
-            <Img src="../assets/images/adminSearch.svg" />
+            <Img src="/assets/images/adminSearch.svg" />
           </Div>
         </Div>
       </Div>

@@ -27,12 +27,12 @@ const NavItem = (props) => {
         >
           {type && openMenu ? (
             <IconText
-              src={`../assets/images/${svg}Clicked.svg`}
+              src={`/assets/images/${svg}Clicked.svg`}
               text={menu}
               fontColor="primary"
             />
           ) : (
-            <IconText src={`../assets/images/${svg}.svg`} text={menu} />
+            <IconText src={`/assets/images/${svg}.svg`} text={menu} />
           )}
         </Div>
       </Button>
