@@ -1,12 +1,12 @@
 import React from "react"
 
-import {Link} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-import styled from 'styled-components';
+import styled from "styled-components"
 
-import {Button, MdButton} from "../basic/Button";
-import P from "../basic/P";
+import { Button, MdButton } from "../basic/Button"
+import P from "../basic/P"
 
 const ModalDiv = styled.div`
   width: 100vw;
@@ -18,39 +18,39 @@ const ModalDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Modals = styled.div`
-  width: ${props => props.width || "fit-content"};
-  height: ${props => props.height || "fit-content"};
-  padding: ${props => props.padding || "fit-content"};
-  margin: ${props => props.margin || "fit-content"};
+  width: ${(props) => props.width || "fit-content"};
+  height: ${(props) => props.height || "fit-content"};
+  padding: ${(props) => props.padding || "fit-content"};
+  margin: ${(props) => props.margin || "fit-content"};
   background-color: white;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-`;
+`
 
 export const Modal = () => {
+  const navigate = useNavigate()
 
-    const navigate = useNavigate();
-
-    return (
-        <ModalDiv>
-            {/*<div className="modalDiv">*/}
-            <Modals width="400px" height="200px" padding="30px">
-                {/*<div className="modal">*/}
-                <header>Modal</header>
-                <MdButton backgroundColor="#FF6B6B" onClick={() => navigate(-1)}>
-                    <P color="#FFFFFF" fontWeight="400">확인</P>
-                </MdButton>
-            </Modals>
-        </ModalDiv>
-    );
-};
+  return (
+    <ModalDiv>
+      {/*<div className="modalDiv">*/}
+      <Modals width="400px" height="200px" padding="30px">
+        {/*<div className="modal">*/}
+        <header>Modal</header>
+        <MdButton backgroundColor="#FF6B6B" onClick={() => navigate(-1)}>
+          <P color="#FFFFFF" fontWeight="400">
+            확인
+          </P>
+        </MdButton>
+      </Modals>
+    </ModalDiv>
+  )
+}
 
 // import React from "react"
 //
