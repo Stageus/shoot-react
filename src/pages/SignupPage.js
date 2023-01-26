@@ -6,9 +6,9 @@ import { LgButton } from "../components/basic/Button"
 import Div from "../components/basic/Div"
 import P from "../components/basic/P"
 
-import EmailSignUpForm from "../components/account/EmailSignUpForm"
-import PasswordSignUpForm from "../components/account/PasswordSignUpForm"
-import PersonalSignUpForm from "../components/account/PersonalSignUpForm"
+import EmailSignUpForm from "../components/account/EmailSignUpFormComponent"
+import PasswordSignUpForm from "../components/account/PasswordSignUpFormComponent"
+import PersonalSignUpForm from "../components/account/PersonalSignUpFormComponent"
 
 const Signup = () => {
   return (

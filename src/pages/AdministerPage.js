@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { Outlet } from "react-router-dom"
 
-import AdminNav from "../components/nav/AdminNav"
+import AdminNavComponent from "../components/nav/AdminNavComponent"
 import Div from "../components/basic/Div"
 import P from "../components/basic/P"
 
@@ -34,7 +34,7 @@ const Administer = () => {
         justifyContent="flex-start"
         alignItems="flex-start"
       >
-        <AdminNav />
+        <AdminNavComponent />
         <Outlet></Outlet>
       </Div>
     </React.Fragment>

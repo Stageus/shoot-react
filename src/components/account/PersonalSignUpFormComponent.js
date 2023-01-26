@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 
-import Div from "../../components/basic/Div"
-import P from "../../components/basic/P"
+import Div from "../basic/Div"
+import P from "../basic/P"
 import CustomInput from "./CustomInput"
 import SmallCustomInput from "./SmallCustomInput"
 import useInput from "../../hooks/useInput"

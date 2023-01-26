@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"
 
 import Div from "../components/basic/Div"
 import P from "../components/basic/P"
-import LoginForm from "../components/account/LoginForm"
-import SocialLoginForm from "../components/account/SocialLoginForm"
+import LoginForm from "../components/account/LoginFormComponent"
+import SocialLoginForm from "../components/account/SocialLoginFormComponent"
 
 const Login = () => {
   return (

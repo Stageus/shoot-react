@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { LgButton } from "../components/basic/Button"
 import Div from "../components/basic/Div"
-import PasswordSignUpForm from "../components/account/PasswordSignUpForm"
+import PasswordSignUpForm from "../components/account/PasswordSignUpFormComponent"
 import P from "../components/basic/P"
 
 const RestPassword = () => {

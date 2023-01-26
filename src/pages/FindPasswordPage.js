@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Div from "../components/basic/Div"
 import P from "../components/basic/P"
 
-import EmailSignUpForm from "../components/account/EmailSignUpForm"
+import EmailSignUpForm from "../components/account/EmailSignUpFormComponent"
 
 const FindPassword = () => {
   return (

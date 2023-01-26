@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 
-import { MdButton } from "../../components/basic/Button"
-import Div from "../../components/basic/Div"
-import P from "../../components/basic/P"
+import { MdButton } from "../basic/Button"
+import Div from "../basic/Div"
+import P from "../basic/P"
 import CustomInput from "./CustomInput"
 import CountdownTimer from "../common/CountdownTimer"
 import useInput from "../../hooks/useInput"
