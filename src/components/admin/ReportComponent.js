@@ -6,10 +6,8 @@ import { MdButton } from "../basic/Button"
 import { H1 } from "../basic/H"
 
 const MainDiv = styled.main`
-  // border: solid 1px green;
   width: calc(100vw - 280px);
   overflow-x: auto;
-  //overflow-y: scroll;
 `
 
 const Report = () => {

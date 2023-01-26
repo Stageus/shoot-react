@@ -14,10 +14,8 @@ import { H1 } from "../basic/H"
 import Div from "../basic/Div"
 
 const MainDiv = styled.main`
-  // border: solid 1px green;
   width: calc(100vw - 280px);
   overflow-x: auto;
-  //overflow-y: scroll;
 `
 
 const Statistics = () => {

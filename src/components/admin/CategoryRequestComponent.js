@@ -16,7 +16,6 @@ const TableStyle = styled.table`
 const MainDiv = styled.main`
   width: calc(100vw - 280px);
   overflow-x: auto;
-  //overflow-y: scroll;
 `
 
 const TdStyle = styled.td`

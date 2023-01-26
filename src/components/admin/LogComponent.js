@@ -17,10 +17,8 @@ const TableStyle = styled.table`
   margin-bottom: 20px;
 `
 const MainDiv = styled.main`
-  // border: solid 1px green;
   width: calc(100vw - 280px);
   overflow-x: auto;
-  //overflow-y: scroll;
 `
 
 const TdStyle = styled.td`
