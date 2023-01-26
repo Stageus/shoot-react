@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 const Div = styled.div`
   width: ${(props) => props.width || "fit-content"};
@@ -9,6 +9,7 @@ const Div = styled.div`
     props.theme.color[props.backgroundColor] || "inherit"};
   z-index: ${(props) => props.zIndex || "auto"};
   border: ${(props) => props.border || "none"};
+  border-bottom: ${(props) => props.borderBottom || "none"};
   border-radius: ${(props) => props.borderRadius || "none"};
   position: ${(props) => props.position || "static"};
   transform: ${(props) => props.transform || "none"};
@@ -21,8 +22,10 @@ const Div = styled.div`
   justify-content: ${(props) => props.justifyContent || "center"};
   flex-direction: ${(props) => props.direction || "row"};
   flex-wrap: ${(props) => props.wrap || "wrap"};
-  ${(props) => props.pointer && "cursor:pointer;"}
-  box-shadow: ${(props) => props.shadow || ""}
-`
+  ${(props) => props.pointer && "cursor:pointer;"};
+  box-shadow: ${(props) => props.shadow || ""};
+  min-height: ${(props) => props.minHeight || ""};
+  min-width: ${(props) => props.minWidth || ""};
+`;
 
-export default Div
+export default Div;
