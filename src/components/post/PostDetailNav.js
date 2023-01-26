@@ -34,7 +34,7 @@ const PostDetailNav = () => {
     )
     // 임시 state
     let tmpPostList = []
-    for (let idx = 1; idx <= 60; idx++) {
+    for (let idx = 1; idx <= 5; idx++) {
       const postObject = {
         post_idx: idx * 100,
         post_title: `이러 저러한 제목 번호${idx}`,
