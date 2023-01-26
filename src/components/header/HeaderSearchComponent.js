@@ -18,7 +18,7 @@ const SearchInput = styled(Input)`
     }
 `
 
-const HeaderSearchContainer = () => {
+const HeaderSearchComponent = () => {
     const isLogin = useRecoilValue(isLoginState)
     const [searchHistoryOpen, setSearchHistoryOpen] = useRecoilState(serchHistoryOpenState)
     const [searchHistoryAutoSave, setSearchHistoryAutoSave] = useRecoilState(searchHistoryAutoSaveState)
@@ -132,4 +132,4 @@ const HeaderSearchContainer = () => {
     )
 }
 
-export default HeaderSearchContainer
+export default HeaderSearchComponent

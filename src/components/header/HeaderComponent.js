@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
-import HeaderSearchContainer from "./HeaderSearchContainer"
-import HeaderFunctionContainer from "./HeaderFunctionContainer"
+import HeaderSearchComponent from "./HeaderSearchComponent"
+import HeaderFunctionComponent from "./HeaderFunctionComponent"
 
 const Header = styled.header`
     display: flex;
@@ -30,8 +30,8 @@ const HeaderComponent = () => {
     return (
         <Header>
             <Div onClick={moveHomeEvent} pointer height="50%" margin="0 0 0 40px"><Img src="/assets/images/shootLogo.svg"/></Div>
-            <HeaderSearchContainer />
-            <HeaderFunctionContainer />
+            <HeaderSearchComponent />
+            <HeaderFunctionComponent />
         </Header>
     )
 }

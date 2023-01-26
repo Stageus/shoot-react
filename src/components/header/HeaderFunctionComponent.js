@@ -11,7 +11,7 @@ import { IconText } from "../common/IconText"
 import HeaderAlarm from "./HeaderAlarm"
 import { profilePopupOpenState, isLoginState, userInfoState } from "../../recoil/headerState"
 
-const HeaderFunctionContainer = () => {
+const HeaderFunctionComponent = () => {
     const [isLogin, setIsLogin] = useRecoilState(isLoginState)
     const [profilePopupOpen, setProfilePopupOpen] = useRecoilState(profilePopupOpenState)
     const userInfo = useRecoilValue(userInfoState)
@@ -82,4 +82,4 @@ const HeaderFunctionContainer = () => {
     )
 }
 
-export default HeaderFunctionContainer
+export default HeaderFunctionComponent
