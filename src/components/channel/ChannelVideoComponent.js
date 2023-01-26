@@ -1,13 +1,7 @@
-import React from "react"
+import React from "react";
 
-const ChannelVideoContainer = () => {
+const ChannelVideoComponent = () => {
+  return <React.Fragment>ChannelVideoContainer</React.Fragment>;
+};
 
-    return (
-        <React.Fragment>
-             ChannelVideoContainer
-        </React.Fragment>
-
-    )
-}
-
-export default ChannelVideoContainer
+export default ChannelVideoComponent;

@@ -25,7 +25,7 @@ const ChannelHeader = () => {
 
   return (
     <Div width="100%">
-      <Div widtt="100%">
+      <Div width="100%">
         <Div display="flex" justifyContent="space-between" width="100%">
           <Div padding="10px 20px">
             <ChannelHeaderProfile channelInfo={tmpChannelInfo} />
