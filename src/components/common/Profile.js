@@ -23,7 +23,7 @@ const Profile = props => {
     return(
         <Div display="flex">
             <Div onClick={setMainContent} pointer width="54px" height="54px">
-                <Img src={profileImg}/>
+                <Img src={profileImg || "/assets/images/user.svg"}/>
             </Div>
             {
                 props.name && 
