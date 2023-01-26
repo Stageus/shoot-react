@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
 
 import Div from "../basic/Div"
 import { H1 } from "../basic/H"
@@ -11,10 +12,12 @@ const Article = styled.article`
     flex-grow: 1;
     flex-basis: 0%;
     padding: 10px 8px 25px;
-    min-width: 250px;
+    min-width: 200px;
 `
 
 const PostItem = props => {
+    const navigate = useNavigate()
+
     const { post_idx, post_title, post_thumbnail, email, name, profile_img, post_view_count } = props.postItemObject
     const profileObject = {
         profileImg: profile_img,
@@ -22,8 +25,9 @@ const PostItem = props => {
     }
 
     const movePostDetailEvent = () => {
-        alert(`번호가 ${post_idx}인 게시물 자세히 보기 페이지로 이동`)
+        navigate(`/detail/post-id/${post_idx}`)
     }
+
     return (
         <Article>
             <Div onClick={movePostDetailEvent} borderRadius="5px" pointer width="100%">
