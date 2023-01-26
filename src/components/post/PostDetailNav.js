@@ -1,8 +1,11 @@
 import React from "react"
 import styled from "styled-components"
+import { useEffect } from "react"
+import { useRecoilState } from "recoil"
 
 import Div from "../basic/Div"
 import PostItem from "../common/PostItem"
+import { postItemListState } from "../../recoil/postState"
 
 const Nav = styled.nav`
   display: flex;
@@ -19,9 +22,19 @@ const Nav = styled.nav`
 `
 
 const PostDetailNav = () => {
-  const postFill = (amount) => {
-    let postList = []
-    for (let idx = 1; idx <= amount; idx++) {
+  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
+
+  const postDetailNavContent = postItemList.map((element, Idx) => {
+    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
+  })
+
+  useEffect(() => {
+    alert(
+      `포스트 디테일 nav에 들어갈 post 데이터리스트 받아오는 api 작성 후 post state에 담기`
+    )
+    // 임시 state
+    let tmpPostList = []
+    for (let idx = 1; idx <= 60; idx++) {
       const postObject = {
         post_idx: idx * 100,
         post_title: `이러 저러한 제목 번호${idx}`,
@@ -31,16 +44,13 @@ const PostDetailNav = () => {
         category_name: "게임",
         email: `asdasdsadasd${idx}@shoot.com`,
         name: `asdasdsadasd${idx}`,
-        profile_img: undefined,
+        profile_img: "/assets/images/user.svg",
       }
-      postList.push(
-        <PostItem key={`postItem_${idx}`} postItemObject={postObject} />
-      )
+      tmpPostList.push(postObject)
     }
-    return postList
-  }
 
-  const postDetailNavContent = postFill(5)
+    setPostItemList(tmpPostList)
+  }, [])
 
   return (
     <Nav>
