@@ -1,20 +1,18 @@
-import React, { useEffect } from "react"
-
 import styled from "styled-components"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
 import { H1 } from "../basic/H"
 import P from "../basic/P"
-import { MdButton } from "../basic/Button"
 import Profile from "../common/Profile"
 import { IconTextCircle } from "../common/IconText"
 import SeeMore from "../common/SeeMore"
 import PostDetailLikeIcon from "./PostDetailLikeIcon"
 import PostDetailBookmarkIcon from "./PostDetailBookmarkIcon"
 import PostDetailLinkList from "./PostDetailLinkList"
-import { isSubscribeState, postInfoState } from "../../recoil/postState"
+import PostDetailSubscribeButton from "./PostDetailSubscribeButton"
+import { postInfoState } from "../../recoil/postState"
 
 const PostContainer = styled.article`
   position: relative;
@@ -39,11 +37,10 @@ const PostDetailComponent = () => {
     category_idx,
     category_name,
     hashtag,
-    subscribe_state,
     vote,
   } = postInfo
-  const [isSubscribe, setIsSubscribe] = useRecoilState(isSubscribeState)
 
+  // 임시 data
   const isMyPost = false
 
   const testObject1 = {
@@ -55,23 +52,9 @@ const PostDetailComponent = () => {
     alert("본문열기")
   }
 
-  const setSubscribe = () => {
-    alert(`${upload_channel_email} 구독 api`)
-    setIsSubscribe(true)
-  }
-
-  const removeSubscribe = () => {
-    alert(`${upload_channel_email} 구독 취소 api`)
-    setIsSubscribe(false)
-  }
-
   const openCommentModal = () => {
     alert("댓글열기")
   }
-
-  useEffect(() => {
-    setIsSubscribe(subscribe_state)
-  }, [postInfo])
 
   return (
     <PostContainer>
@@ -91,20 +74,7 @@ const PostDetailComponent = () => {
         </Div>
         <Div display="flex" width="100%" justifyContent="space-between">
           <Profile profileObject={testObject1} name={upload_channel_name} />
-          {(isMyPost === false && isSubscribe === false && (
-            <MdButton onClick={setSubscribe} backgroundColor="primary">
-              <P color="white">구독</P>
-            </MdButton>
-          )) ||
-            (isMyPost === false && isSubscribe === true && (
-              <MdButton
-                onClick={removeSubscribe}
-                border="2px solid #FF6B6B"
-                backgroundColor="white"
-              >
-                <P color="primary">구독중</P>
-              </MdButton>
-            ))}
+          {isMyPost === false && <PostDetailSubscribeButton />}
         </Div>
         {post_type === 2 && <PostDetailLinkList />}
       </Div>
