@@ -13,8 +13,8 @@ import PostDetailLink from "./PostDetailLink"
 import { IconTextCircle } from "../common/IconText"
 import SeeMore from "../common/SeeMore"
 import PostDetailLikeIcon from "./PostDetailLikeIcon"
+import PostDetailBookmarkIcon from "./PostDetailBookmarkIcon"
 import {
-  isBookmarkState,
   isSubscribeState,
   currentLinkIdxState,
   postInfoState,
@@ -47,12 +47,10 @@ const PostDetailComponent = () => {
     category_idx,
     category_name,
     hashtag,
-    bookmark_state,
     subscribe_state,
     vote,
     link,
   } = postInfo
-  const [isBookmark, setIsBookmark] = useRecoilState(isBookmarkState)
   const [isSubscribe, setIsSubscribe] = useRecoilState(isSubscribeState)
   const [currentLinkIdx, setCurrentLinkIdx] =
     useRecoilState(currentLinkIdxState)
@@ -99,22 +97,11 @@ const PostDetailComponent = () => {
     setIsSubscribe(false)
   }
 
-  const bookmark = () => {
-    if (isBookmark) {
-      alert(`게시글 번호가 ${post_idx}인 게시글 즐겨찾기 취소 api`)
-      setIsBookmark(false)
-    } else {
-      alert(`게시글 번호가 ${post_idx}인 게시글 즐겨찾기 api`)
-      setIsBookmark(true)
-    }
-  }
-
   const openCommentModal = () => {
     alert("댓글열기")
   }
 
   useEffect(() => {
-    setIsBookmark(bookmark_state)
     setIsSubscribe(subscribe_state)
     setCurrentLinkIdx(0)
   }, [postInfo])
@@ -201,15 +188,7 @@ const PostDetailComponent = () => {
         padding="0 5px"
       >
         <PostDetailLikeIcon />
-        <IconTextCircle
-          onClick={bookmark}
-          src={
-            isBookmark === false
-              ? "/assets/images/bookmark.svg"
-              : "/assets/images/bookmarkFill.svg"
-          }
-          text="즐겨찾기"
-        />
+        <PostDetailBookmarkIcon />
         <IconTextCircle
           onClick={openDetailModal}
           src="/assets/images/postContent.svg"
