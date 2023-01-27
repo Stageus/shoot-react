@@ -9,26 +9,18 @@ import { H1 } from "../basic/H"
 import P from "../basic/P"
 import { MdButton } from "../basic/Button"
 import Profile from "../common/Profile"
-import PostDetailLink from "./PostDetailLink"
 import { IconTextCircle } from "../common/IconText"
 import SeeMore from "../common/SeeMore"
 import PostDetailLikeIcon from "./PostDetailLikeIcon"
 import PostDetailBookmarkIcon from "./PostDetailBookmarkIcon"
-import {
-  isSubscribeState,
-  currentLinkIdxState,
-  postInfoState,
-} from "../../recoil/postState"
+import PostDetailLinkList from "./PostDetailLinkList"
+import { isSubscribeState, postInfoState } from "../../recoil/postState"
 
 const PostContainer = styled.article`
   position: relative;
   width: 455px;
   height: 809px;
   margin: 50px 0;
-`
-
-const LinkContainer = styled(Div)`
-  overflow: hidden;
 `
 
 const PostDetailComponent = () => {
@@ -49,38 +41,14 @@ const PostDetailComponent = () => {
     hashtag,
     subscribe_state,
     vote,
-    link,
   } = postInfo
   const [isSubscribe, setIsSubscribe] = useRecoilState(isSubscribeState)
-  const [currentLinkIdx, setCurrentLinkIdx] =
-    useRecoilState(currentLinkIdxState)
 
   const isMyPost = false
 
   const testObject1 = {
     profileImg: profile_img,
     email: upload_channel_email,
-  }
-
-  let linkContent
-  if (link !== undefined) {
-    linkContent = link.map((element, Idx) => {
-      return (
-        <PostDetailLink
-          key={`linkBox_${Idx}`}
-          name={element.link_name}
-          link={element.link_url}
-        />
-      )
-    })
-  }
-
-  const moveLinkLeftEvent = () => {
-    setCurrentLinkIdx(currentLinkIdx - 1)
-  }
-
-  const moveLinkRightEvent = () => {
-    setCurrentLinkIdx(currentLinkIdx + 1)
   }
 
   const openDetailModal = () => {
@@ -103,7 +71,6 @@ const PostDetailComponent = () => {
 
   useEffect(() => {
     setIsSubscribe(subscribe_state)
-    setCurrentLinkIdx(0)
   }, [postInfo])
 
   return (
@@ -139,44 +106,7 @@ const PostDetailComponent = () => {
               </MdButton>
             ))}
         </Div>
-        {post_type === 2 && (
-          <LinkContainer position="relative" width="100%">
-            {currentLinkIdx !== 0 && (
-              <Div
-                onClick={moveLinkLeftEvent}
-                pointer
-                position="absolute"
-                top="30px"
-                left="0"
-                width="40px"
-                transform="scaleX(-1)"
-              >
-                <Img src="/assets/images/menuArrow.svg" />
-              </Div>
-            )}
-            <Div
-              display="flex"
-              justifyContent="flex-start"
-              wrap="nowrap"
-              width="100%"
-              margin={`0 0 0 -${currentLinkIdx}00%`}
-            >
-              {linkContent}
-            </Div>
-            {currentLinkIdx !== link.length - 1 && (
-              <Div
-                onClick={moveLinkRightEvent}
-                pointer
-                position="absolute"
-                top="30px"
-                right="0"
-                width="40px"
-              >
-                <Img src="/assets/images/menuArrow.svg" />
-              </Div>
-            )}
-          </LinkContainer>
-        )}
+        {post_type === 2 && <PostDetailLinkList />}
       </Div>
       <Div
         display="flex"
