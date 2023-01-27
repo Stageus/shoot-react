@@ -2,9 +2,9 @@ import React from "react"
 import { useEffect } from "react"
 import { useRecoilState } from "recoil"
 
-import PostComponent from "../components/post/PostComponent"
-import PostItem from "../components/common/PostItem"
-import { postItemListState } from "../recoil/postState"
+import PostComponent from "../../components/post/PostComponent"
+import PostItem from "../../components/common/PostItem"
+import { postItemListState } from "../../recoil/postState"
 
 const HomePage = () => {
   const [postItemList, setPostItemList] = useRecoilState(postItemListState)

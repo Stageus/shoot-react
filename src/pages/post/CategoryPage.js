@@ -3,9 +3,9 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 
-import PostComponent from "../components/post/PostComponent"
-import PostItem from "../components/common/PostItem"
-import { postItemListState } from "../recoil/postState"
+import PostComponent from "../../components/post/PostComponent"
+import PostItem from "../../components/common/PostItem"
+import { postItemListState } from "../../recoil/postState"
 
 const CategoryPage = () => {
   const [postItemList, setPostItemList] = useRecoilState(postItemListState)
