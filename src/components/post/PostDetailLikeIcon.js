@@ -16,20 +16,22 @@ const PostDetailLikeIcon = () => {
 
   // 임시 데이터
   const isLogin = true
+
   const like = () => {
-    if (isLike) {
-      alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 취소 api`)
-      setIsLike(false)
-      setLikeCount(likeCount - 1)
+    if (isLogin === false) {
+      alert(
+        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
+      )
     } else {
-      if (isLogin === false) {
-        alert(
-          "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
-        )
+      if (isLike) {
+        alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 취소 api`)
+        setIsLike(false)
+        setLikeCount(likeCount - 1)
+      } else {
+        alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 api`)
+        setIsLike(true)
+        setLikeCount(likeCount + 1)
       }
-      alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 api`)
-      setIsLike(true)
-      setLikeCount(likeCount + 1)
     }
   }
 
