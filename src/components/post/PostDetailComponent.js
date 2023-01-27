@@ -12,10 +12,9 @@ import Profile from "../common/Profile"
 import PostDetailLink from "./PostDetailLink"
 import { IconTextCircle } from "../common/IconText"
 import SeeMore from "../common/SeeMore"
+import PostDetailLikeIcon from "./PostDetailLikeIcon"
 import {
   isBookmarkState,
-  isLikeState,
-  likeCountState,
   isSubscribeState,
   currentLinkIdxState,
   postInfoState,
@@ -41,7 +40,6 @@ const PostDetailComponent = () => {
     post_thumbnail,
     post_upload_time,
     post_type,
-    post_good_count,
     post_view_count,
     upload_channel_name,
     upload_channel_email,
@@ -49,15 +47,12 @@ const PostDetailComponent = () => {
     category_idx,
     category_name,
     hashtag,
-    good_state,
     bookmark_state,
     subscribe_state,
     vote,
     link,
   } = postInfo
   const [isBookmark, setIsBookmark] = useRecoilState(isBookmarkState)
-  const [isLike, setIsLike] = useRecoilState(isLikeState)
-  const [likeCount, setLikeCount] = useRecoilState(likeCountState)
   const [isSubscribe, setIsSubscribe] = useRecoilState(isSubscribeState)
   const [currentLinkIdx, setCurrentLinkIdx] =
     useRecoilState(currentLinkIdxState)
@@ -104,18 +99,6 @@ const PostDetailComponent = () => {
     setIsSubscribe(false)
   }
 
-  const like = () => {
-    if (isLike) {
-      alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 취소 api`)
-      setIsLike(false)
-      setLikeCount(likeCount - 1)
-    } else {
-      alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 api`)
-      setIsLike(true)
-      setLikeCount(likeCount + 1)
-    }
-  }
-
   const bookmark = () => {
     if (isBookmark) {
       alert(`게시글 번호가 ${post_idx}인 게시글 즐겨찾기 취소 api`)
@@ -131,9 +114,7 @@ const PostDetailComponent = () => {
   }
 
   useEffect(() => {
-    setIsLike(good_state)
     setIsBookmark(bookmark_state)
-    setLikeCount(post_good_count)
     setIsSubscribe(subscribe_state)
     setCurrentLinkIdx(0)
   }, [postInfo])
@@ -219,15 +200,7 @@ const PostDetailComponent = () => {
         transform="translate(100%, 0)"
         padding="0 5px"
       >
-        <IconTextCircle
-          onClick={like}
-          src={
-            isLike === false
-              ? "/assets/images/like.svg"
-              : "/assets/images/likeFill.svg"
-          }
-          text={likeCount}
-        />
+        <PostDetailLikeIcon />
         <IconTextCircle
           onClick={bookmark}
           src={
