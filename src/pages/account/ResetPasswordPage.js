@@ -1,10 +1,10 @@
 import React from "react"
 
-import { LgButton } from "../components/basic/Button"
-import Div from "../components/basic/Div"
-import PasswordSignUpForm from "../components/account/PasswordSignUpFormComponent"
-import P from "../components/basic/P"
-import Img from "../components/basic/Img"
+import { LgButton } from "../../components/basic/Button"
+import Div from "../../components/basic/Div"
+import P from "../../components/basic/P"
+import Img from "../../components/basic/Img"
+import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
 
 const RestPassword = () => {
   return (
@@ -24,7 +24,7 @@ const RestPassword = () => {
         <P>새로운 비밀번호를 입력해주세요.</P>
       </Div>
 
-      <PasswordSignUpForm />
+      <AccountPasswordFormComponent />
 
       <LgButton backgroundColor="primary" margin="30px 0px 50px 0px">
         <P color="white" fontSize="lg">

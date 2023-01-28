@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 
 import { MdButton } from "../basic/Button"
 import Div from "../basic/Div"
@@ -10,7 +9,7 @@ import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 import useValidationInput from "../../hooks/useValidationInput"
 
-const EmailSignUpForm = () => {
+const AccountEmailFormComponent = () => {
   const emailRegExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const emailErrorMessage = "올바른 형식의 이메일을 입력해주세요."
 
@@ -112,4 +111,4 @@ const EmailSignUpForm = () => {
   )
 }
 
-export default EmailSignUpForm
+export default AccountEmailFormComponent

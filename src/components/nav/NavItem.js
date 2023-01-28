@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button } from "../basic/Button"
 import Div from "../basic/Div"
 import { IconText } from "../common/IconText"
-import HashtagContainer from "./HashtagContainer"
+import NavHashtag from "./NavHashtag"
 
 const NavItem = (props) => {
   const menu = props.menu
@@ -36,9 +36,7 @@ const NavItem = (props) => {
           )}
         </Div>
       </Button>
-      {menu !== "홈" && type && openMenu && (
-        <HashtagContainer hashtags={hashtags} />
-      )}
+      {menu !== "홈" && type && openMenu && <NavHashtag hashtags={hashtags} />}
     </>
   )
 }

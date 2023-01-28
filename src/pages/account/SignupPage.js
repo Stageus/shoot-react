@@ -1,13 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-import { LgButton } from "../components/basic/Button"
-import Div from "../components/basic/Div"
-import P from "../components/basic/P"
-import Img from "../components/basic/Img"
-import EmailSignUpForm from "../components/account/EmailSignUpFormComponent"
-import PasswordSignUpForm from "../components/account/PasswordSignUpFormComponent"
-import PersonalSignUpForm from "../components/account/PersonalSignUpFormComponent"
+import { LgButton } from "../../components/basic/Button"
+import Div from "../../components/basic/Div"
+import P from "../../components/basic/P"
+import Img from "../../components/basic/Img"
+import AccountEmailFormComponent from "../../components/account/AccountEmailFormComponent"
+import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
+import AccountPersonalFormComponent from "../../components/account/AccountPersonalFormComponent"
 
 const Signup = () => {
   return (
@@ -25,9 +25,9 @@ const Signup = () => {
         </Div>
       </Link>
 
-      <EmailSignUpForm />
-      <PasswordSignUpForm />
-      <PersonalSignUpForm />
+      <AccountEmailFormComponent />
+      <AccountPasswordFormComponent />
+      <AccountPersonalFormComponent />
 
       <LgButton backgroundColor="primary" margin="30px 0px 50px 0px">
         <P color="white" fontSize="lg">

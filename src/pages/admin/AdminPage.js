@@ -2,9 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import { Outlet } from "react-router-dom"
 
-import AdminNavComponent from "../components/nav/AdminNavComponent"
-import Div from "../components/basic/Div"
-import P from "../components/basic/P"
+import AdminNavComponent from "../../components/nav/AdminNavComponent"
+import Div from "../../components/basic/Div"
+import P from "../../components/basic/P"
 
 const HeaderBox = styled.header`
   display: flex;
@@ -18,7 +18,7 @@ const HeaderBox = styled.header`
   margin: 0px 0px 0px 25px;
 `
 
-const Administer = () => {
+const AdminPage = () => {
   return (
     <React.Fragment>
       <HeaderBox>
@@ -41,4 +41,4 @@ const Administer = () => {
   )
 }
 
-export default Administer
+export default AdminPage

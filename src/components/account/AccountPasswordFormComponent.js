@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
+import React from "react"
 
 import Div from "../basic/Div"
 import P from "../basic/P"
@@ -8,7 +7,7 @@ import useInput from "../../hooks/useInput"
 import useValidationInput from "../../hooks/useValidationInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
-const PasswordSignUpForm = () => {
+const AccountPasswordFormComponent = () => {
   const passwordRegExp =
     /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
   const passwordErrorMessage = "올바른 형식의 비밀번호를 입력해주세요."
@@ -73,4 +72,4 @@ const PasswordSignUpForm = () => {
   )
 }
 
-export default PasswordSignUpForm
+export default AccountPasswordFormComponent

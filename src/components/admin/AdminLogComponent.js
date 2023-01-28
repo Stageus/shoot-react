@@ -40,7 +40,7 @@ const ThInfoStyle = styled.th`
   //column-span: 6;
 `
 
-const Log = () => {
+const AdminLogComponent = () => {
   const students = [
     { id: 1, name: "경제", age: 25, favFruit: "2022.12.24" },
     { id: 2, name: "수학", age: 43, favFruit: "2022.12.24" },
@@ -151,4 +151,4 @@ const Log = () => {
   )
 }
 
-export default Log
+export default AdminLogComponent

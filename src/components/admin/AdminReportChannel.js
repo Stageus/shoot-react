@@ -1,7 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-
-import { H1 } from "../basic/H"
 import Div from "../basic/Div"
 import Img from "../basic/Img"
 
@@ -11,11 +9,7 @@ const TableStyle = styled.table`
   text-align: center;
   width: 1000px;
   margin-top: 20px;
-  margin-bottom: 20px;
-`
-const MainDiv = styled.main`
-  width: calc(100vw - 280px);
-  overflow-x: auto;
+  margin-bottom: 50px;
 `
 
 const TdStyle = styled.td`
@@ -31,7 +25,7 @@ const ThStyle = styled.th`
   padding: 5px;
 `
 
-const CategoryRequest = () => {
+const AdminReportChannel = () => {
   const students = [
     { id: 1, name: "경제", age: 25, favFruit: "2022.12.24" },
     { id: 2, name: "수학", age: 43, favFruit: "2022.12.24" },
@@ -52,48 +46,39 @@ const CategoryRequest = () => {
     { id: 17, name: "미술", age: 29, favFruit: "2022.12.24" },
     { id: 18, name: "미술", age: 29, favFruit: "2022.12.24" },
   ]
-
   return (
-    <MainDiv>
-      <H1 fontSize="lg">카테고리 요청 확인</H1>
-      <TableStyle>
-        <tbody>
-          <tr>
-            <ThStyle>번호</ThStyle>
-            <ThStyle>카테고리 이름</ThStyle>
-            <ThStyle>요청 횟수</ThStyle>
-            <ThStyle>최근 요청 날짜</ThStyle>
-            <ThStyle>추가</ThStyle>
-            <ThStyle>삭제</ThStyle>
-          </tr>
-          {students.map(({ id, name, age, favFruit }, index) => (
-            <>
-              <tr key={id}>
-                <TdStyle>{index + 1}</TdStyle>
-                <TdStyle>{name}</TdStyle>
-                <TdStyle>{age}</TdStyle>
-                <TdStyle>{favFruit}</TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/add.svg" />
-                    </Div>
+    <TableStyle>
+      <tbody>
+        <tr>
+          <ThStyle>번호</ThStyle>
+          <ThStyle>이메일</ThStyle>
+          <ThStyle>업로드 날짜</ThStyle>
+          <ThStyle>생성일</ThStyle>
+          <ThStyle>신고 횟수</ThStyle>
+          <ThStyle>삭제</ThStyle>
+        </tr>
+        {students.map(({ id, name, age, favFruit }) => (
+          <>
+            <tr key={id}>
+              <TdStyle>{id}</TdStyle>
+              <TdStyle>{favFruit}</TdStyle>
+              <TdStyle>email</TdStyle>
+              <TdStyle>{age}</TdStyle>
+              <TdStyle>-</TdStyle>
+              <TdStyle>
+                {" "}
+                <Div display="flex" width="100%">
+                  <Div width="20px" height="20px" pointer>
+                    <Img src="/assets/images/delete.svg" />
                   </Div>
-                </TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/delete.svg" />
-                    </Div>
-                  </Div>
-                </TdStyle>
-              </tr>
-            </>
-          ))}
-        </tbody>
-      </TableStyle>
-    </MainDiv>
+                </Div>
+              </TdStyle>
+            </tr>
+          </>
+        ))}
+      </tbody>
+    </TableStyle>
   )
 }
 
-export default CategoryRequest
+export default AdminReportChannel

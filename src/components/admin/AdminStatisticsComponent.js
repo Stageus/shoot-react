@@ -18,7 +18,7 @@ const MainDiv = styled.main`
   overflow-x: auto;
 `
 
-const Statistics = () => {
+const AdminStatisticsComponent = () => {
   Chart.register(...registerables)
   Chart.register(LineController, LineElement, PointElement, LinearScale, Title)
   const canvasDom = useRef(null)
@@ -64,4 +64,4 @@ const Statistics = () => {
   )
 }
 
-export default Statistics
+export default AdminStatisticsComponent

@@ -10,7 +10,7 @@ import EventInput from "./EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
-const LoginForm = () => {
+const AccountLocalLoginFormComponent = () => {
   const [email, onChangeEmail] = useInput()
   const [emailFocus, onFocusEmail, onBlurEmail] = useFocusInput()
   const [password, onChangePassword] = useInput()
@@ -77,4 +77,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default AccountLocalLoginFormComponent

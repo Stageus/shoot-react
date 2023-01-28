@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+
 import Div from "../basic/Div"
 import Img from "../basic/Img"
 
@@ -25,7 +26,7 @@ const ThStyle = styled.th`
   padding: 5px;
 `
 
-const ReportChannel = () => {
+const AdminReportPost = () => {
   const students = [
     { id: 1, name: "경제", age: 25, favFruit: "2022.12.24" },
     { id: 2, name: "수학", age: 43, favFruit: "2022.12.24" },
@@ -51,9 +52,9 @@ const ReportChannel = () => {
       <tbody>
         <tr>
           <ThStyle>번호</ThStyle>
-          <ThStyle>이메일</ThStyle>
+          <ThStyle>게시글 제목</ThStyle>
           <ThStyle>업로드 날짜</ThStyle>
-          <ThStyle>생성일</ThStyle>
+          <ThStyle>이메일</ThStyle>
           <ThStyle>신고 횟수</ThStyle>
           <ThStyle>삭제</ThStyle>
         </tr>
@@ -66,7 +67,6 @@ const ReportChannel = () => {
               <TdStyle>{age}</TdStyle>
               <TdStyle>-</TdStyle>
               <TdStyle>
-                {" "}
                 <Div display="flex" width="100%">
                   <Div width="20px" height="20px" pointer>
                     <Img src="/assets/images/delete.svg" />
@@ -81,4 +81,4 @@ const ReportChannel = () => {
   )
 }
 
-export default ReportChannel
+export default AdminReportPost

@@ -1,10 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-import Div from "../components/basic/Div"
-import Img from "../components/basic/Img"
-import LoginForm from "../components/account/LoginFormComponent"
-import SocialLoginForm from "../components/account/SocialLoginFormComponent"
+import Div from "../../components/basic/Div"
+import Img from "../../components/basic/Img"
+import AccountLocalLoginFormComponent from "../../components/account/AccountLocalLoginFormComponent"
+import AccountSocialLoginFormComponent from "../../components/account/AccountSocialLoginFormComponent"
 
 const Login = () => {
   return (
@@ -22,8 +22,8 @@ const Login = () => {
         </Div>
       </Link>
 
-      <LoginForm />
-      <SocialLoginForm />
+      <AccountLocalLoginFormComponent />
+      <AccountSocialLoginFormComponent />
     </Div>
   )
 }

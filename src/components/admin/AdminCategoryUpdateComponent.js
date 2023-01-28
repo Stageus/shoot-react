@@ -32,7 +32,7 @@ const ThStyle = styled.th`
   padding: 5px;
 `
 
-const CategoryUpdate = () => {
+const AdminCategoryUpdateComponent = () => {
   const students = [
     { id: 1, name: "경제", favFruit: "2022.12.24" },
     { id: 2, name: "수학", favFruit: "2022.12.24" },
@@ -87,4 +87,4 @@ const CategoryUpdate = () => {
   )
 }
 
-export default CategoryUpdate
+export default AdminCategoryUpdateComponent

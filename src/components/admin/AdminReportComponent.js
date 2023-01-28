@@ -10,7 +10,7 @@ const MainDiv = styled.main`
   overflow-x: auto;
 `
 
-const Report = () => {
+const AdminReportComponent = () => {
   return (
     <React.Fragment>
       <MainDiv>
@@ -36,4 +36,4 @@ const Report = () => {
   )
 }
 
-export default Report
+export default AdminReportComponent

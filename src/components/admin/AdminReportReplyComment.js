@@ -26,7 +26,7 @@ const ThStyle = styled.th`
   padding: 5px;
 `
 
-const ReportReplyComment = () => {
+const AdminReportReplyComment = () => {
   const students = [
     { id: 1, name: "경제", age: 25, favFruit: "2022.12.24" },
     { id: 2, name: "수학", age: 43, favFruit: "2022.12.24" },
@@ -79,4 +79,4 @@ const ReportReplyComment = () => {
   )
 }
 
-export default ReportReplyComment
+export default AdminReportReplyComment

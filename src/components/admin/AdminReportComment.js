@@ -26,7 +26,7 @@ const ThStyle = styled.th`
   padding: 5px;
 `
 
-const ReportPost = () => {
+const AdminReportComment = () => {
   const students = [
     { id: 1, name: "경제", age: 25, favFruit: "2022.12.24" },
     { id: 2, name: "수학", age: 43, favFruit: "2022.12.24" },
@@ -52,8 +52,7 @@ const ReportPost = () => {
       <tbody>
         <tr>
           <ThStyle>번호</ThStyle>
-          <ThStyle>게시글 제목</ThStyle>
-          <ThStyle>업로드 날짜</ThStyle>
+          <ThStyle>작성 날짜</ThStyle>
           <ThStyle>이메일</ThStyle>
           <ThStyle>신고 횟수</ThStyle>
           <ThStyle>삭제</ThStyle>
@@ -65,7 +64,6 @@ const ReportPost = () => {
               <TdStyle>{favFruit}</TdStyle>
               <TdStyle>email</TdStyle>
               <TdStyle>{age}</TdStyle>
-              <TdStyle>-</TdStyle>
               <TdStyle>
                 <Div display="flex" width="100%">
                   <Div width="20px" height="20px" pointer>
@@ -81,4 +79,4 @@ const ReportPost = () => {
   )
 }
 
-export default ReportPost
+export default AdminReportComment

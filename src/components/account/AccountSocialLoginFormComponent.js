@@ -29,7 +29,7 @@ const ShadowButton = styled(LgButton)`
   box-shadow: 2px 2px 2px 2px #c8c8c8;
 `
 
-const SocialLoginForm = () => {
+const AccountSocialLoginFormComponent = () => {
   return (
     <React.Fragment>
       <Div display="flex" margin="0px 0px 30px 0px">
@@ -55,4 +55,4 @@ const SocialLoginForm = () => {
   )
 }
 
-export default SocialLoginForm
+export default AccountSocialLoginFormComponent

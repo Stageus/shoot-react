@@ -1,9 +1,9 @@
 import React from "react"
 
-import Div from "../components/basic/Div"
-import P from "../components/basic/P"
-import Img from "../components/basic/Img"
-import EmailSignUpForm from "../components/account/EmailSignUpFormComponent"
+import Div from "../../components/basic/Div"
+import P from "../../components/basic/P"
+import Img from "../../components/basic/Img"
+import AccountEmailFormComponent from "../../components/account/AccountEmailFormComponent"
 
 const FindPassword = () => {
   return (
@@ -22,7 +22,7 @@ const FindPassword = () => {
         <P>비밀번호를 찾으려하는 이메일과 인증번호를 입력해주세요.</P>
       </Div>
 
-      <EmailSignUpForm />
+      <AccountEmailFormComponent />
     </Div>
   )
 }

@@ -20,7 +20,7 @@ const SelectBox = styled.select`
   }
 `
 
-const PersonalSignUpForm = () => {
+const AccountPersonalFormComponent = () => {
   const channelNameRegExp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,32}$/
   const channelNameErrorMessage = "올바른 형식의 이메일을 입력해주세요."
   const yearRegExp = /^(19[0-9][0-9]|20\d{2})$/
@@ -154,4 +154,4 @@ const PersonalSignUpForm = () => {
   )
 }
 
-export default PersonalSignUpForm
+export default AccountPersonalFormComponent

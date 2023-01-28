@@ -3,7 +3,7 @@ import Div from "../basic/Div"
 import P from "../basic/P"
 import Hashtag from "../common/Hashtag"
 
-const HashtagContainer = (props) => {
+const NavHashtag = (props) => {
   const hashtags = props.hashtags
 
   return (
@@ -24,4 +24,4 @@ const HashtagContainer = (props) => {
   )
 }
 
-export default HashtagContainer
+export default NavHashtag
