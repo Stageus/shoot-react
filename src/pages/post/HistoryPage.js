@@ -2,19 +2,19 @@ import React from "react"
 import { useEffect } from "react"
 import { useRecoilState } from "recoil"
 
-import PostComponent from "../components/post/PostComponent"
-import PostItem from "../components/common/PostItem"
-import { postItemListState } from "../recoil/postState"
+import PostComponent from "../../components/post/PostComponent"
+import PostItem from "../../components/common/PostItem"
+import { postItemListState } from "../../recoil/postState"
 
-const HotPage = () => {
+const HistoryPage = () => {
   const [postItemList, setPostItemList] = useRecoilState(postItemListState)
 
-  const hotContent = postItemList.map((element, Idx) => {
+  const historyContent = postItemList.map((element, Idx) => {
     return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
   })
 
   useEffect(() => {
-    alert(`핫 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
+    alert(`시청기록 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
     // 임시 state
     let tmpPostList = []
     for (let idx = 1; idx <= 60; idx++) {
@@ -35,7 +35,7 @@ const HotPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title="HOT!" content={hotContent} />
+  return <PostComponent title="시청기록" content={historyContent} />
 }
 
-export default HotPage
+export default HistoryPage

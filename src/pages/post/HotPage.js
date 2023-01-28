@@ -2,19 +2,19 @@ import React from "react"
 import { useEffect } from "react"
 import { useRecoilState } from "recoil"
 
-import PostComponent from "../components/post/PostComponent"
-import PostItem from "../components/common/PostItem"
-import { postItemListState } from "../recoil/postState"
+import PostComponent from "../../components/post/PostComponent"
+import PostItem from "../../components/common/PostItem"
+import { postItemListState } from "../../recoil/postState"
 
-const BookmarkPage = () => {
+const HotPage = () => {
   const [postItemList, setPostItemList] = useRecoilState(postItemListState)
 
-  const bookmarkContent = postItemList.map((element, Idx) => {
+  const hotContent = postItemList.map((element, Idx) => {
     return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
   })
 
   useEffect(() => {
-    alert(`즐겨찾기 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
+    alert(`핫 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
     // 임시 state
     let tmpPostList = []
     for (let idx = 1; idx <= 60; idx++) {
@@ -35,7 +35,7 @@ const BookmarkPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title="즐겨찾기" content={bookmarkContent} />
+  return <PostComponent title="HOT!" content={hotContent} />
 }
 
-export default BookmarkPage
+export default HotPage

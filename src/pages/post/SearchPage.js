@@ -1,20 +1,27 @@
 import React from "react"
 import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 
-import PostComponent from "../components/post/PostComponent"
-import PostItem from "../components/common/PostItem"
-import { postItemListState } from "../recoil/postState"
+import PostComponent from "../../components/post/PostComponent"
+import PostItem from "../../components/common/PostItem"
+import { postItemListState } from "../../recoil/postState"
 
-const HistoryPage = () => {
+const SearchPage = () => {
   const [postItemList, setPostItemList] = useRecoilState(postItemListState)
+  const params = useParams()
 
-  const historyContent = postItemList.map((element, Idx) => {
+  const searchContent = postItemList.map((element, Idx) => {
     return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
   })
 
+  let searchInfo = params.search
   useEffect(() => {
-    alert(`시청기록 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
+    searchInfo = params.search
+
+    alert(
+      `검색결과가 ${searchInfo}인 post 데이터리스트 받아오는 api 작성 후 post state에 담기`
+    )
     // 임시 state
     let tmpPostList = []
     for (let idx = 1; idx <= 60; idx++) {
@@ -35,7 +42,7 @@ const HistoryPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title="시청기록" content={historyContent} />
+  return <PostComponent title={searchInfo} content={searchContent} />
 }
 
-export default HistoryPage
+export default SearchPage

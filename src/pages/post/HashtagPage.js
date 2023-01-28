@@ -3,24 +3,24 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 
-import PostComponent from "../components/post/PostComponent"
-import PostItem from "../components/common/PostItem"
-import { postItemListState } from "../recoil/postState"
+import PostComponent from "../../components/post/PostComponent"
+import PostItem from "../../components/common/PostItem"
+import { postItemListState } from "../../recoil/postState"
 
-const SearchPage = () => {
+const HashtagPage = () => {
   const [postItemList, setPostItemList] = useRecoilState(postItemListState)
   const params = useParams()
 
-  const searchContent = postItemList.map((element, Idx) => {
+  const hashtagContent = postItemList.map((element, Idx) => {
     return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
   })
 
-  let searchInfo = params.search
+  let hashtagInfo = params.hashtagId
   useEffect(() => {
-    searchInfo = params.search
+    hashtagInfo = params.hashtagId
 
     alert(
-      `검색결과가 ${searchInfo}인 post 데이터리스트 받아오는 api 작성 후 post state에 담기`
+      `해시태그 ${hashtagInfo}인 post 데이터리스트 받아오는 api 작성 후 post state에 담기`
     )
     // 임시 state
     let tmpPostList = []
@@ -42,7 +42,7 @@ const SearchPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title={searchInfo} content={searchContent} />
+  return <PostComponent title={hashtagInfo} content={hashtagContent} />
 }
 
-export default SearchPage
+export default HashtagPage

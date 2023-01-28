@@ -3,10 +3,10 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 
-import MainComponent from "../components/post/PostComponent"
-import PostDetailNav from "../components/post/PostDetailNav"
-import PostDetailComponent from "../components/post/PostDetailComponent"
-import { postInfoState } from "../recoil/postState"
+import MainComponent from "../../components/post/PostComponent"
+import PostDetailNav from "../../components/post/PostDetailNav"
+import PostDetailComponent from "../../components/post/PostDetailComponent"
+import { postInfoState } from "../../recoil/postState"
 
 const MainPage = () => {
   const setPostInfo = useSetRecoilState(postInfoState)
