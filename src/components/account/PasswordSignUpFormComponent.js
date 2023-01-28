@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import Div from "../basic/Div"
 import P from "../basic/P"
-import CustomInput from "./CustomInput"
+import EventInput from "./EventInput"
 import useInput from "../../hooks/useInput"
 import useValidationInput from "../../hooks/useValidationInput"
 import useFocusInput from "../../hooks/useFocusInput"
@@ -34,7 +34,7 @@ const PasswordSignUpForm = () => {
         <Div margin="10px 0px 10px 0px">
           <P fontSize="lg">비밀번호</P>
         </Div>
-        <CustomInput
+        <EventInput
           placeholder={"숫자, 영문자, 특수문자 포함 8-16자"}
           type={"password"}
           src={"../assets/images/password.svg"}
@@ -53,7 +53,7 @@ const PasswordSignUpForm = () => {
         <Div margin="10px 0px 10px 0px">
           <P fontSize="lg">비밀번호 재확인</P>
         </Div>
-        <CustomInput
+        <EventInput
           placeholder={""}
           type={"password"}
           src={"../assets/images/password.svg"}

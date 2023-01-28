@@ -1,10 +1,10 @@
 import React from "react"
 
-import Input from "../../components/basic/Input"
-import Div from "../../components/basic/Div"
-import Img from "../../components/basic/Img"
+import Input from "../basic/Input"
+import Div from "../basic/Div"
+import Img from "../basic/Img"
 
-const CustomInput = (props) => {
+const EventInput = (props) => {
   const placeholder = props.placeholder
   const src = props.src
   const type = props.type
@@ -60,4 +60,4 @@ const CustomInput = (props) => {
   )
 }
 
-export default CustomInput
+export default EventInput

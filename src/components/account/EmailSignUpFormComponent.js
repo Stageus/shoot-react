@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { MdButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"
-import CustomInput from "./CustomInput"
+import EventInput from "./EventInput"
 import CountdownTimer from "../common/CountdownTimer"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
@@ -30,7 +30,7 @@ const EmailSignUpForm = () => {
         <Div margin="10px 0px 10px 0px">
           <P fontSize="lg">이메일</P>
         </Div>
-        <CustomInput
+        <EventInput
           placeholder={"이메일"}
           type={"email"}
           src={"/assets/images/email.svg"}
@@ -67,7 +67,7 @@ const EmailSignUpForm = () => {
         <Div margin="10px 0px 10px 0px">
           <P fontSize="lg">인증번호</P>
         </Div>
-        <CustomInput
+        <EventInput
           placeholder={"인증번호를 입력하세요"}
           type={"text"}
           onChange={onChangeAuth}

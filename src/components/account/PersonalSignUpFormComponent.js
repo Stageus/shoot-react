@@ -3,8 +3,8 @@ import styled from "styled-components"
 
 import Div from "../basic/Div"
 import P from "../basic/P"
-import CustomInput from "./CustomInput"
-import SmallCustomInput from "./SmallCustomInput"
+import EventInput from "./EventInput"
+import SmallEventInput from "./SmallEventInput"
 import useInput from "../../hooks/useInput"
 import useValidationInput from "../../hooks/useValidationInput"
 import useFocusInput from "../../hooks/useFocusInput"
@@ -69,7 +69,7 @@ const PersonalSignUpForm = () => {
         </Div>
         <Div>
           <Div display="flex" justifyContent="space-between" width="400px">
-            <SmallCustomInput
+            <SmallEventInput
               placeholder={"년(4자)"}
               type={"text"}
               onChange={(e) => {
@@ -80,7 +80,7 @@ const PersonalSignUpForm = () => {
               onBlur={onBlurYear}
               isFocus={yearFocus}
             />
-            <SmallCustomInput
+            <SmallEventInput
               placeholder={"월"}
               type={"text"}
               onChange={(e) => {
@@ -91,7 +91,7 @@ const PersonalSignUpForm = () => {
               onBlur={onBlurMonth}
               isFocus={monthFocus}
             />
-            <SmallCustomInput
+            <SmallEventInput
               placeholder={"일"}
               type={"text"}
               onChange={(e) => {
@@ -137,7 +137,7 @@ const PersonalSignUpForm = () => {
         <Div margin="10px 0px 10px 0px">
           <P fontSize="lg">채널명</P>
         </Div>
-        <CustomInput
+        <EventInput
           placeholder={"특수문자를 제외한 2-20글자"}
           type={"text"}
           onChange={(e) => {

@@ -6,7 +6,7 @@ import Input from "../basic/Input"
 import { LgButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"
-import CustomInput from "./CustomInput"
+import EventInput from "./EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
@@ -18,7 +18,7 @@ const LoginForm = () => {
 
   return (
     <React.Fragment>
-      <CustomInput
+      <EventInput
         placeholder={"이메일"}
         type={"email"}
         src={"../assets/images/email.svg"}
@@ -27,7 +27,7 @@ const LoginForm = () => {
         onBlur={onBlurEmail}
         isFocus={emailFocus}
       />
-      <CustomInput
+      <EventInput
         placeholder={"비밀번호"}
         type={"password"}
         src={"../assets/images/password.svg"}

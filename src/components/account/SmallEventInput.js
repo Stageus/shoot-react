@@ -1,9 +1,9 @@
 import React from "react"
 
-import Input from "../../components/basic/Input"
-import Div from "../../components/basic/Div"
+import Input from "../basic/Input"
+import Div from "../basic/Div"
 
-const SmallCustomInput = (props) => {
+const SmallEventInput = (props) => {
   const placeholder = props.placeholder
   const type = props.type
 
@@ -41,4 +41,4 @@ const SmallCustomInput = (props) => {
   )
 }
 
-export default SmallCustomInput
+export default SmallEventInput
