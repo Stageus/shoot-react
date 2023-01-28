@@ -6,7 +6,7 @@ import Img from "../../components/basic/Img"
 import AccountLocalLoginFormComponent from "../../components/account/AccountLocalLoginFormComponent"
 import AccountSocialLoginFormComponent from "../../components/account/AccountSocialLoginFormComponent"
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <Div
       width="100%"
@@ -28,4 +28,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginPage

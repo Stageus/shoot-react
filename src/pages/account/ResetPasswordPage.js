@@ -6,7 +6,7 @@ import P from "../../components/basic/P"
 import Img from "../../components/basic/Img"
 import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
 
-const RestPassword = () => {
+const RestPasswordPage = () => {
   return (
     <Div
       width="100%"
@@ -35,4 +35,4 @@ const RestPassword = () => {
   )
 }
 
-export default RestPassword
+export default RestPasswordPage

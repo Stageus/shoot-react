@@ -9,7 +9,7 @@ import AccountEmailFormComponent from "../../components/account/AccountEmailForm
 import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
 import AccountPersonalFormComponent from "../../components/account/AccountPersonalFormComponent"
 
-const Signup = () => {
+const SignupPage = () => {
   return (
     <Div
       width="100%"
@@ -38,4 +38,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default SignupPage

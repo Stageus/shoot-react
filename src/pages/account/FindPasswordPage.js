@@ -5,7 +5,7 @@ import P from "../../components/basic/P"
 import Img from "../../components/basic/Img"
 import AccountEmailFormComponent from "../../components/account/AccountEmailFormComponent"
 
-const FindPassword = () => {
+const FindPasswordPage = () => {
   return (
     <Div
       width="100%"
@@ -27,4 +27,4 @@ const FindPassword = () => {
   )
 }
 
-export default FindPassword
+export default FindPasswordPage
