@@ -1,17 +1,12 @@
 import React from "react"
 import { useEffect } from "react"
-import { useRecoilState } from "recoil"
+import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
-import PostItem from "../../components/common/PostItem"
 import { postItemListState } from "../../recoil/postState"
 
 const SubscribePage = () => {
-  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
-
-  const subscribeContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
-  })
+  const setPostItemList = useSetRecoilState(postItemListState)
 
   useEffect(() => {
     alert(
@@ -37,7 +32,7 @@ const SubscribePage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title="구독한 채널 게시글" content={subscribeContent} />
+  return <PostComponent title="구독한 채널 게시글" contentType="postList" />
 }
 
 export default SubscribePage

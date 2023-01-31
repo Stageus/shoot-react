@@ -3,6 +3,8 @@ import styled from "styled-components"
 
 import HeaderComponent from "../header/HeaderComponent"
 import NavComponent from "../nav/NavComponent"
+import PostDetailComponent from "./PostDetailComponent"
+import PostItemListComponent from "../common/PostItemListComponent"
 import Div from "../basic/Div"
 import { H1 } from "../basic/H"
 
@@ -17,7 +19,7 @@ const Main = styled.main`
 
 const PostComponent = (props) => {
   const mainTitle = props.title
-  const mainContent = props.content
+  const mainContentType = props.contentType
   const padding = props.padding
 
   return (
@@ -34,7 +36,8 @@ const PostComponent = (props) => {
             </Div>
           </Div>
         )}
-        {mainContent}
+        {(mainContentType === "postDetail" && <PostDetailComponent />) ||
+          (mainContentType === "postList" && <PostItemListComponent />)}
       </Main>
     </React.Fragment>
   )

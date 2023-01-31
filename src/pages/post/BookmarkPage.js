@@ -1,17 +1,12 @@
 import React from "react"
 import { useEffect } from "react"
-import { useRecoilState } from "recoil"
+import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
-import PostItem from "../../components/common/PostItem"
 import { postItemListState } from "../../recoil/postState"
 
 const BookmarkPage = () => {
-  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
-
-  const bookmarkContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
-  })
+  const setPostItemList = useSetRecoilState(postItemListState)
 
   useEffect(() => {
     alert(`즐겨찾기 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
@@ -35,7 +30,7 @@ const BookmarkPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title="즐겨찾기" content={bookmarkContent} />
+  return <PostComponent title="즐겨찾기" contentType="postList" />
 }
 
 export default BookmarkPage

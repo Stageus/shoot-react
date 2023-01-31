@@ -1,17 +1,12 @@
 import React from "react"
 import { useEffect } from "react"
-import { useRecoilState } from "recoil"
+import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
-import PostItem from "../../components/common/PostItem"
 import { postItemListState } from "../../recoil/postState"
 
 const HistoryPage = () => {
-  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
-
-  const historyContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
-  })
+  const setPostItemList = useSetRecoilState(postItemListState)
 
   useEffect(() => {
     alert(`시청기록 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
@@ -35,7 +30,7 @@ const HistoryPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title="시청기록" content={historyContent} />
+  return <PostComponent title="시청기록" contentType="postList" />
 }
 
 export default HistoryPage

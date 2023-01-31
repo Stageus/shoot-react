@@ -1,19 +1,14 @@
 import React from "react"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { useRecoilState } from "recoil"
+import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
-import PostItem from "../../components/common/PostItem"
 import { postItemListState } from "../../recoil/postState"
 
 const CategoryPage = () => {
-  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
+  const setPostItemList = useSetRecoilState(postItemListState)
   const params = useParams()
-
-  const categoryContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
-  })
 
   let categoryInfo = params.categoryId
   useEffect(() => {
@@ -42,7 +37,7 @@ const CategoryPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title={categoryInfo} content={categoryContent} />
+  return <PostComponent title={categoryInfo} contentType="postList" />
 }
 
 export default CategoryPage
