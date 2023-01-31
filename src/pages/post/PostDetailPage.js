@@ -5,7 +5,6 @@ import { useSetRecoilState } from "recoil"
 
 import MainComponent from "../../components/post/PostComponent"
 import PostDetailNav from "../../components/post/PostDetailNav"
-import PostDetailComponent from "../../components/post/PostDetailComponent"
 import { postInfoState } from "../../recoil/postState"
 
 const MainPage = () => {
@@ -134,12 +133,10 @@ const MainPage = () => {
     }
   })
 
-  const postDetailContent = <PostDetailComponent />
-
   return (
     <React.Fragment>
       <PostDetailNav />
-      <MainComponent content={postDetailContent} padding="0 220px" />
+      <MainComponent contentType="postDetail" padding="0 220px" />
     </React.Fragment>
   )
 }

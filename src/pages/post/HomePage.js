@@ -1,17 +1,12 @@
 import React from "react"
 import { useEffect } from "react"
-import { useRecoilState } from "recoil"
+import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
-import PostItem from "../../components/common/PostItem"
 import { postItemListState } from "../../recoil/postState"
 
 const HomePage = () => {
-  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
-
-  const HomeContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
-  })
+  const setPostItemList = useSetRecoilState(postItemListState)
 
   useEffect(() => {
     alert("홈에서 post 데이터리스트 받아오는 api 작성 후 postList state에 담기")
@@ -35,7 +30,7 @@ const HomePage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent content={HomeContent} />
+  return <PostComponent contentType="postList" />
 }
 
 export default HomePage

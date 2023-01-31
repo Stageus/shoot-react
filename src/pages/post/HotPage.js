@@ -1,17 +1,12 @@
 import React from "react"
 import { useEffect } from "react"
-import { useRecoilState } from "recoil"
+import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
-import PostItem from "../../components/common/PostItem"
 import { postItemListState } from "../../recoil/postState"
 
 const HotPage = () => {
-  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
-
-  const hotContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
-  })
+  const setPostItemList = useSetRecoilState(postItemListState)
 
   useEffect(() => {
     alert(`핫 post 데이터리스트 받아오는 api 작성 후 post state에 담기`)
@@ -35,7 +30,7 @@ const HotPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title="HOT!" content={hotContent} />
+  return <PostComponent title="HOT!" contentType="postList" />
 }
 
 export default HotPage

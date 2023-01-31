@@ -1,19 +1,14 @@
 import React from "react"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { useRecoilState } from "recoil"
+import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
-import PostItem from "../../components/common/PostItem"
 import { postItemListState } from "../../recoil/postState"
 
 const SearchPage = () => {
-  const [postItemList, setPostItemList] = useRecoilState(postItemListState)
+  const setPostItemList = useSetRecoilState(postItemListState)
   const params = useParams()
-
-  const searchContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
-  })
 
   let searchInfo = params.search
   useEffect(() => {
@@ -42,7 +37,7 @@ const SearchPage = () => {
     setPostItemList(tmpPostList)
   }, [])
 
-  return <PostComponent title={searchInfo} content={searchContent} />
+  return <PostComponent title={searchInfo} contentType="postList" />
 }
 
 export default SearchPage
