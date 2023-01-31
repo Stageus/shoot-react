@@ -54,7 +54,13 @@ const MainPage = () => {
     category_idx: 0,
     category_name: null,
 
-    hashtag: [],
+    hashtag: [
+      "해시태그하나둘셋넷다섯",
+      "해시태그2",
+      "해시태그3",
+      "해시태그4",
+      "해시태그5",
+    ],
 
     good_state: true,
     bookmark_state: true,
@@ -63,10 +69,24 @@ const MainPage = () => {
     vote: undefined || [
       {
         vote_idx: 0,
-        vote_contents: "이거저거투표",
-        vote_count: 234,
+        vote_contents: "이거저거투표1",
+        vote_count: 1,
 
-        vote_state: undefined || true,
+        vote_state: true,
+      },
+      {
+        vote_idx: 1,
+        vote_contents: "이거저거투표2",
+        vote_count: 2,
+
+        vote_state: false,
+      },
+      {
+        vote_idx: 2,
+        vote_contents: "이거저거투표3",
+        vote_count: 3,
+
+        vote_state: false,
       },
     ],
   }
@@ -89,7 +109,7 @@ const MainPage = () => {
     category_idx: 0,
     category_name: null,
 
-    hashtag: [],
+    hashtag: undefined,
 
     good_state: undefined,
     bookmark_state: undefined,
