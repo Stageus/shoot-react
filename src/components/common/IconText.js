@@ -5,7 +5,7 @@ import P from "../basic/P"
 import Div from "../basic/Div"
 
 const IconText = (props) => {
-  const { src, text, onClick, width, fontColor } = props
+  const { src, text, onClick, width, fontColor, fontSize } = props
 
   return (
     <Div onClick={onClick} display="flex" margin="3px 0" pointer>
@@ -13,7 +13,7 @@ const IconText = (props) => {
         <Img src={src} />
       </Div>
       <Div margin="0 0 0 5px">
-        <P color={fontColor} fontWeight="700">
+        <P color={fontColor} fontSize={fontSize || "md"} fontWeight="700">
           {text}
         </P>
       </Div>
