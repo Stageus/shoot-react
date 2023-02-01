@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
-import Input from "../basic/Input"
+import { Input } from "../basic/Input"
 import P from "../basic/P"
 import {
   serchHistoryOpenState,
