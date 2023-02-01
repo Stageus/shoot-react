@@ -5,7 +5,7 @@ import styled from "styled-components"
 import NavItem from "./NavItem"
 
 const NavBox = styled.nav`
-  position: sticky;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

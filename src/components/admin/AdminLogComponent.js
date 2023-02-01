@@ -18,6 +18,7 @@ const TableStyle = styled.table`
 `
 const MainDiv = styled.main`
   width: calc(100vw - 280px);
+  margin-left: 220px;
   overflow-x: auto;
 `
 
