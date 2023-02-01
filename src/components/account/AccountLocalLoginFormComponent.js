@@ -60,7 +60,7 @@ const AccountLocalLoginFormComponent = () => {
             <P>|</P>
           </Div>
 
-          <Link style={{ textDecoration: "none" }} to="/find_pw">
+          <Link style={{ textDecoration: "none" }} to="/find-pw">
             <Div display="flex">
               <P>비밀번호 찾기</P>
             </Div>
