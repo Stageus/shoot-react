@@ -87,8 +87,7 @@ const Nav = () => {
             hashtags={hashtags}
             svg={"menuArrow"}
             type={"open"}
-            select={selectMenu === name && "open"}
-            openMenu={selectMenu}
+            select={selectMenu === name && name}
             setSelectMenu={setSelectMenu}
           />
         ))}
@@ -98,9 +97,8 @@ const Nav = () => {
             key={name}
             menu={name}
             svg={svg}
-            openMenu={selectMenu}
             setSelectMenu={setSelectMenu}
-            select={selectMenu === name && "open"}
+            select={selectMenu === name && "select"}
           />
         ))}
 
