@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-import Input from "../basic/Input"
+import { Input } from "../basic/Input"
 import { LgButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"

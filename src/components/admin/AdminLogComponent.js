@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 import { H1 } from "../basic/H"
-import Input from "../basic/Input"
+import { Input } from "../basic/Input"
 import Div from "../basic/Div"
 import P from "../basic/P"
 import { MdButton } from "../basic/Button"

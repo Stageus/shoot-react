@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { SmButton } from "../basic/Button"
 import Div from "../basic/Div"
 import Img from "../basic/Img"
-import Input from "../basic/Input"
+import { Input } from "../basic/Input"
 import P from "../basic/P"
 import NavItem from "./NavItem"
 

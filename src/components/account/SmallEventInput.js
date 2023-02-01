@@ -1,6 +1,6 @@
 import React from "react"
 
-import Input from "../basic/Input"
+import { Input } from "../basic/Input"
 import Div from "../basic/Div"
 
 const SmallEventInput = (props) => {
