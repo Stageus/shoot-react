@@ -338,7 +338,7 @@ const AdminLogTable = () => {
                 <P>시간: time</P>
                 <P>상태코드: code</P>
                 <P>Result: data</P>
-                <MdButton backgroundColor="error" margin="5px">
+                <MdButton backgroundColor="red" margin="5px">
                   <P color="white" fontSize="sm" fontWeight="700">
                     정지하기
                   </P>
