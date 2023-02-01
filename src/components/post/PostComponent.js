@@ -5,7 +5,7 @@ import HeaderComponent from "../header/HeaderComponent"
 import NavComponent from "../nav/NavComponent"
 import PostDetailComponent from "./PostDetailComponent"
 import PostItemListComponent from "../common/PostItemListComponent"
-import PostItemChannelListComponent from "./PostItemChannelListComponent"
+import PostChannelListComponent from "./PostChannelListComponent"
 import Div from "../basic/Div"
 import { H1 } from "../basic/H"
 
@@ -40,7 +40,7 @@ const PostComponent = (props) => {
         {(mainContentType === "postDetail" && <PostDetailComponent />) ||
           (mainContentType === "postList" && <PostItemListComponent />) ||
           (mainContentType === "postChannelList" && (
-            <PostItemChannelListComponent />
+            <PostChannelListComponent />
           ))}
       </Main>
     </React.Fragment>

@@ -6,7 +6,7 @@ import P from "../../basic/P"
 import Profile from "../../common/Profile"
 import SeeMore from "../../common/SeeMore"
 import { IconText } from "../../common/IconText"
-import CommnetInput from "./CommentInput"
+import CommentInput from "./CommentInput"
 import useReplyInput from "../../../hooks/useReplyInput"
 
 const CommentContent = styled(Div)`
@@ -82,7 +82,7 @@ const Comment = (props) => {
         </Div>
         {openReplyInput && (
           <Div width="100%" margin="5px 0 0 0">
-            <CommnetInput commentType="reply" idx={comment_idx} />
+            <CommentInput commentType="reply" idx={comment_idx} />
           </Div>
         )}
         {reply_comment_count > 0 && (

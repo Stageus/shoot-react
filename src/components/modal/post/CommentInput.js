@@ -13,7 +13,7 @@ const InputDiv = styled(Div)`
   flex: 1;
 `
 
-const CommnetInput = (props) => {
+const CommentInput = (props) => {
   const { commentType, idx } = props
   const userInfo = useRecoilValue(userInfoState)
   const { profile_img, email } = userInfo
@@ -68,4 +68,4 @@ const CommnetInput = (props) => {
   )
 }
 
-export default CommnetInput
+export default CommentInput

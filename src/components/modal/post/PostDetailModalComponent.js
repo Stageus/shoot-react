@@ -76,7 +76,7 @@ const PostDetailModalComponent = () => {
         </Div>
         <Div display="flex" direction="column">
           <Div>
-            <P>죄회수</P>
+            <P>조회수</P>
           </Div>
           <Div>
             <P fontSize="lg" fontWeight="700">

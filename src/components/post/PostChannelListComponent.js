@@ -33,7 +33,6 @@ const PostItemChannelListComponent = () => {
       profileImg: profile_img,
       email: upload_channel_email,
     }
-
     return (
       <Div key={`PostItemList${Idx}`} width="100%" margin="30px 0">
         <Profile profileObject={profileObject} name={element.channel_name} />
