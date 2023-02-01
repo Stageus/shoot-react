@@ -9,6 +9,7 @@ import P from "../basic/P"
 import NavItem from "./NavItem"
 
 const NavBox = styled.nav`
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -78,75 +79,66 @@ const Nav = () => {
 
   return (
     <Div display="flex">
-      <Div
-        display="flex"
-        direction="row"
-        width="100%"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        margin="60px 0px 0px 0px"
-      >
-        <NavBox>
-          {categoryMenu.map(({ name, hashtags }) => (
-            <NavItem
-              key={name}
-              menu={name}
-              hashtags={hashtags}
-              svg={"menuArrow"}
-              type={"open"}
-              select={selectMenu === name && "open"}
-              openMenu={selectMenu}
-              setSelectMenu={setSelectMenu}
-            />
-          ))}
-          <Line />
-          {generalMenu.map(({ name, svg }) => (
-            <NavItem
-              key={name}
-              menu={name}
-              svg={svg}
-              openMenu={selectMenu}
-              setSelectMenu={setSelectMenu}
-              select={selectMenu === name && "open"}
-            />
-          ))}
+      <NavBox>
+        {categoryMenu.map(({ name, hashtags }) => (
+          <NavItem
+            key={name}
+            menu={name}
+            hashtags={hashtags}
+            svg={"menuArrow"}
+            type={"open"}
+            select={selectMenu === name && "open"}
+            openMenu={selectMenu}
+            setSelectMenu={setSelectMenu}
+          />
+        ))}
+        <Line />
+        {generalMenu.map(({ name, svg }) => (
+          <NavItem
+            key={name}
+            menu={name}
+            svg={svg}
+            openMenu={selectMenu}
+            setSelectMenu={setSelectMenu}
+            select={selectMenu === name && "open"}
+          />
+        ))}
 
-          <Line />
-          <Div margin="0px 0px 10px 15px">
-            <Div display="flex">
-              <Div width="20px" height="20px" margin="0px 0px 0px 5px">
-                <Img src={"/assets/images/bulb.svg"} />
-              </Div>
-              <Div margin="0px 0px 0px 10px">
-                <P fontSize="sm" fontWeight="700">
-                  이 카테고리, 추가해주세요!
-                </P>
-              </Div>
+        <Line />
+        <Div margin="0px 0px 10px 15px">
+          <Div display="flex">
+            <Div width="20px" height="20px" margin="0px 0px 0px 5px">
+              <Img src={"/assets/images/bulb.svg"} />
             </Div>
-
-            <Div margin="5px 0px 5px 0px">
-              <Input
-                width="120px"
-                height="22px"
-                placeholder="내용을 입력하세요"
-                border="1px solid #c8c8c8"
-                fontSize="sm"
-                borderRadius="5px"
-                padding="0px 0px 0px 10px"
-              />
-              <SmButton backgroundColor="primary" margin="5px">
-                <P color="white" fontSize="sm" fontWeight="800">
-                  입력
-                </P>
-              </SmButton>
+            <Div margin="0px 0px 0px 10px">
+              <P fontSize="sm" fontWeight="700">
+                이 카테고리, 추가해주세요!
+              </P>
             </Div>
-
-            <P fontSize="xs" color="#C8C8C8">
-              띄어쓰기 없이 12자까지 입력 가능합니다
-            </P>
           </Div>
-        </NavBox>
-      </Div>
+
+          <Div margin="5px 0px 5px 0px">
+            <Input
+              width="120px"
+              height="22px"
+              placeholder="내용을 입력하세요"
+              border="1px solid #c8c8c8"
+              fontSize="sm"
+              borderRadius="5px"
+              padding="0px 0px 0px 10px"
+            />
+            <SmButton backgroundColor="primary" margin="5px">
+              <P color="white" fontSize="sm" fontWeight="800">
+                입력
+              </P>
+            </SmButton>
+          </Div>
+
+          <P fontSize="xs" color="gray">
+            띄어쓰기 없이 12자까지 입력 가능합니다
+          </P>
+        </Div>
+      </NavBox>
     </Div>
   )
 }
