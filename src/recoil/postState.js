@@ -85,5 +85,43 @@ export const commentListState = atom({
 
 export const replyCommentListState = atom({
   key: "replyCommentList",
-  default: [], //List
+  default: [
+    {
+      reply_comment_idx: 100,
+      reply_comment_contents: "댓글 댓글",
+      reply_comment_time: "10시간 전",
+      reply_comment_good_count: 111,
+
+      email: "test1@shoot.com",
+      profile_img: undefined,
+      channel_name: "test1",
+
+      good_state: false,
+    },
+    {
+      reply_comment_idx: 200,
+      reply_comment_contents: "댓글 댓글",
+      reply_comment_time: "2시간 전",
+      reply_comment_good_count: 222,
+
+      email: "asdsads2@shoot.com",
+      profile_img: undefined,
+      channel_name: "asdsads2",
+
+      good_state: undefined,
+    },
+    {
+      reply_comment_idx: 300,
+      reply_comment_contents:
+        "댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글 댓글",
+      reply_comment_time: "3일 전",
+      reply_comment_good_count: 333,
+
+      email: "asdsads3@shoot.com",
+      profile_img: undefined,
+      channel_name: "asdsads3",
+
+      good_state: true,
+    },
+  ], //List
 })

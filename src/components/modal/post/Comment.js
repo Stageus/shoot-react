@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
@@ -9,7 +9,9 @@ import SeeMore from "../../common/SeeMore"
 import { IconText } from "../../common/IconText"
 import CommentInput from "./CommentInput"
 import useReplyInput from "../../../hooks/useReplyInput"
+import useReplyComment from "../../../hooks/useReplyComment"
 import { userInfoState } from "../../../recoil/headerState"
+import { replyCommentListState } from "../../../recoil/postState"
 
 const CommentContent = styled(Div)`
   flex: 1;
@@ -70,6 +72,32 @@ const Comment = (props) => {
   const myEmail = userInfo.email
   // 임시 data
   const isMyPost = myEmail === write_channel_email || myEmail === email
+  const [replyCommentList, setReplyCommentList] = useReplyComment()
+  const [backReplyCommentList, setBackReplyCommentList] = useRecoilState(
+    replyCommentListState
+  )
+  let replyCommenContent
+  if (replyCommentList.length !== 0) {
+    replyCommenContent = replyCommentList.map((element, Idx) => {
+      return (
+        <Div width="100%" margin="16px 0 0 0">
+          <Comment key={`comment${Idx}`} commentObject={element} />
+        </Div>
+      )
+    })
+  }
+  const addReplyCommentEvent = () => {
+    alert(`댓글 번호가 ${comment_idx}인 대댓글 불러오는 api`)
+    const tmpReplyCommentList = [...replyCommentList, ...backReplyCommentList]
+    setReplyCommentList(tmpReplyCommentList)
+  }
+  const openReplyCommentEvent = () => {
+    if (replyCommentList.length === 0) {
+      addReplyCommentEvent()
+    } else {
+      setReplyCommentList([])
+    }
+  }
 
   return (
     <Div display="flex" alignItems="start" width="100%">
@@ -137,11 +165,15 @@ const Comment = (props) => {
         {reply_comment_count > 0 && (
           <Div>
             <IconText
+              onClick={openReplyCommentEvent}
               src="/assets/images/replyCommentArrow.svg"
               text={`대댓글 ${reply_comment_count}개`}
               fontSize="sm"
             />
           </Div>
+        )}
+        {replyCommentList.length > 0 && (
+          <Div width="100%">{replyCommenContent}</Div>
         )}
       </CommentContent>
     </Div>
