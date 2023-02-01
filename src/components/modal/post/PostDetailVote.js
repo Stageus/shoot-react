@@ -23,6 +23,7 @@ const PostDetailVote = (props) => {
       margin="4px 0"
       border={`1px solid ${vote_state === true ? "#4AC12C" : "#C8C8C8"}`}
       borderRadius="5px"
+      pointer
     >
       <Div margin="0 8px">
         <P color={vote_state === true ? "green" : "default"}>{vote_contents}</P>
