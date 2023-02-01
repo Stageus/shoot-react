@@ -57,7 +57,14 @@ const PostDetailComponent = () => {
 
   return (
     <PostContainer>
-      <Img src={post_thumbnail} />
+      <video
+        src={post_video}
+        autoPlay
+        loop
+        playsInline
+        width="100%"
+        height="100%"
+      />
       <Div position="absolute" bottom="0" width="90%" margin="5%">
         <Div display="flex" alignItems="end" margin="15px 0">
           <Div>
