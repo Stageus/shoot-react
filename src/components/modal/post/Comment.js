@@ -88,7 +88,7 @@ const Comment = (props) => {
             </P>
           </Div>
         </Div>
-        <Div position="absolute" top="0" right="-30px">
+        <Div position="absolute" top="0" right="-15px">
           {(isMyPost === true && (
             <SeeMore
               modify
@@ -96,12 +96,14 @@ const Comment = (props) => {
               alarm={true}
               parent={comment_idx === undefined ? "reply_comment" : "comment"}
               parentInfo={comment_idx || reply_comment_idx}
+              width="25px"
             />
           )) || (
             <SeeMore
               report
               parent={comment_idx === undefined ? "reply_comment" : "comment"}
               parentInfo={comment_idx || reply_comment_idx}
+              width="25px"
             />
           )}
         </Div>

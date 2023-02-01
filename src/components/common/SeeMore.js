@@ -16,6 +16,7 @@ const SeeMoreIcon = styled(Div)`
 const SeeMore = (props) => {
   const parent = props.parent
   const parentInfo = props.parentInfo
+  const width = props.width
 
   const clickShareEvent = () => {
     alert(`${parentInfo}이 url을 복사함`)
@@ -57,7 +58,7 @@ const SeeMore = (props) => {
   }
 
   return (
-    <Div width="48px" height="48px" position="relative">
+    <Div width={width || "48px"} height={width || "48px"} position="relative">
       <SeeMoreIcon
         pointer
         width="100%"
@@ -65,7 +66,7 @@ const SeeMore = (props) => {
         display="flex"
         borderRadius="50%"
       >
-        <Div width="60%" height="60%">
+        <Div display="flex" width="60%" height="60%">
           <Img src="/assets/images/dots.svg" />
         </Div>
       </SeeMoreIcon>
