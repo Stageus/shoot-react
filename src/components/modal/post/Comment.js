@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { useRecoilValue } from "recoil"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
@@ -8,6 +9,7 @@ import SeeMore from "../../common/SeeMore"
 import { IconText } from "../../common/IconText"
 import CommentInput from "./CommentInput"
 import useReplyInput from "../../../hooks/useReplyInput"
+import { userInfoState } from "../../../recoil/headerState"
 
 const CommentContent = styled(Div)`
   flex: 1;
@@ -39,6 +41,11 @@ const Comment = (props) => {
 
   const [openReplyInput, setOpenReplyInput] = useReplyInput()
 
+  const userInfo = useRecoilValue(userInfoState)
+  const myEmail = userInfo.email
+  // 임시 data
+  const isMyPost = myEmail === write_channel_email || myEmail === email
+
   return (
     <Div display="flex" alignItems="start" width="100%">
       <Profile
@@ -57,7 +64,21 @@ const Comment = (props) => {
           </Div>
         </Div>
         <Div position="absolute" top="0" right="-30px">
-          <SeeMore />
+          {(isMyPost === true && (
+            <SeeMore
+              modify
+              delete
+              alarm={true}
+              parent={comment_idx === undefined ? "reply_comment" : "comment"}
+              parentInfo={comment_idx || reply_comment_idx}
+            />
+          )) || (
+            <SeeMore
+              report
+              parent={comment_idx === undefined ? "reply_comment" : "comment"}
+              parentInfo={comment_idx || reply_comment_idx}
+            />
+          )}
         </Div>
         <Div padding="0 20px 0 0">
           <P fontSize="sm">{comment_contents || reply_comment_contents}</P>

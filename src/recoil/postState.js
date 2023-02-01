@@ -47,9 +47,9 @@ export const commentListState = atom({
       comment_good_count: 111,
       reply_comment_count: 0,
 
-      write_channel_email: "asdsads1@shoot.com",
+      write_channel_email: "test1@shoot.com",
       profile_img: undefined,
-      channel_name: "asdsads1",
+      channel_name: "test1",
 
       good_state: false,
     },

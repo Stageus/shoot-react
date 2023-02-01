@@ -13,6 +13,8 @@ import PostDetailBookmarkIcon from "./PostDetailBookmarkIcon"
 import PostDetailLinkList from "./PostDetailLinkList"
 import PostDetailSubscribeButton from "./PostDetailSubscribeButton"
 import { postInfoState } from "../../recoil/postState"
+import { userInfoState } from "../../recoil/headerState"
+import CommentModalComponent from "../modal/post/CommentModalComponent"
 
 const PostContainer = styled.article`
   position: relative;
@@ -36,8 +38,10 @@ const PostDetailComponent = () => {
     category_idx,
   } = postInfo
 
+  const userInfo = useRecoilValue(userInfoState)
+  const { email } = userInfo
   // 임시 data
-  const isMyPost = false
+  const isMyPost = email === upload_channel_email
 
   const testObject1 = {
     profileImg: profile_img,
@@ -96,7 +100,7 @@ const PostDetailComponent = () => {
           text={comment_count}
         />
         {(isMyPost === false && (
-          <SeeMore share report parent="post" parentInfo="testUrl" />
+          <SeeMore share report parent="post" parentInfo={post_idx} />
         )) ||
           (isMyPost === true && (
             <SeeMore
@@ -105,10 +109,11 @@ const PostDetailComponent = () => {
               delete
               alarm={true}
               parent="post"
-              parentInfo="testUrl"
+              parentInfo={post_idx}
             />
           ))}
       </Div>
+      <CommentModalComponent />
     </PostContainer>
   )
 }
