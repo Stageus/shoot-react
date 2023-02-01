@@ -7,6 +7,7 @@ import Profile from "../../common/Profile"
 import SeeMore from "../../common/SeeMore"
 import { IconText } from "../../common/IconText"
 import CommnetInput from "./CommentInput"
+import useReplyInput from "../../../hooks/useReplyInput"
 
 const CommentContent = styled(Div)`
   flex: 1;
@@ -35,6 +36,8 @@ const Comment = (props) => {
     profileImg: profile_img,
     email: write_channel_email || email,
   }
+
+  const [openReplyInput, setOpenReplyInput] = useReplyInput()
 
   return (
     <Div display="flex" alignItems="start" width="100%">
@@ -71,14 +74,18 @@ const Comment = (props) => {
             fontColor="gray"
             fontSize="sm"
           />
-          <Div margin="0 0 0 10px">
-            <P fontSize="sm">대댓글</P>
+          <Div pointer margin="0 0 0 10px">
+            <P onClick={() => setOpenReplyInput()} fontSize="sm">
+              대댓글
+            </P>
           </Div>
         </Div>
-        <Div width="100%" margin="5px 0 0 0">
-          <CommnetInput commentType="reply" idx={comment_idx} />
-        </Div>
-        {reply_comment_count !== 0 && (
+        {openReplyInput && (
+          <Div width="100%" margin="5px 0 0 0">
+            <CommnetInput commentType="reply" idx={comment_idx} />
+          </Div>
+        )}
+        {reply_comment_count > 0 && (
           <Div>
             <IconText
               src="/assets/images/replyCommentArrow.svg"
