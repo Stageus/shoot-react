@@ -14,7 +14,6 @@ import PostDetailLinkList from "./PostDetailLinkList"
 import PostDetailSubscribeButton from "./PostDetailSubscribeButton"
 import { postInfoState } from "../../recoil/postState"
 import { userInfoState } from "../../recoil/headerState"
-import CommentModalComponent from "../modal/post/CommentModalComponent"
 
 const PostContainer = styled.article`
   position: relative;
@@ -113,7 +112,6 @@ const PostDetailComponent = () => {
             />
           ))}
       </Div>
-      <CommentModalComponent />
     </PostContainer>
   )
 }
