@@ -12,8 +12,14 @@ import PostDetailLinkList from "../../post/PostDetailLinkList"
 const PostDetailModalComponent = () => {
   const postInfo = useRecoilValue(postInfoState)
   const likeCount = useRecoilValue(likeCountState)
-  const { post_title, post_upload_time, post_type, post_view_count, hashtag } =
-    postInfo
+  const {
+    post_title,
+    post_upload_time,
+    post_description,
+    post_type,
+    post_view_count,
+    hashtag,
+  } = postInfo
 
   let hashtagContent
   if (hashtag !== undefined) {
@@ -90,7 +96,7 @@ const PostDetailModalComponent = () => {
         </Div>
       </Div>
       <Div margin="27px 0">
-        <P>본문설명</P>
+        <P>{post_description}</P>
       </Div>
       {(post_type === 1 && <PostDetailVoteListComponent />) ||
         (post_type === 2 && <PostDetailLinkList />)}

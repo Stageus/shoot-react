@@ -22,14 +22,15 @@ const PostItem = (props) => {
     post_idx,
     post_title,
     post_thumbnail,
-    email,
-    name,
+    upload_channel_email,
+    channel_name,
     profile_img,
     post_view_count,
   } = props.postItemObject
+
   const profileObject = {
     profileImg: profile_img,
-    email: email,
+    email: upload_channel_email,
   }
 
   const movePostDetailEvent = () => {
@@ -56,7 +57,7 @@ const PostItem = (props) => {
         </Div>
         <Profile
           profileObject={profileObject}
-          name={name}
+          name={channel_name}
           viewCount={post_view_count}
         />
       </Div>

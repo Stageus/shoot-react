@@ -16,16 +16,26 @@ const PostItemChannelListComponent = () => {
   const postItemList = useRecoilValue(postItemListState)
 
   const PostItemChannelListContent = postItemList.map((element, Idx) => {
-    const profileObject = {
-      profileImg: element.profile_img,
-      email: element.upload_channel_email,
-    }
+    const { profile_img, upload_channel_email, channel_name } = element
     const PostItemList = element.post.map((element, Idx) => {
-      return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
+      const postItemObject = {
+        ...element,
+        profile_img: profile_img,
+        upload_channel_email: upload_channel_email,
+        channel_name: channel_name,
+      }
+      return (
+        <PostItem key={`postItemBox_${Idx}`} postItemObject={postItemObject} />
+      )
     })
 
+    const profileObject = {
+      profileImg: profile_img,
+      email: upload_channel_email,
+    }
+
     return (
-      <Div width="100%" margin="30px 0">
+      <Div key={`PostItemList${Idx}`} width="100%" margin="30px 0">
         <Profile profileObject={profileObject} name={element.channel_name} />
         <PostListContainer
           display="flex"

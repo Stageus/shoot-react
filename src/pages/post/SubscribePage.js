@@ -23,9 +23,6 @@ const SubscribePage = () => {
           post_thumbnail: "/assets/images/postThumbnail.png",
           post_view_count: "125만회", //여기 나중에 우리 계산 필요
           category_name: "게임",
-          email: `asdasdsadasd${idx}@shoot.com`,
-          name: `asdasdsadasd${idx}`,
-          profile_img: "/assets/images/user.svg",
         }
         tmpPostList.push(postObject)
       }
@@ -39,7 +36,7 @@ const SubscribePage = () => {
     }
 
     setPostItemList(tmpPostChannelList)
-  }, [])
+  })
 
   return (
     <PostComponent title="구독한 채널 게시글" contentType="postChannelList" />

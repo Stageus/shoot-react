@@ -28,7 +28,7 @@ const HistoryPage = () => {
     }
 
     setPostItemList(tmpPostList)
-  }, [])
+  })
 
   return <PostComponent title="시청기록" contentType="postList" />
 }

@@ -15,12 +15,15 @@ const MainPage = () => {
   const tmpPostObject100 = {
     post_idx: 100,
     post_title: "게시글 타이틀1",
+    post_description: "본문 내용 이것 저것1",
     post_video: "url",
     post_thumbnail: "/assets/images/postThumbnail.png",
     post_upload_time: "10시간전",
     post_type: 0,
+
     post_good_count: 1111,
     post_view_count: "111만회",
+    comment_count: 237,
 
     upload_channel_name: "test1",
     upload_channel_email: "test1@shoot.com",
@@ -29,7 +32,7 @@ const MainPage = () => {
     category_idx: 0,
     category_name: null,
 
-    hashtag: [],
+    hashtag: undefined,
 
     good_state: false,
     bookmark_state: false,
@@ -40,12 +43,15 @@ const MainPage = () => {
   const tmpPostObject200 = {
     post_idx: 200,
     post_title: "게시글 타이틀2",
+    post_description: "본문 내용 이것 저것2",
     post_video: "url",
     post_thumbnail: "/assets/images/postThumbnail.png",
     post_upload_time: "10시간전",
     post_type: 1,
+
     post_good_count: 2222,
     post_view_count: "222만회",
+    comment_count: 0,
 
     upload_channel_name: "test2",
     upload_channel_email: "test2@shoot.com",
@@ -95,12 +101,15 @@ const MainPage = () => {
   const tmpPostObject300 = {
     post_idx: 300,
     post_title: "게시글 타이틀3",
+    post_description: "본문 내용 이것 저것3",
     post_video: "url",
     post_thumbnail: "/assets/images/postThumbnail.png",
     post_upload_time: "10시간전",
     post_type: 2,
+
     post_good_count: 3333,
     post_view_count: "333만회",
+    comment_count: 237,
 
     upload_channel_name: "test3",
     upload_channel_email: "test3@shoot.com",
