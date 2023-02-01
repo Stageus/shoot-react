@@ -20,15 +20,15 @@ const BookmarkPage = () => {
         post_thumbnail: "/assets/images/postThumbnail.png",
         post_view_count: "125만회", //여기 나중에 우리 계산 필요
         category_name: "게임",
-        email: `asdasdsadasd${idx}@shoot.com`,
-        name: `asdasdsadasd${idx}`,
+        upload_channel_email: `asdasdsadasd${idx}@shoot.com`,
+        channel_name: `asdasdsadasd${idx}`,
         profile_img: "/assets/images/user.svg",
       }
       tmpPostList.push(postObject)
     }
 
     setPostItemList(tmpPostList)
-  }, [])
+  })
 
   return <PostComponent title="즐겨찾기" contentType="postList" />
 }

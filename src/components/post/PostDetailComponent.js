@@ -28,16 +28,12 @@ const PostDetailComponent = () => {
     post_title,
     post_video,
     post_thumbnail,
-    post_upload_time,
     post_type,
-    post_view_count,
+    comment_count,
     upload_channel_name,
     upload_channel_email,
     profile_img,
     category_idx,
-    category_name,
-    hashtag,
-    vote,
   } = postInfo
 
   // 임시 data
@@ -97,7 +93,7 @@ const PostDetailComponent = () => {
         <IconTextCircle
           onClick={openCommentModal}
           src="/assets/images/comment.svg"
-          text="202"
+          text={comment_count}
         />
         {(isMyPost === false && (
           <SeeMore share report parent="post" parentInfo="testUrl" />

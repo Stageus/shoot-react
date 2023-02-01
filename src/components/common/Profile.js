@@ -7,6 +7,7 @@ import { MdButton } from "../basic/Button"
 
 const Profile = (props) => {
   const { profileImg, email } = props.profileObject
+  const width = props.width
 
   const setMainContent = () => {
     alert(`./email_ + ${email}`)
@@ -22,7 +23,12 @@ const Profile = (props) => {
 
   return (
     <Div display="flex">
-      <Div onClick={setMainContent} pointer width="54px" height="54px">
+      <Div
+        onClick={setMainContent}
+        pointer
+        width={width || "54px"}
+        height={width || "54px"}
+      >
         <Img src={profileImg || "/assets/images/user.svg"} />
       </Div>
       {props.name && (
