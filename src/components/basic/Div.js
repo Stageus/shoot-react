@@ -6,10 +6,10 @@ const Div = styled.div`
   margin: ${(props) => props.margin || "0px"};
   padding: ${(props) => props.padding || "0px"};
   background-color: ${(props) =>
-    props.theme.color[props.backgroundColor] || "inherit"};
+    props.theme.color[props.backgroundColor] || "transparent"};
   z-index: ${(props) => props.zIndex || "auto"};
   border: ${(props) => props.border || "none"};
-  border-bottom: ${(props) => props.borderBottom || "none"};
+  border-bottom: ${(props) => props.borderBottom || ""};
   border-radius: ${(props) => props.borderRadius || "none"};
   position: ${(props) => props.position || "static"};
   transform: ${(props) => props.transform || "none"};
