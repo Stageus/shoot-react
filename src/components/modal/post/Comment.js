@@ -40,6 +40,31 @@ const Comment = (props) => {
   }
 
   const [openReplyInput, setOpenReplyInput] = useReplyInput()
+  // 임시 데이터
+  const isLogin = false
+
+  const like = () => {
+    if (isLogin === false) {
+      alert(
+        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
+      )
+    } else {
+      if (comment_idx !== undefined) {
+        if (good_state) {
+          alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 취소 api`)
+        } else {
+          alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 api`)
+        }
+      } else {
+        if (good_state) {
+          alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 취소 api`)
+        } else {
+          alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 api`)
+        }
+      }
+      alert("댓글 정보 다시 불러오느 api")
+    }
+  }
 
   const userInfo = useRecoilValue(userInfoState)
   const myEmail = userInfo.email
@@ -85,6 +110,7 @@ const Comment = (props) => {
         </Div>
         <Div display="flex" margin="7px 0 0 0">
           <IconText
+            onClick={like}
             src={
               (good_state === true && "/assets/images/likeFill.svg") ||
               (comment_good_state === true && "/assets/images/likeFill.svg") ||
