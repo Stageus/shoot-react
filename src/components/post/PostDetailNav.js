@@ -1,11 +1,11 @@
 import React from "react"
 import styled from "styled-components"
 import { useEffect } from "react"
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import PostItem from "../common/PostItem"
-import { postItemListState } from "../../recoil/postState"
+import { postItemListState, postInfoState } from "../../recoil/postState"
 
 const Nav = styled.nav`
   display: flex;
@@ -23,6 +23,7 @@ const Nav = styled.nav`
 
 const PostDetailNav = () => {
   const [postItemList, setPostItemList] = useRecoilState(postItemListState)
+  const postDetailInfo = useRecoilValue(postInfoState)
 
   const postDetailNavContent = postItemList.map((element, Idx) => {
     return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
@@ -50,7 +51,7 @@ const PostDetailNav = () => {
     }
 
     setPostItemList(tmpPostList)
-  }, [])
+  }, [postDetailInfo])
 
   return (
     <Nav>
