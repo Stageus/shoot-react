@@ -96,25 +96,30 @@ const HeaderFunctionComponent = () => {
             />
             <Div
               display={profilePopupOpen === true ? "flex" : "none"}
+              alignItems="start"
+              justifyContent="space-evenly"
               direction="column"
               position="absolute"
               bottom="0"
               right="0"
               transform="translate( 0, 80% )"
-              padding="10px"
+              width="85px"
+              height="60px"
+              padding="6px 13px"
               borderRadius="5px"
               backgroundColor="white"
               shadow="0 4px 4px 0 rgba(0,0,0,0.35)"
             >
               <IconText
                 onClick={moveMyChannelEvent}
-                src="/assets/images/edit.svg"
+                src="/assets/images/myChannel.svg"
                 text="내 채널"
               />
               <IconText
                 onClick={logoutLogic}
-                src="/assets/images/report.svg"
+                src="/assets/images/logout.svg"
                 text="로그아웃"
+                fontColor="gray"
               />
             </Div>
           </Div>
