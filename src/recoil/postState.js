@@ -21,6 +21,11 @@ export const isBookmarkState = atom({
   default: false,
 })
 
+export const voteInfoState = atom({
+  key: "voteInfo",
+  default: {},
+})
+
 // header backEndState
 export const postItemListState = atom({
   key: "postItemList",
