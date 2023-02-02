@@ -33,13 +33,36 @@ const AccountSocialLoginFormComponent = () => {
       </Div>
 
       <LgButton backgroundColor="NAVER" margin="0px 0px 12px 0px">
-        <P color="white">네이버로 로그인</P>
+        <Div display="flex" width="100%">
+          <Div width="20px" height="20px" pointer margin="0px 0px 0px 20px">
+            <Img src="/assets/images/naverLogo.svg" />
+          </Div>
+          <Div display="flex" margin="0px 120px 0px 120px">
+            <P color="white">네이버로 로그인</P>
+          </Div>
+        </Div>
       </LgButton>
+
       <LgButton backgroundColor="KAKAO" margin="0px 0px 12px 0px">
-        <P>카카오로 로그인</P>
+        <Div display="flex" width="100%">
+          <Div width="20px" height="20px" pointer margin="0px 0px 0px 20px">
+            <Img src="/assets/images/kakaoLogo.svg" />
+          </Div>
+          <Div display="flex" margin="0px 120px 0px 120px">
+            <P>카카오로 로그인</P>
+          </Div>
+        </Div>
       </LgButton>
+
       <ShadowButton backgroundColor="white" margin="0px 0px 12px 0px">
-        <P>Google로 로그인</P>
+        <Div display="flex" width="100%">
+          <Div width="20px" pointer margin="0px 0px 0px 20px">
+            <Img src="/assets/images/googleLogo.svg" />
+          </Div>
+          <Div display="flex" margin="0px 120px 0px 120px">
+            <P>Google로 로그인</P>
+          </Div>
+        </Div>
       </ShadowButton>
     </React.Fragment>
   )
