@@ -8,9 +8,7 @@ const CommentLike = (props) => {
   // 임시 데이터
   const isLogin = true
 
-  const { goodState, goodCount } = props
-  const type = "comment"
-  const idx = 100
+  const { type, idx, goodState, goodCount } = props
   const [commentLikeInfo, setCommentLikeInfo, toggleCommentLike] =
     useCommentLike()
 

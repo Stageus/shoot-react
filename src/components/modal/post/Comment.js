@@ -123,6 +123,8 @@ const Comment = (props) => {
         </Div>
         <Div display="flex" margin="7px 0 0 0">
           <CommentLike
+            type={(comment_idx && "comment") || "reply"}
+            idx={(comment_idx && comment_idx) || reply_comment_idx}
             goodState={good_state || comment_good_state}
             goodCount={comment_good_count || reply_comment_good_count}
           />
