@@ -173,7 +173,19 @@ const Comment = (props) => {
           </Div>
         )}
         {replyCommentList.length > 0 && (
-          <Div width="100%">{replyCommenContent}</Div>
+          <React.Fragment>
+            <Div width="100%">{replyCommenContent}</Div>
+            {replyCommentList.length < reply_comment_count && (
+              <Div margin="7px 0 0 0">
+                <IconText
+                  onClick={addReplyCommentEvent}
+                  src="/assets/images/commentMore.svg"
+                  text={`대댓글 더보기`}
+                  fontSize="sm"
+                />
+              </Div>
+            )}
+          </React.Fragment>
         )}
       </CommentContent>
     </Div>
