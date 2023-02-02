@@ -1,5 +1,4 @@
 import React from "react"
-import { useEffect } from "react"
 import styled from "styled-components"
 import { useRecoilState, useRecoilValue } from "recoil"
 
@@ -8,12 +7,12 @@ import P from "../../basic/P"
 import Profile from "../../common/Profile"
 import SeeMore from "../../common/SeeMore"
 import { IconText } from "../../common/IconText"
+import CommentLike from "./CommentLike"
 import CommentInput from "./CommentInput"
 import useReplyInput from "../../../hooks/useReplyInput"
 import useReplyComment from "../../../hooks/useReplyComment"
 import { userInfoState } from "../../../recoil/headerState"
 import { replyCommentListState } from "../../../recoil/postState"
-import useCommentLike from "../../../hooks/useCommentLike"
 
 const CommentContent = styled(Div)`
   flex: 1;
@@ -46,38 +45,6 @@ const Comment = (props) => {
   const [openReplyInput, setOpenReplyInput] = useReplyInput()
   // 임시 데이터
   const isLogin = true
-
-  useEffect(() => {
-    setCommentLikeInfo({
-      goodState: good_state,
-      goodCount: comment_good_count || reply_comment_good_count,
-    })
-  }, [])
-  const [commentLikeInfo, setCommentLikeInfo, toggleCommentLike] =
-    useCommentLike()
-  const { goodState, goodCount } = commentLikeInfo
-  const like = () => {
-    if (isLogin === false) {
-      alert(
-        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
-      )
-    } else {
-      if (comment_idx !== undefined) {
-        if (goodState) {
-          alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 취소 api`)
-        } else {
-          alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 api`)
-        }
-      } else {
-        if (goodState) {
-          alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 취소 api`)
-        } else {
-          alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 api`)
-        }
-      }
-      toggleCommentLike()
-    }
-  }
 
   const userInfo = useRecoilValue(userInfoState)
   const myEmail = userInfo.email
@@ -150,16 +117,9 @@ const Comment = (props) => {
           <P fontSize="sm">{comment_contents || reply_comment_contents}</P>
         </Div>
         <Div display="flex" margin="7px 0 0 0">
-          <IconText
-            onClick={like}
-            src={
-              (goodState === true && "/assets/images/likeFill.svg") ||
-              "/assets/images/like.svg"
-            }
-            text={goodCount}
-            width="18px"
-            fontColor="gray"
-            fontSize="sm"
+          <CommentLike
+            goodState={good_state || comment_good_state}
+            goodCount={comment_good_count || reply_comment_good_count}
           />
           <Div pointer margin="0 0 0 10px">
             <P onClick={() => setOpenReplyInput()} fontSize="sm">
