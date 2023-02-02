@@ -1,4 +1,5 @@
 import React from "react"
+import styled from "styled-components"
 import { useEffect } from "react"
 import { useRecoilValue, useRecoilState } from "recoil"
 
@@ -9,6 +10,10 @@ import CommnetInput from "./CommentInput"
 import Comment from "./Comment"
 import { postInfoState } from "../../../recoil/postState"
 import { commentListState } from "../../../recoil/postState"
+
+const ModalDiv = styled(Div)`
+  overflow-y: auto;
+`
 
 const CommentModalComponent = () => {
   const postInfo = useRecoilValue(postInfoState)
@@ -31,7 +36,7 @@ const CommentModalComponent = () => {
   })
 
   return (
-    <Div
+    <ModalDiv
       width="409px"
       height="512px"
       padding="0 19px 0 27px"
@@ -62,7 +67,7 @@ const CommentModalComponent = () => {
         <CommnetInput commentType="comment" idx={post_idx} />
       </Div>
       <Div width="100%">{commentModalContent}</Div>
-    </Div>
+    </ModalDiv>
   )
 }
 

@@ -28,7 +28,7 @@ const HeaderFunctionComponent = () => {
 
   const moveUploadEvent = () => {
     if (isLogin === true) {
-      alert("업로드 페이지로 이동 기능 구현")
+      navigate("/upload")
     } else {
       alert(
         "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
@@ -37,7 +37,7 @@ const HeaderFunctionComponent = () => {
   }
 
   const moveLoginEvent = () => {
-    alert("로그인 페이지로 이동 기능 구현")
+    navigate("/login")
     setIsLogin(true)
   }
 
@@ -57,7 +57,7 @@ const HeaderFunctionComponent = () => {
   }
 
   const moveMyChannelEvent = () => {
-    alert(`이메일이 ${email}인 채널페이지로 이동`)
+    navigate(`channel/${email}`)
   }
 
   const logoutLogic = () => {
@@ -96,25 +96,30 @@ const HeaderFunctionComponent = () => {
             />
             <Div
               display={profilePopupOpen === true ? "flex" : "none"}
+              alignItems="start"
+              justifyContent="space-evenly"
               direction="column"
               position="absolute"
               bottom="0"
               right="0"
               transform="translate( 0, 80% )"
-              padding="10px"
+              width="85px"
+              height="60px"
+              padding="6px 13px"
               borderRadius="5px"
               backgroundColor="white"
               shadow="0 4px 4px 0 rgba(0,0,0,0.35)"
             >
               <IconText
                 onClick={moveMyChannelEvent}
-                src="/assets/images/edit.svg"
+                src="/assets/images/myChannel.svg"
                 text="내 채널"
               />
               <IconText
                 onClick={logoutLogic}
-                src="/assets/images/report.svg"
+                src="/assets/images/logout.svg"
                 text="로그아웃"
+                fontColor="gray"
               />
             </Div>
           </Div>
