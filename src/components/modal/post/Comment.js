@@ -36,6 +36,7 @@ const Comment = (props) => {
     comment_good_state,
     good_state,
   } = props.commentObject
+  const parentCommentIdx = props.parentCommentIdx
 
   const profileObject = {
     profileImg: profile_img,
@@ -59,7 +60,11 @@ const Comment = (props) => {
     replyCommenContent = replyCommentList.map((element, Idx) => {
       return (
         <Div width="100%" margin="16px 0 0 0">
-          <Comment key={`comment${Idx}`} commentObject={element} />
+          <Comment
+            key={`comment${Idx}`}
+            commentObject={element}
+            parentCommentIdx={comment_idx}
+          />
         </Div>
       )
     })
@@ -129,7 +134,10 @@ const Comment = (props) => {
         </Div>
         {openReplyInput && (
           <Div width="100%" margin="5px 0 0 0">
-            <CommentInput commentType="reply" idx={comment_idx} />
+            <CommentInput
+              commentType="reply"
+              idx={comment_idx || parentCommentIdx}
+            />
           </Div>
         )}
         {reply_comment_count > 0 && (
