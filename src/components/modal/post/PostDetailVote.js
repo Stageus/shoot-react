@@ -35,20 +35,19 @@ const PostDetailVote = (props) => {
   }
 
   const voteEvent = () => {
-    let tmpVoteCountList = []
+    let tmpVoteCountList = voteCountList
     if (myIdx === currentVoteIdx) {
       alert(`투표 번호 ${vote_idx} 투표 취소 api`)
       currentVoteIdx = undefined
-      tmpVoteCountList = setVoteCountListLogic(voteCountList, myIdx, "-")
+      tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "-")
       voteAmount--
     } else {
       alert(`투표 번호 ${vote_idx} 투표 api`)
       if (currentVoteIdx === undefined) {
         voteAmount++
-        tmpVoteCountList = voteCountList
       } else {
         tmpVoteCountList = setVoteCountListLogic(
-          voteCountList,
+          tmpVoteCountList,
           currentVoteIdx,
           "-"
         )
