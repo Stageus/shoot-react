@@ -28,7 +28,7 @@ const HeaderFunctionComponent = () => {
 
   const moveUploadEvent = () => {
     if (isLogin === true) {
-      alert("업로드 페이지로 이동 기능 구현")
+      navigate("/upload")
     } else {
       alert(
         "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
@@ -37,7 +37,7 @@ const HeaderFunctionComponent = () => {
   }
 
   const moveLoginEvent = () => {
-    alert("로그인 페이지로 이동 기능 구현")
+    navigate("/login")
     setIsLogin(true)
   }
 
@@ -57,7 +57,7 @@ const HeaderFunctionComponent = () => {
   }
 
   const moveMyChannelEvent = () => {
-    alert(`이메일이 ${email}인 채널페이지로 이동`)
+    navigate(`channel/${email}`)
   }
 
   const logoutLogic = () => {
