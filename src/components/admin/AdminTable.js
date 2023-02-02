@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 
 import Div from "../basic/Div"
@@ -298,9 +298,12 @@ const AdminReportReplyCommentTable = () => {
 }
 
 const AdminLogTable = () => {
+  const [open, setOpen] = useState(false)
+  const [select, setSelect] = useState(0)
+
   const log = [
-    { email: 1, ip: "경제", url: 25, favFruit: "2022.12.24", res: 1 },
-    { email: 2, ip: "수학", url: 43, favFruit: "2022.12.24", res: 3 },
+    { idx: 1, email: 1, ip: "경제", url: 25, time: "2022.12.24", res: 1 },
+    { idx: 2, email: 2, ip: "수학", url: 43, time: "2022.12.24", res: 3 },
   ]
 
   return (
@@ -314,9 +317,9 @@ const AdminLogTable = () => {
           <ThStyle>응답</ThStyle>
           <ThStyle></ThStyle>
         </tr>
-        {log.map(({ email, ip, url, time, res }, index) => (
-          <>
-            <tr key={index}>
+        {log.map(({ idx, email, ip, url, time, res }) => (
+          <React.Fragment>
+            <tr key={idx}>
               <TdStyle>{email}</TdStyle>
               <TdStyle>{ip}</TdStyle>
               <TdStyle>{url}</TdStyle>
@@ -324,33 +327,50 @@ const AdminLogTable = () => {
               <TdStyle>{res}</TdStyle>
               <TdStyle>
                 <Div display="flex" width="100%">
-                  <Div width="20px" height="20px" pointer>
+                  <Div
+                    width="20px"
+                    height="20px"
+                    pointer
+                    onClick={() => {
+                      setSelect(idx)
+                      setOpen(true)
+                    }}
+                  >
                     <Img src="../assets/images/downArrow.svg" />
                   </Div>
                 </Div>
               </TdStyle>
             </tr>
-            <tr>
-              <ThInfoStyle colSpan="6">
-                <P>이메일: email</P>
-                <P>IP: ip</P>
-                <P>URL: url</P>
-                <P>시간: time</P>
-                <P>상태코드: code</P>
-                <P>Result: data</P>
-                <MdButton backgroundColor="red" margin="5px">
-                  <P color="white" fontSize="sm" fontWeight="700">
-                    정지하기
-                  </P>
-                </MdButton>
-                <MdButton backgroundColor="gray" margin="5px">
-                  <P color="white" fontSize="sm" fontWeight="700">
-                    닫기
-                  </P>
-                </MdButton>
-              </ThInfoStyle>
-            </tr>
-          </>
+            {idx === select && open && (
+              <tr>
+                <ThInfoStyle colSpan="6">
+                  <P>이메일: email</P>
+                  <P>IP: ip</P>
+                  <P>URL: url</P>
+                  <P>시간: time</P>
+                  <P>상태코드: code</P>
+                  <P>Result: data</P>
+                  <MdButton backgroundColor="red" margin="5px">
+                    <P color="white" fontSize="sm" fontWeight="700">
+                      정지하기
+                    </P>
+                  </MdButton>
+                  <MdButton
+                    backgroundColor="gray"
+                    margin="5px"
+                    onClick={() => {
+                      setOpen(false)
+                      setSelect(0)
+                    }}
+                  >
+                    <P color="white" fontSize="sm" fontWeight="700">
+                      닫기
+                    </P>
+                  </MdButton>
+                </ThInfoStyle>
+              </tr>
+            )}
+          </React.Fragment>
         ))}
       </tbody>
     </TableStyle>

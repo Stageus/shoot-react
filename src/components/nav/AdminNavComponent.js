@@ -30,27 +30,27 @@ const AdminNav = () => {
     {
       name: "카테고리 요청 확인",
       svg: "category",
-      link: "category-request",
+      link: "/admin/category-request",
     },
     {
       name: "카테고리 추가",
       svg: "catAdd",
-      link: "category-update",
+      link: "/admin/category-update",
     },
     {
       name: "신고 확인",
       svg: "report",
-      link: "report/post",
+      link: "/admin/report/post",
     },
     {
       name: "로그확인",
       svg: "log",
-      link: "log",
+      link: "/admin/log",
     },
     {
       name: "통계 확인",
       svg: "stats",
-      link: "stats",
+      link: "/admin/stats",
     },
   ]
 
@@ -58,13 +58,14 @@ const AdminNav = () => {
     <React.Fragment>
       <NavBox>
         {adminMenu.map(({ name, svg, link }) => (
-          <Link style={{ textDecoration: "none" }} to={`/admin/${link}`}>
+          <Link style={{ textDecoration: "none" }} to={`${link}`}>
             <NavItem
               key={name}
               menu={name}
               svg={svg}
               setSelectMenu={setSelectMenu}
-              select={selectMenu === name && "select"}
+              select={selectMenu === name && `${name}`}
+              link={link}
             />
           </Link>
         ))}
