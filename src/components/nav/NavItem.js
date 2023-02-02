@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { Button } from "../basic/Button"
 import Div from "../basic/Div"
 import { IconText } from "../common/IconText"
@@ -8,16 +8,23 @@ const NavItem = (props) => {
   const menu = props.menu
   const hashtags = props.hashtags
   const svg = props.svg
-  const [openMenu, setOpenMenu] = useState(false)
   const type = props.type
+  const select = props.select
+  const setSelectMenu = props.setSelectMenu
 
-  const openHandler = (name) => {
-    setOpenMenu(!openMenu)
+  const selectHandler = (name) => {
+    setSelectMenu(name)
   }
 
   return (
     <>
-      <Button width="210px" backgroundColor="transparent" onClick={openHandler}>
+      <Button
+        width="210px"
+        backgroundColor="transparent"
+        onClick={() => {
+          selectHandler(menu)
+        }}
+      >
         <Div
           width="180px"
           height="38px"
@@ -25,7 +32,7 @@ const NavItem = (props) => {
           margin="0px 0px 0px 20px"
           display="flex"
         >
-          {type && openMenu ? (
+          {select ? (
             <IconText
               src={`/assets/images/${svg}Clicked.svg`}
               text={menu}
@@ -36,7 +43,9 @@ const NavItem = (props) => {
           )}
         </Div>
       </Button>
-      {menu !== "홈" && type && openMenu && <NavHashtag hashtags={hashtags} />}
+      {menu !== "홈" && type && select ? (
+        <NavHashtag hashtags={hashtags} />
+      ) : null}
     </>
   )
 }

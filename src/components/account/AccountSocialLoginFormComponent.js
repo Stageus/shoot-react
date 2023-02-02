@@ -6,16 +6,6 @@ import Div from "../basic/Div"
 import Img from "../basic/Img"
 import P from "../basic/P"
 
-const COLOR = {
-  MAIN: "#FF6B6B",
-  WHITE: "#FFFFFF",
-  GRAY: "#C8C8C8",
-  BLACK: "#151515",
-  NAVER: "#1ec800",
-  KAKAO: "#fee500",
-  GOOGLE: "#FFFFFF",
-}
-
 const Line = styled.hr`
   width: 150px;
   margin-left: 10px;
@@ -42,13 +32,13 @@ const AccountSocialLoginFormComponent = () => {
         </Div>
       </Div>
 
-      <LgButton backgroundColor="lightGray" margin="0px 0px 12px 0px">
+      <LgButton backgroundColor="NAVER" margin="0px 0px 12px 0px">
         <P color="white">네이버로 로그인</P>
       </LgButton>
-      <LgButton backgroundColor="lightGray" margin="0px 0px 12px 0px">
+      <LgButton backgroundColor="KAKAO" margin="0px 0px 12px 0px">
         <P>카카오로 로그인</P>
       </LgButton>
-      <ShadowButton backgroundColor={COLOR.GOOGLE} margin="0px 0px 12px 0px">
+      <ShadowButton backgroundColor="white" margin="0px 0px 12px 0px">
         <P>Google로 로그인</P>
       </ShadowButton>
     </React.Fragment>

@@ -1,11 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 import NavItem from "./NavItem"
 
 const NavBox = styled.nav`
-  position: sticky;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -25,6 +25,7 @@ const NavBox = styled.nav`
 `
 
 const AdminNav = () => {
+  const [selectMenu, setSelectMenu] = useState("")
   const adminMenu = [
     {
       name: "카테고리 요청 확인",
@@ -58,7 +59,13 @@ const AdminNav = () => {
       <NavBox>
         {adminMenu.map(({ name, svg, link }) => (
           <Link style={{ textDecoration: "none" }} to={`/admin/${link}`}>
-            <NavItem key={name} menu={name} svg={svg} />
+            <NavItem
+              key={name}
+              menu={name}
+              svg={svg}
+              setSelectMenu={setSelectMenu}
+              select={selectMenu === name && "select"}
+            />
           </Link>
         ))}
       </NavBox>

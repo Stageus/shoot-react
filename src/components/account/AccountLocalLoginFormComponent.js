@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-import Input from "../basic/Input"
+import { Input } from "../basic/Input"
 import { LgButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"
@@ -60,7 +60,7 @@ const AccountLocalLoginFormComponent = () => {
             <P>|</P>
           </Div>
 
-          <Link style={{ textDecoration: "none" }} to="/find_pw">
+          <Link style={{ textDecoration: "none" }} to="/find-pw">
             <Div display="flex">
               <P>비밀번호 찾기</P>
             </Div>

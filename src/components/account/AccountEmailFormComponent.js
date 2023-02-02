@@ -41,7 +41,7 @@ const AccountEmailFormComponent = () => {
           onBlur={onBlurEmail}
           isFocus={emailFocus}
         />
-        {!emailFocus ? <P color="error">{emailMessage}</P> : null}
+        {!emailFocus ? <P color="red">{emailMessage}</P> : null}
 
         <Div
           display="flex"

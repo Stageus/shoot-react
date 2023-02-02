@@ -103,9 +103,9 @@ const AccountPersonalFormComponent = () => {
               isFocus={dayFocus}
             />
           </Div>
-          {!yearFocus ? <P color="error">{yearMessage}</P> : null}
-          {!monthFocus ? <P color="error">{monthMessage}</P> : null}
-          {!dayFocus ? <P color="error">{dayMessage}</P> : null}
+          {!yearFocus ? <P color="red">{yearMessage}</P> : null}
+          {!monthFocus ? <P color="red">{monthMessage}</P> : null}
+          {!dayFocus ? <P color="red">{dayMessage}</P> : null}
         </Div>
       </Div>
 
@@ -148,7 +148,7 @@ const AccountPersonalFormComponent = () => {
           onBlur={onBlurChannelName}
           isFocus={channelNameFocus}
         />
-        {!channelNameFocus ? <P color="error">{channelNameMessage}</P> : null}
+        {!channelNameFocus ? <P color="red">{channelNameMessage}</P> : null}
       </Div>
     </React.Fragment>
   )

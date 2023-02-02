@@ -1,21 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 
 import { SmButton } from "../basic/Button"
 import Div from "../basic/Div"
 import Img from "../basic/Img"
-import Input from "../basic/Input"
+import { Input } from "../basic/Input"
 import P from "../basic/P"
 import NavItem from "./NavItem"
 
 const NavBox = styled.nav`
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 220px;
   height: calc(100vh - 60px);
   text-align: center;
-  top: 60px;
   overflow: auto;
   overflow-y: auto;
   &::-webkit-scrollbar {
@@ -35,7 +35,12 @@ const Line = styled.hr`
 `
 
 const Nav = () => {
+  const [selectMenu, setSelectMenu] = useState("홈")
   const categoryMenu = [
+    {
+      name: "홈",
+      hashtags: [],
+    },
     {
       name: "게임",
       hashtags: ["롤", "오버워치", "롤토체스", "배틀그라운드", "메이플스토리"],
@@ -75,8 +80,6 @@ const Nav = () => {
   return (
     <Div display="flex">
       <NavBox>
-        <NavItem menu={"홈"} svg={"menuArrow"} />
-
         {categoryMenu.map(({ name, hashtags }) => (
           <NavItem
             key={name}
@@ -84,11 +87,19 @@ const Nav = () => {
             hashtags={hashtags}
             svg={"menuArrow"}
             type={"open"}
+            select={selectMenu === name && name}
+            setSelectMenu={setSelectMenu}
           />
         ))}
         <Line />
         {generalMenu.map(({ name, svg }) => (
-          <NavItem key={name} menu={name} svg={svg} />
+          <NavItem
+            key={name}
+            menu={name}
+            svg={svg}
+            setSelectMenu={setSelectMenu}
+            select={selectMenu === name && "select"}
+          />
         ))}
 
         <Line />
@@ -121,7 +132,7 @@ const Nav = () => {
             </SmButton>
           </Div>
 
-          <P fontSize="xs" color="#C8C8C8">
+          <P fontSize="xs" color="gray">
             띄어쓰기 없이 12자까지 입력 가능합니다
           </P>
         </Div>

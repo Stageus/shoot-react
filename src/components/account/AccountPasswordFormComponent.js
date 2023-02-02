@@ -45,7 +45,7 @@ const AccountPasswordFormComponent = () => {
           onBlur={onBlurPassword}
           isFocus={passwordFocus}
         />
-        {!passwordFocus ? <P color="error">{passwordMessage}</P> : null}
+        {!passwordFocus ? <P color="red">{passwordMessage}</P> : null}
       </Div>
 
       <Div>
@@ -64,9 +64,7 @@ const AccountPasswordFormComponent = () => {
           onBlur={onBlurPasswordCheck}
           isFocus={passwordCheckFocus}
         />
-        {!passwordCheckFocus ? (
-          <P color="error">{passwordCheckMessage}</P>
-        ) : null}
+        {!passwordCheckFocus ? <P color="red">{passwordCheckMessage}</P> : null}
       </Div>
     </React.Fragment>
   )
