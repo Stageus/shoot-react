@@ -9,7 +9,7 @@ import SeeMore from "../../common/SeeMore"
 import { IconText } from "../../common/IconText"
 import CommentLike from "./CommentLike"
 import CommentInput from "./CommentInput"
-import useReplyInput from "../../../hooks/useReplyInput"
+import useToggle from "../../../hooks/useToggle"
 import useReplyComment from "../../../hooks/useReplyComment"
 import { userInfoState } from "../../../recoil/headerState"
 import { replyCommentListState } from "../../../recoil/postState"
@@ -43,7 +43,7 @@ const Comment = (props) => {
     email: write_channel_email || email,
   }
 
-  const [openReplyInput, setOpenReplyInput] = useReplyInput()
+  const [openReplyInput, setOpenReplyInput] = useToggle()
   // 임시 데이터
   const isLogin = true
 
