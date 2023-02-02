@@ -7,6 +7,7 @@ import Img from "../basic/Img"
 import { Input } from "../basic/Input"
 import P from "../basic/P"
 import NavItem from "./NavItem"
+import NavCategoryItem from "./NavCategoryItem"
 
 const NavBox = styled.nav`
   position: fixed;
@@ -81,13 +82,12 @@ const Nav = () => {
     <Div display="flex">
       <NavBox>
         {categoryMenu.map(({ name, hashtags }) => (
-          <NavItem
+          <NavCategoryItem
             key={name}
             menu={name}
             hashtags={hashtags}
             svg={"menuArrow"}
-            type={"open"}
-            select={selectMenu === name && name}
+            select={selectMenu === name && `${name}`}
             setSelectMenu={setSelectMenu}
           />
         ))}
@@ -98,7 +98,7 @@ const Nav = () => {
             menu={name}
             svg={svg}
             setSelectMenu={setSelectMenu}
-            select={selectMenu === name && "select"}
+            select={selectMenu === name && `${name}`}
           />
         ))}
 
