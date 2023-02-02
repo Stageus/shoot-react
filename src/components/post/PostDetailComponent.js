@@ -13,6 +13,7 @@ import PostDetailBookmarkIcon from "./PostDetailBookmarkIcon"
 import PostDetailLinkList from "./PostDetailLinkList"
 import PostDetailSubscribeButton from "./PostDetailSubscribeButton"
 import { postInfoState } from "../../recoil/postState"
+import { userInfoState } from "../../recoil/headerState"
 
 const PostContainer = styled.article`
   position: relative;
@@ -36,8 +37,10 @@ const PostDetailComponent = () => {
     category_idx,
   } = postInfo
 
+  const userInfo = useRecoilValue(userInfoState)
+  const { email } = userInfo
   // 임시 data
-  const isMyPost = false
+  const isMyPost = email === upload_channel_email
 
   const testObject1 = {
     profileImg: profile_img,
@@ -54,7 +57,21 @@ const PostDetailComponent = () => {
 
   return (
     <PostContainer>
-      <Img src={post_thumbnail} />
+      <Div
+        width="100%"
+        height="100%"
+        border="1px solid #333333"
+        borderRadius="5px"
+      >
+        <video
+          src={post_video}
+          autoPlay
+          loop
+          playsInline
+          width="100%"
+          height="100%"
+        />
+      </Div>
       <Div position="absolute" bottom="0" width="90%" margin="5%">
         <Div display="flex" alignItems="end" margin="15px 0">
           <Div>
@@ -96,7 +113,7 @@ const PostDetailComponent = () => {
           text={comment_count}
         />
         {(isMyPost === false && (
-          <SeeMore share report parent="post" parentInfo="testUrl" />
+          <SeeMore share report parent="post" parentInfo={post_idx} />
         )) ||
           (isMyPost === true && (
             <SeeMore
@@ -105,7 +122,7 @@ const PostDetailComponent = () => {
               delete
               alarm={true}
               parent="post"
-              parentInfo="testUrl"
+              parentInfo={post_idx}
             />
           ))}
       </Div>

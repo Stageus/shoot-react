@@ -25,8 +25,8 @@ export const isLoginState = atom({
 export const userInfoState = atom({
   key: "userInfo",
   default: {
-    email: "howToUser@shoot.com",
-    name: "howToUser",
+    email: "test1@shoot.com",
+    name: "test1",
     profile_img: "/assets/images/user.svg",
   }, //object
 })

@@ -1,4 +1,5 @@
 import React from "react"
+import styled from "styled-components"
 import { useRecoilValue } from "recoil"
 
 import Div from "../../basic/Div"
@@ -8,6 +9,10 @@ import PostDetailVoteListComponent from "./PostDetailVoteListComponent"
 import Hashtag from "../../common/Hashtag"
 import { postInfoState, likeCountState } from "../../../recoil/postState"
 import PostDetailLinkList from "../../post/PostDetailLinkList"
+
+const ModalDiv = styled(Div)`
+  overflow-y: auto;
+`
 
 const PostDetailModalComponent = () => {
   const postInfo = useRecoilValue(postInfoState)
@@ -33,7 +38,7 @@ const PostDetailModalComponent = () => {
   }
 
   return (
-    <Div
+    <ModalDiv
       width="409px"
       height="512px"
       padding="0 19px 0 27px"
@@ -103,7 +108,7 @@ const PostDetailModalComponent = () => {
       <Div display="flex" justifyContent="start" margin="21px 0 0 0">
         {hashtagContent}
       </Div>
-    </Div>
+    </ModalDiv>
   )
 }
 
