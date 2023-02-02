@@ -11,8 +11,6 @@ const NavCategoryItem = (props) => {
   const select = props.select
   const setSelectMenu = props.setSelectMenu
 
-  console.log(hashtags)
-
   const selectHandler = (name) => {
     setSelectMenu(name)
   }
