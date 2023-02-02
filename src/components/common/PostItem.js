@@ -1,12 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
+import { useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import { H1 } from "../basic/H"
 import Img from "../basic/Img"
-
 import Profile from "./Profile"
+import SeeMore from "./SeeMore"
+import { userInfoState } from "../../recoil/headerState"
 
 const Article = styled.article`
   flex-grow: 1;
@@ -37,6 +39,10 @@ const PostItem = (props) => {
     navigate(`/detail/post-id/${post_idx}`)
   }
 
+  const userInfo = useRecoilValue(userInfoState)
+  const { email } = userInfo
+  const isMyPost = email === upload_channel_email
+
   return (
     <Article>
       <Div
@@ -53,6 +59,25 @@ const PostItem = (props) => {
             <H1 fontSize="lg" onClick={movePostDetailEvent}>
               {post_title}
             </H1>
+          </Div>
+          <Div position="absolute" top="0" right="-10px">
+            {(isMyPost === true && (
+              <SeeMore
+                modify
+                delete
+                alarm={true}
+                parent="post"
+                parentInfo={post_idx}
+                width="30px"
+              />
+            )) || (
+              <SeeMore
+                report
+                parent="post"
+                parentInfo={post_idx}
+                width="30px"
+              />
+            )}
           </Div>
         </Div>
         <Profile

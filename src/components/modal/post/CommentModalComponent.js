@@ -32,8 +32,8 @@ const CommentModalComponent = () => {
   }
 
   useEffect(() => {
-    alert("댓글 리스트 불러오는 api")
-  })
+    alert(`게시글 번호가 ${post_idx}인 댓글 리스트 불러오는 api`)
+  }, [postInfo])
 
   return (
     <ModalDiv

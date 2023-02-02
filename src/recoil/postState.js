@@ -21,11 +21,6 @@ export const isBookmarkState = atom({
   default: false,
 })
 
-export const currentLinkIdxState = atom({
-  key: "currentLinkIdx",
-  default: 0,
-})
-
 // header backEndState
 export const postItemListState = atom({
   key: "postItemList",

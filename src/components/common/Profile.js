@@ -1,4 +1,5 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
@@ -9,8 +10,9 @@ const Profile = (props) => {
   const { profileImg, email } = props.profileObject
   const width = props.width
 
+  const navigate = useNavigate()
   const setMainContent = () => {
-    alert(`./email_ + ${email}`)
+    navigate(`/channel/${email}`)
   }
 
   const setSubscribe = () => {

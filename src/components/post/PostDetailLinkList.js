@@ -1,11 +1,11 @@
-import React, { useEffect } from "react"
 import styled from "styled-components"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
 import PostDetailLink from "./PostDetailLink"
-import { currentLinkIdxState, postInfoState } from "../../recoil/postState"
+import { postInfoState } from "../../recoil/postState"
+import useLinkListIdx from "../../hooks/useLinkListIdx"
 
 const LinkContainer = styled(Div)`
   overflow: hidden;
@@ -14,15 +14,14 @@ const LinkContainer = styled(Div)`
 const PostDetailLinkList = () => {
   const postInfo = useRecoilValue(postInfoState)
   const { link } = postInfo
-  const [currentLinkIdx, setCurrentLinkIdx] =
-    useRecoilState(currentLinkIdxState)
+  const [linkListIdx, setLinkListIdx] = useLinkListIdx()
 
   const moveLinkLeftEvent = () => {
-    setCurrentLinkIdx(currentLinkIdx - 1)
+    setLinkListIdx(linkListIdx - 1)
   }
 
   const moveLinkRightEvent = () => {
-    setCurrentLinkIdx(currentLinkIdx + 1)
+    setLinkListIdx(linkListIdx + 1)
   }
 
   let linkContent
@@ -38,13 +37,9 @@ const PostDetailLinkList = () => {
     })
   }
 
-  useEffect(() => {
-    setCurrentLinkIdx(0)
-  }, [postInfo])
-
   return (
     <LinkContainer position="relative" width="100%">
-      {currentLinkIdx !== 0 && (
+      {linkListIdx !== 0 && (
         <Div
           onClick={moveLinkLeftEvent}
           pointer
@@ -62,11 +57,11 @@ const PostDetailLinkList = () => {
         justifyContent="flex-start"
         wrap="nowrap"
         width="100%"
-        margin={`0 0 0 -${currentLinkIdx}00%`}
+        margin={`0 0 0 -${linkListIdx}00%`}
       >
         {linkContent}
       </Div>
-      {currentLinkIdx !== link.length - 1 && (
+      {linkListIdx !== link.length - 1 && (
         <Div
           onClick={moveLinkRightEvent}
           pointer
