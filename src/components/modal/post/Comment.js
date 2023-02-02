@@ -1,4 +1,5 @@
 import React from "react"
+import { useEffect } from "react"
 import styled from "styled-components"
 import { useRecoilState, useRecoilValue } from "recoil"
 
@@ -12,6 +13,7 @@ import useReplyInput from "../../../hooks/useReplyInput"
 import useReplyComment from "../../../hooks/useReplyComment"
 import { userInfoState } from "../../../recoil/headerState"
 import { replyCommentListState } from "../../../recoil/postState"
+import useCommentLike from "../../../hooks/useCommentLike"
 
 const CommentContent = styled(Div)`
   flex: 1;
@@ -43,8 +45,17 @@ const Comment = (props) => {
 
   const [openReplyInput, setOpenReplyInput] = useReplyInput()
   // 임시 데이터
-  const isLogin = false
+  const isLogin = true
 
+  useEffect(() => {
+    setCommentLikeInfo({
+      goodState: good_state,
+      goodCount: comment_good_count || reply_comment_good_count,
+    })
+  }, [])
+  const [commentLikeInfo, setCommentLikeInfo, toggleCommentLike] =
+    useCommentLike()
+  const { goodState, goodCount } = commentLikeInfo
   const like = () => {
     if (isLogin === false) {
       alert(
@@ -52,19 +63,19 @@ const Comment = (props) => {
       )
     } else {
       if (comment_idx !== undefined) {
-        if (good_state) {
+        if (goodState) {
           alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 취소 api`)
         } else {
           alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 api`)
         }
       } else {
-        if (good_state) {
+        if (goodState) {
           alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 취소 api`)
         } else {
           alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 api`)
         }
       }
-      alert("댓글 정보 다시 불러오느 api")
+      toggleCommentLike()
     }
   }
 
@@ -142,11 +153,10 @@ const Comment = (props) => {
           <IconText
             onClick={like}
             src={
-              (good_state === true && "/assets/images/likeFill.svg") ||
-              (comment_good_state === true && "/assets/images/likeFill.svg") ||
+              (goodState === true && "/assets/images/likeFill.svg") ||
               "/assets/images/like.svg"
             }
-            text={comment_good_count || reply_comment_good_count}
+            text={goodCount}
             width="18px"
             fontColor="gray"
             fontSize="sm"
