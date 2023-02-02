@@ -45,6 +45,7 @@ const PostDetailVote = (props) => {
       alert(`투표 번호 ${vote_idx} 투표 api`)
       if (currentVoteIdx === undefined) {
         voteAmount++
+        tmpVoteCountList = voteCountList
       } else {
         tmpVoteCountList = setVoteCountListLogic(
           voteCountList,
