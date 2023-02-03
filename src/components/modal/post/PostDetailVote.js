@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil"
 import Div from "../../basic/Div"
 import P from "../../basic/P"
 import { voteInfoState } from "../../../recoil/postState"
+import { isLoginState } from "../../../recoil/headerState"
 
 const PostDetailVote = (props) => {
   const { vote_idx, vote_contents } = props.voteObject
@@ -34,32 +35,39 @@ const PostDetailVote = (props) => {
     return tmpVoteCountList
   }
 
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState)
   const voteEvent = () => {
-    let tmpVoteCountList = voteCountList
-    if (myIdx === currentVoteIdx) {
-      alert(`투표 번호 ${vote_idx} 투표 취소 api`)
-      currentVoteIdx = undefined
-      tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "-")
-      voteAmount--
+    if (isLogin === false) {
+      alert(
+        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
+      )
     } else {
-      alert(`투표 번호 ${vote_idx} 투표 api`)
-      if (currentVoteIdx === undefined) {
-        voteAmount++
+      let tmpVoteCountList = voteCountList
+      if (myIdx === currentVoteIdx) {
+        alert(`투표 번호 ${vote_idx} 투표 취소 api`) //401 에러 나올 경우 setIsLogin(false)
+        currentVoteIdx = undefined
+        tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "-")
+        voteAmount--
       } else {
-        tmpVoteCountList = setVoteCountListLogic(
-          tmpVoteCountList,
-          currentVoteIdx,
-          "-"
-        )
+        alert(`투표 번호 ${vote_idx} 투표 api`) //401 에러 나올 경우 setIsLogin(false)
+        if (currentVoteIdx === undefined) {
+          voteAmount++
+        } else {
+          tmpVoteCountList = setVoteCountListLogic(
+            tmpVoteCountList,
+            currentVoteIdx,
+            "-"
+          )
+        }
+        currentVoteIdx = myIdx
+        tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "+")
       }
-      currentVoteIdx = myIdx
-      tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "+")
+      setVoteInfo({
+        voteIdx: currentVoteIdx,
+        voteCountList: tmpVoteCountList,
+        voteAmount: voteAmount,
+      })
     }
-    setVoteInfo({
-      voteIdx: currentVoteIdx,
-      voteCountList: tmpVoteCountList,
-      voteAmount: voteAmount,
-    })
   }
 
   return (
