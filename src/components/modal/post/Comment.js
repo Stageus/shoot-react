@@ -44,8 +44,6 @@ const Comment = (props) => {
   }
 
   const [openReplyInput, setOpenReplyInput] = useToggle()
-  // 임시 데이터
-  const isLogin = true
 
   const userInfo = useRecoilValue(userInfoState)
   const myEmail = userInfo.email
