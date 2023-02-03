@@ -8,7 +8,7 @@ const IconText = (props) => {
   const { src, text, onClick, width, fontColor, fontSize } = props
 
   return (
-    <Div onClick={onClick} display="flex" margin="3px 0" pointer>
+    <Div onMouseDown={onClick} display="flex" margin="3px 0" pointer>
       <Div width={width || "20px"} height={width || "20px"}>
         <Img src={src} />
       </Div>
