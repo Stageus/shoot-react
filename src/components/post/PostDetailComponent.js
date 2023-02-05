@@ -47,6 +47,16 @@ const PostDetailComponent = () => {
     email: upload_channel_email,
   }
 
+  const videoControl = () => {
+    var postVideo = document.getElementById("postVideo")
+
+    if (postVideo.paused) {
+      postVideo.play()
+    } else {
+      postVideo.pause()
+    }
+  }
+
   const openDetailModal = () => {
     alert("본문열기")
   }
@@ -58,6 +68,7 @@ const PostDetailComponent = () => {
   return (
     <PostContainer>
       <Div
+        onClick={videoControl}
         width="100%"
         height="100%"
         border="1px solid #333333"
@@ -68,6 +79,7 @@ const PostDetailComponent = () => {
           autoPlay
           loop
           playsInline
+          id="postVideo"
           width="100%"
           height="100%"
         />
