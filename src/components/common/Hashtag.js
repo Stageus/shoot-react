@@ -32,7 +32,7 @@ const Hashtag = (props) => {
         display="flex"
         alignItems="center"
       >
-        <P fontSize="md" color="gray">
+        <P fontSize="sm" color="gray">
           {hashtag}
         </P>
       </Div>
