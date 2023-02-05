@@ -6,6 +6,8 @@ import NavItem from "./NavItem"
 
 const NavBox = styled.nav`
   position: fixed;
+  top: 60px;
+  left: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
