@@ -1,7 +1,8 @@
 import React from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useRef } from "react"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState } from "recoil"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
@@ -20,13 +21,14 @@ const HeaderFunctionComponent = () => {
   const [profilePopupOpen, setProfilePopupOpen] = useRecoilState(
     profilePopupOpenState
   )
-  const userInfo = useRecoilValue(userInfoState)
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
   const profilePopupRef = useRef()
   const navigate = useNavigate()
 
   const { email, name, profile_img } = userInfo
 
   const moveUploadEvent = () => {
+    alert("로그인 상태 가져오는 api") //이후 setIsLogin에 넣기
     if (isLogin === true) {
       navigate("/upload")
     } else {
@@ -38,6 +40,7 @@ const HeaderFunctionComponent = () => {
 
   const moveLoginEvent = () => {
     navigate("/login")
+    // 임시 상태 변경
     setIsLogin(true)
   }
 
@@ -61,9 +64,24 @@ const HeaderFunctionComponent = () => {
   }
 
   const logoutLogic = () => {
-    alert("로그아웃 기능 구현")
+    alert("로그아웃 기능 api")
     setIsLogin(false)
   }
+
+  useEffect(() => {
+    alert("로그인 상태 가져오는 api") //이후 setIsLogin에 넣기
+    if (isLogin === false) {
+      setUserInfo({})
+    } else {
+      alert("유저 정보 가져오는 api")
+      const tmpUserInfo = {
+        email: "test1@shoot.com",
+        name: "test1",
+        profile_img: "/assets/images/user.svg",
+      }
+      setUserInfo(tmpUserInfo)
+    }
+  }, [isLogin])
 
   return (
     <Div display="flex">

@@ -1,12 +1,13 @@
 import React from "react"
 import { useEffect } from "react"
+import { useRecoilState } from "recoil"
 
 import { IconText } from "../../common/IconText"
 import useCommentLike from "../../../hooks/useCommentLike"
+import { isLoginState } from "../../../recoil/headerState"
 
 const CommentLike = (props) => {
-  // 임시 데이터
-  const isLogin = true
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState)
 
   const { type, idx, goodState, goodCount } = props
   const [commentLikeInfo, setCommentLikeInfo, toggleCommentLike] =
@@ -30,9 +31,9 @@ const CommentLike = (props) => {
     } else {
       if (type === "comment") {
         if (currnetGoodState) {
-          alert(`댓글 번호가 ${idx}인 게시글 좋아요 취소 api`)
+          alert(`댓글 번호가 ${idx}인 게시글 좋아요 취소 api`) //401 에러 나올 경우 setIsLogin(false)
         } else {
-          alert(`댓글 번호가 ${idx}인 게시글 좋아요 api`)
+          alert(`댓글 번호가 ${idx}인 게시글 좋아요 api`) //401 에러 나올 경우 setIsLogin(false)
         }
       } else {
         if (currnetGoodState) {

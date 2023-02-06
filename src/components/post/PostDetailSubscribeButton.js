@@ -4,14 +4,13 @@ import { useRecoilState, useRecoilValue } from "recoil"
 import P from "../basic/P"
 import { MdButton } from "../basic/Button"
 import { isSubscribeState, postInfoState } from "../../recoil/postState"
+import { isLoginState } from "../../recoil/headerState"
 
 const PostDetailSubscribeButton = () => {
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState)
   const postInfo = useRecoilValue(postInfoState)
   const { upload_channel_email, subscribe_state } = postInfo
   const [isSubscribe, setIsSubscribe] = useRecoilState(isSubscribeState)
-
-  // 임시 데이터
-  const isLogin = true
 
   const setSubscribe = () => {
     if (isLogin === false) {
@@ -19,13 +18,13 @@ const PostDetailSubscribeButton = () => {
         "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
       )
     } else {
-      alert(`${upload_channel_email} 구독 api`)
+      alert(`${upload_channel_email} 구독 api`) //401 에러 나올 경우 setIsLogin(false)
       setIsSubscribe(true)
     }
   }
 
   const removeSubscribe = () => {
-    alert(`${upload_channel_email} 구독 취소 api`)
+    alert(`${upload_channel_email} 구독 취소 api`) //401 에러 나올 경우 setIsLogin(false)
     setIsSubscribe(false)
   }
 

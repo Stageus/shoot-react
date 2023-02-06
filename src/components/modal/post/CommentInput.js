@@ -1,13 +1,13 @@
 import React from "react"
 import styled from "styled-components"
-import { useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
 import { Input } from "../../basic/Input"
 import { SmButton } from "../../basic/Button"
 import Profile from "../../common/Profile"
-import { userInfoState } from "../../../recoil/headerState"
+import { userInfoState, isLoginState } from "../../../recoil/headerState"
 
 const InputDiv = styled(Div)`
   flex: 1;
@@ -22,14 +22,21 @@ const CommentInput = (props) => {
     email: email,
   }
 
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState)
   const EnterCommentEvent = (e) => {
-    const CommentInputValue = document.getElementById(
-      `${commentType}Input_${idx}`
-    ).value
-    if (commentType === "comment") {
-      alert(`post번호가 ${idx}인 곳에 ${CommentInputValue} 댓글 추가`)
+    if (isLogin === false) {
+      alert(
+        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
+      )
     } else {
-      alert(`comment번호가 ${idx}인 곳에 ${CommentInputValue} 대댓글 추가`)
+      const CommentInputValue = document.getElementById(
+        `${commentType}Input_${idx}`
+      ).value
+      if (commentType === "comment") {
+        alert(`post번호가 ${idx}인 곳에 ${CommentInputValue} 댓글 추가`) //401 에러 나올 경우 setIsLogin(false)
+      } else {
+        alert(`comment번호가 ${idx}인 곳에 ${CommentInputValue} 대댓글 추가`) //401 에러 나올 경우 setIsLogin(false)
+      }
     }
   }
 
