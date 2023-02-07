@@ -1,6 +1,8 @@
 import React from "react"
+import { useEffect } from "react"
 import styled from "styled-components"
 import { useRecoilState, useRecoilValue } from "recoil"
+import useDifferenceTime from "../../../hooks/useTimeDifference"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
@@ -12,7 +14,10 @@ import CommentInput from "./CommentInput"
 import useToggle from "../../../hooks/useToggle"
 import useReplyComment from "../../../hooks/useReplyComment"
 import { userInfoState } from "../../../recoil/headerState"
-import { replyCommentListState } from "../../../recoil/postState"
+import {
+  commentListState,
+  replyCommentListState,
+} from "../../../recoil/postState"
 
 const CommentContent = styled(Div)`
   flex: 1;
@@ -42,6 +47,15 @@ const Comment = (props) => {
     profileImg: profile_img,
     email: write_channel_email || email,
   }
+
+  const commentList = useRecoilValue(commentListState)
+  const [differenceTime, setDifferenceTime] = useDifferenceTime()
+
+  useEffect(() => {
+    const nowTime = new Date()
+    const objectTime = new Date(comment_time || reply_comment_time)
+    setDifferenceTime(nowTime, objectTime)
+  }, [commentList])
 
   const [openReplyInput, setOpenReplyInput] = useToggle()
 
@@ -93,7 +107,7 @@ const Comment = (props) => {
           </Div>
           <Div>
             <P fontSize="12px" color="gray">
-              {comment_time || reply_comment_time}
+              {differenceTime}
             </P>
           </Div>
         </Div>
