@@ -2,7 +2,7 @@ import React from "react"
 import { useEffect } from "react"
 import styled from "styled-components"
 import { useRecoilState, useRecoilValue } from "recoil"
-import useDifferenceTime from "../../../hooks/useTimeDifference"
+import useDifferenceTime from "../../../hooks/useDifferenceTime"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"

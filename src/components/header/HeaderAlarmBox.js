@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import P from "../basic/P"
-import useDifferenceTime from "../../hooks/useTimeDifference"
+import useDifferenceTime from "../../hooks/useDifferenceTime"
 import { alarmOpenState } from "../../recoil/headerState"
 
 const HeaderAlarmBox = (props) => {
