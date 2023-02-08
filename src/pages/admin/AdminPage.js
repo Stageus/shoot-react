@@ -9,18 +9,8 @@ const AdminPage = () => {
   return (
     <React.Fragment>
       <HeaderComponent />
-
-      <Div
-        display="flex"
-        direction="row"
-        width="100%"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        margin="60px 0px 0px 0px"
-      >
-        <AdminNavComponent />
-        <Outlet></Outlet>
-      </Div>
+      <AdminNavComponent />
+      <Outlet></Outlet>
     </React.Fragment>
   )
 }

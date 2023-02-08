@@ -6,8 +6,10 @@ import { MdButton } from "../basic/Button"
 import { H1 } from "../basic/H"
 
 const MainDiv = styled.main`
+  position: fixed;
   width: calc(100vw - 280px);
-  margin-left: 220px;
+  top: 60px;
+  left: 220px;
   overflow-x: auto;
 `
 
