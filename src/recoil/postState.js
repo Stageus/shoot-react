@@ -21,9 +21,9 @@ export const isBookmarkState = atom({
   default: false,
 })
 
-export const currentLinkIdxState = atom({
-  key: "currentLinkIdx",
-  default: 0,
+export const voteInfoState = atom({
+  key: "voteInfo",
+  default: {},
 })
 
 // header backEndState

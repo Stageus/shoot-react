@@ -7,8 +7,9 @@ import P from "../../basic/P"
 import Profile from "../../common/Profile"
 import SeeMore from "../../common/SeeMore"
 import { IconText } from "../../common/IconText"
+import CommentLike from "./CommentLike"
 import CommentInput from "./CommentInput"
-import useReplyInput from "../../../hooks/useReplyInput"
+import useToggle from "../../../hooks/useToggle"
 import useReplyComment from "../../../hooks/useReplyComment"
 import { userInfoState } from "../../../recoil/headerState"
 import { replyCommentListState } from "../../../recoil/postState"
@@ -35,38 +36,14 @@ const Comment = (props) => {
     comment_good_state,
     good_state,
   } = props.commentObject
+  const parentCommentIdx = props.parentCommentIdx
 
   const profileObject = {
     profileImg: profile_img,
     email: write_channel_email || email,
   }
 
-  const [openReplyInput, setOpenReplyInput] = useReplyInput()
-  // 임시 데이터
-  const isLogin = false
-
-  const like = () => {
-    if (isLogin === false) {
-      alert(
-        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
-      )
-    } else {
-      if (comment_idx !== undefined) {
-        if (good_state) {
-          alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 취소 api`)
-        } else {
-          alert(`댓글 번호가 ${comment_idx}인 게시글 좋아요 api`)
-        }
-      } else {
-        if (good_state) {
-          alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 취소 api`)
-        } else {
-          alert(`대댓글 번호가 ${reply_comment_idx}인 게시글 좋아요 api`)
-        }
-      }
-      alert("댓글 정보 다시 불러오느 api")
-    }
-  }
+  const [openReplyInput, setOpenReplyInput] = useToggle()
 
   const userInfo = useRecoilValue(userInfoState)
   const myEmail = userInfo.email
@@ -81,7 +58,11 @@ const Comment = (props) => {
     replyCommenContent = replyCommentList.map((element, Idx) => {
       return (
         <Div width="100%" margin="16px 0 0 0">
-          <Comment key={`comment${Idx}`} commentObject={element} />
+          <Comment
+            key={`comment${Idx}`}
+            commentObject={element}
+            parentCommentIdx={comment_idx}
+          />
         </Div>
       )
     })
@@ -139,17 +120,11 @@ const Comment = (props) => {
           <P fontSize="sm">{comment_contents || reply_comment_contents}</P>
         </Div>
         <Div display="flex" margin="7px 0 0 0">
-          <IconText
-            onClick={like}
-            src={
-              (good_state === true && "/assets/images/likeFill.svg") ||
-              (comment_good_state === true && "/assets/images/likeFill.svg") ||
-              "/assets/images/like.svg"
-            }
-            text={comment_good_count || reply_comment_good_count}
-            width="18px"
-            fontColor="gray"
-            fontSize="sm"
+          <CommentLike
+            type={(comment_idx && "comment") || "reply"}
+            idx={(comment_idx && comment_idx) || reply_comment_idx}
+            goodState={good_state || comment_good_state}
+            goodCount={comment_good_count || reply_comment_good_count}
           />
           <Div pointer margin="0 0 0 10px">
             <P onClick={() => setOpenReplyInput()} fontSize="sm">
@@ -159,7 +134,10 @@ const Comment = (props) => {
         </Div>
         {openReplyInput && (
           <Div width="100%" margin="5px 0 0 0">
-            <CommentInput commentType="reply" idx={comment_idx} />
+            <CommentInput
+              commentType="reply"
+              idx={comment_idx || parentCommentIdx}
+            />
           </Div>
         )}
         {reply_comment_count > 0 && (
