@@ -10,7 +10,7 @@ export const categoryUpdateState = atom({
 
 // get
 export const categoryRequestState = atom({
-  key: "categoryUpdate",
+  key: "categoryRequest",
   default: [],
 })
 
@@ -74,7 +74,7 @@ export const reportCommentState = atom({
 })
 
 export const reportCommentIdxState = atom({
-  key: "reportPostIdx",
+  key: "reportCommentIdx",
   default: [
     {
       /* report_idx: string,
@@ -98,12 +98,12 @@ export const reportCommentIdxState = atom({
 
 // get
 export const reportReplyCommentState = atom({
-  key: "reportComment",
+  key: "reportReplyComment",
   default: [],
 })
 
 export const reportReplyCommentIdxState = atom({
-  key: "reportPostIdx",
+  key: "reportReplyCommentIdx",
   default: [
     {
       /* report_idx: string,
@@ -133,7 +133,7 @@ export const logState = atom({
 })
 
 export const logIdxState = atom({
-  key: "log",
+  key: "logIdx",
   default: [
     {
       /*id: "1",
