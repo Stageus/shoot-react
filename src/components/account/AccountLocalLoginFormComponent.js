@@ -104,6 +104,16 @@ const AccountLocalLoginFormComponent = () => {
         margin="0px 0px 30px 0px"
         onClick={() => {
           console.log(localLogin)
+          fetch("http://api.슛.site/auth/local", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(localLogin),
+          }).then(async (res) => {
+            const result = await res.json()
+            console.log(result)
+          })
         }}
       >
         <P color="white" fontSize="lg" fontWeight="700">
