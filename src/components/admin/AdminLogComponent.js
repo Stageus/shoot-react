@@ -28,7 +28,7 @@ const AdminLogComponent = () => {
         <Input
           width="120px"
           height="22px"
-          placeholder="내용을 입력하세요"
+          placeholder="이메일 검색"
           border="1px solid #c8c8c8"
           fontSize="sm"
           borderRadius="5px"
@@ -38,7 +38,7 @@ const AdminLogComponent = () => {
         <Input
           width="120px"
           height="22px"
-          placeholder="내용을 입력하세요"
+          placeholder="경로 검색"
           border="1px solid #c8c8c8"
           fontSize="sm"
           borderRadius="5px"
