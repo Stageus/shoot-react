@@ -90,7 +90,7 @@ const PostDetailComponent = () => {
           <Div>
             <H1 fontSize="lg">{post_title}</H1>
           </Div>
-          {post_type === 1 && (
+          {post_type === 2 && (
             <Div pointer margin="0 5px">
               <P onClick={openDetailModal} fontSize="sm" color="gray">
                 투표하기
@@ -102,7 +102,7 @@ const PostDetailComponent = () => {
           <Profile profileObject={testObject1} name={upload_channel_name} />
           {isMyPost === false && <PostDetailSubscribeButton />}
         </Div>
-        {post_type === 2 && <PostDetailLinkList />}
+        {post_type === 3 && <PostDetailLinkList />}
       </Div>
       <Div
         display="flex"

@@ -19,7 +19,7 @@ const MainPage = () => {
     post_video: "/assets/videos/video1.mp4",
     post_thumbnail: "/assets/images/postThumbnail.png",
     post_upload_time: "2022-02-06T19:27:14.672Z",
-    post_type: 0,
+    post_type: 1,
 
     post_good_count: 1111,
     post_view_count: "111만회",
@@ -47,7 +47,7 @@ const MainPage = () => {
     post_video: "/assets/videos/video2.mp4",
     post_thumbnail: "/assets/images/postThumbnail.png",
     post_upload_time: "2023-01-03T19:27:14.672Z",
-    post_type: 1,
+    post_type: 2,
 
     post_good_count: 2222,
     post_view_count: "222만회",
@@ -105,7 +105,7 @@ const MainPage = () => {
     post_video: "/assets/videos/video3.mp4",
     post_thumbnail: "/assets/images/postThumbnail.png",
     post_upload_time: "2023-02-02T18:27:14.672Z",
-    post_type: 2,
+    post_type: 3,
 
     post_good_count: 3333,
     post_view_count: "333만회",

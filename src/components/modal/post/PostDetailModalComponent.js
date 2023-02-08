@@ -108,8 +108,8 @@ const PostDetailModalComponent = () => {
       <Div margin="27px 0">
         <P>{post_description}</P>
       </Div>
-      {(post_type === 1 && <PostDetailVoteListComponent />) ||
-        (post_type === 2 && <PostDetailLinkList />)}
+      {(post_type === 2 && <PostDetailVoteListComponent />) ||
+        (post_type === 3 && <PostDetailLinkList />)}
       <Div display="flex" justifyContent="start" margin="21px 0 0 0">
         {hashtagContent}
       </Div>
