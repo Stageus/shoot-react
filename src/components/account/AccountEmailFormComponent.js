@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useRecoilState } from "recoil"
 
 import { MdButton } from "../basic/Button"
 import Div from "../basic/Div"
@@ -8,6 +9,8 @@ import CountdownTimer from "../common/CountdownTimer"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 import useValidationInput from "../../hooks/useValidationInput"
+
+import { signUpState, emailAuthState } from "../../recoil/accountState"
 
 const AccountEmailFormComponent = () => {
   const emailRegExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
@@ -22,6 +25,22 @@ const AccountEmailFormComponent = () => {
 
   const [auth, onChangeAuth] = useInput()
   const [authFocus, onFocusAuth, onBlurAuth] = useFocusInput()
+
+  const [signUp, setSignUp] = useRecoilState(signUpState)
+  const [emailAuth, setEmailAuth] = useRecoilState(emailAuthState)
+  const [isEmailAuth, setIsEmailAuth] = useState(false)
+
+  useEffect(() => {
+    if (isEmail) {
+      setEmailAuth({ email: email })
+    }
+    if (isEmailAuth) {
+      setSignUp({
+        ...signUp,
+        email: email,
+      })
+    }
+  }, [email, isEmailAuth])
 
   return (
     <React.Fragment>
@@ -53,7 +72,7 @@ const AccountEmailFormComponent = () => {
             backgroundColor="primary"
             onClick={() => {
               if (isEmail) {
-                alert(email)
+                console.log(emailAuth)
               }
             }}
           >
@@ -101,6 +120,7 @@ const AccountEmailFormComponent = () => {
             margin="0px 0px 0px 6px"
             onClick={() => {
               alert(auth)
+              setIsEmailAuth(true)
             }}
           >
             <P color="white">인증하기</P>

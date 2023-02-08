@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { useRecoilState } from "recoil"
 
 import { LgButton } from "../../components/basic/Button"
 import Div from "../../components/basic/Div"
@@ -8,8 +9,11 @@ import Img from "../../components/basic/Img"
 import AccountEmailFormComponent from "../../components/account/AccountEmailFormComponent"
 import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
 import AccountPersonalFormComponent from "../../components/account/AccountPersonalFormComponent"
+import { signUpState } from "../../recoil/accountState"
 
 const SignupPage = () => {
+  const [signUp, setSignUp] = useRecoilState(signUpState)
+
   return (
     <Div
       width="100%"
@@ -29,7 +33,13 @@ const SignupPage = () => {
       <AccountPasswordFormComponent />
       <AccountPersonalFormComponent />
 
-      <LgButton backgroundColor="primary" margin="30px 0px 50px 0px">
+      <LgButton
+        backgroundColor="primary"
+        margin="30px 0px 50px 0px"
+        onClick={() => {
+          console.log(signUp)
+        }}
+      >
         <P color="white" fontSize="lg">
           확인
         </P>
