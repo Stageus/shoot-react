@@ -91,7 +91,7 @@ const App = () => {
         </Route>
 
         {/* <Route path="/channel/modify" element={<ChannelModifyComponent />} /> */}
-        <Route path="/upload" element={<UploadComponent />} />
+        {/* <Route path="/upload" element={<UploadComponent />} /> */}
 
         <Route path="/" element={<NavComponent />} />
         <Route path="/login" element={<LoginPage />} />
