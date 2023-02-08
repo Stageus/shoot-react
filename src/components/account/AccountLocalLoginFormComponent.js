@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import { useRecoilState } from "recoil"
 
 import { Input } from "../basic/Input"
 import { LgButton } from "../basic/Button"
@@ -10,11 +11,33 @@ import EventInput from "./EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
+import { localLoginState } from "../../recoil/accountState"
+
 const AccountLocalLoginFormComponent = () => {
   const [email, onChangeEmail] = useInput()
   const [emailFocus, onFocusEmail, onBlurEmail] = useFocusInput()
   const [password, onChangePassword] = useInput()
   const [passwordFocus, onFocusPassword, onBlurPassword] = useFocusInput()
+  const [isCheck, setIsCheck] = useState(false)
+
+  const [localLogin, setLocalLogin] = useRecoilState(localLoginState)
+
+  const isCheckHandler = (e) => {
+    if (e.target.checked) {
+      setIsCheck(true)
+    } else {
+      setIsCheck(false)
+    }
+  }
+
+  useEffect(() => {
+    setLocalLogin({
+      ...localLogin,
+      email: email,
+      pw: password,
+      autoLogin: isCheck,
+    })
+  }, [email, password, isCheck])
 
   return (
     <React.Fragment>
@@ -22,7 +45,9 @@ const AccountLocalLoginFormComponent = () => {
         placeholder={"이메일"}
         type={"email"}
         src={"../assets/images/email.svg"}
-        onChange={onChangeEmail}
+        onChange={(e) => {
+          onChangeEmail(e)
+        }}
         onFocus={onFocusEmail}
         onBlur={onBlurEmail}
         isFocus={emailFocus}
@@ -44,7 +69,13 @@ const AccountLocalLoginFormComponent = () => {
         display="flex"
       >
         <Div display="flex">
-          <Input type="checkbox" margin="0px 5px 0px 0px" />
+          <Input
+            type="checkbox"
+            margin="0px 5px 0px 0px"
+            onClick={(e) => {
+              isCheckHandler(e)
+            }}
+          />
           <Div display="flex">
             <P>로그인 상태 유지</P>
           </Div>
@@ -68,7 +99,23 @@ const AccountLocalLoginFormComponent = () => {
         </Div>
       </Div>
 
-      <LgButton backgroundColor="primary" margin="0px 0px 30px 0px">
+      <LgButton
+        backgroundColor="primary"
+        margin="0px 0px 30px 0px"
+        onClick={() => {
+          console.log(localLogin)
+          fetch("http://api.슛.site/auth/local", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(localLogin),
+          }).then(async (res) => {
+            const result = await res.json()
+            console.log(result)
+          })
+        }}
+      >
         <P color="white" fontSize="lg" fontWeight="700">
           로그인
         </P>

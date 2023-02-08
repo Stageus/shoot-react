@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useRecoilState } from "recoil"
 
 import Div from "../basic/Div"
 import P from "../basic/P"
@@ -6,6 +7,8 @@ import EventInput from "./EventInput"
 import useInput from "../../hooks/useInput"
 import useValidationInput from "../../hooks/useValidationInput"
 import useFocusInput from "../../hooks/useFocusInput"
+
+import { signUpState } from "../../recoil/accountState"
 
 const AccountPasswordFormComponent = () => {
   const passwordRegExp =
@@ -26,6 +29,24 @@ const AccountPasswordFormComponent = () => {
   ] = useValidationInput(password, passwordCheckErrorMessage)
   const [passwordCheckFocus, onFocusPasswordCheck, onBlurPasswordCheck] =
     useFocusInput()
+
+  const [signUp, setSignUp] = useRecoilState(signUpState)
+
+  useEffect(() => {
+    if (isPassword) {
+      setSignUp({
+        ...signUp,
+        pw: password,
+      })
+    }
+
+    if (isPasswordCheck) {
+      setSignUp({
+        ...signUp,
+        pwCheck: passwordCheck,
+      })
+    }
+  }, [password, passwordCheck])
 
   return (
     <React.Fragment>

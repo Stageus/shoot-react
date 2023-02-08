@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import { useRecoilState } from "recoil"
 
 import { SmButton } from "../basic/Button"
 import Div from "../basic/Div"
@@ -8,6 +9,7 @@ import { Input } from "../basic/Input"
 import P from "../basic/P"
 import NavItem from "./NavItem"
 import NavCategoryItem from "./NavCategoryItem"
+import { categoryMenuState } from "../../recoil/navState"
 
 const NavBox = styled.nav`
   position: fixed;
@@ -39,28 +41,6 @@ const Line = styled.hr`
 
 const Nav = () => {
   const [selectMenu, setSelectMenu] = useState("홈")
-  const categoryMenu = [
-    {
-      name: "홈",
-      hashtags: [],
-    },
-    {
-      name: "게임",
-      hashtags: ["롤", "오버워치", "롤토체스", "배틀그라운드", "메이플스토리"],
-    },
-    {
-      name: "음악",
-      hashtags: ["클래식", "가요", "아이브", "르세라핌", "빅뱅"],
-    },
-    {
-      name: "영화",
-      hashtags: ["무비", "아바타", "엄청이름이긴영화열두글자", "영화", "영화2"],
-    },
-    {
-      name: "스포츠",
-      hashtags: ["축구", "농구", "야구", "배구", "스케이트"],
-    },
-  ]
   const generalMenu = [
     {
       name: "HOT",
@@ -80,16 +60,62 @@ const Nav = () => {
     },
   ]
 
+  const [categoryMenu, setCategoryMenu] = useRecoilState(categoryMenuState)
+
+  useEffect(() => {
+    let tmpCategoryMenu = [
+      {
+        category_idx: 1,
+        category_name: "홈",
+        hashtags: [],
+      },
+      {
+        category_idx: 2,
+        category_name: "게임",
+        hashtags: [
+          "롤",
+          "오버워치",
+          "롤토체스",
+          "배틀그라운드",
+          "메이플스토리",
+        ],
+      },
+      {
+        category_idx: 3,
+        category_name: "음악",
+        hashtags: ["클래식", "가요", "아이브", "르세라핌", "빅뱅"],
+      },
+      {
+        category_idx: 4,
+        category_name: "영화",
+        hashtags: [
+          "무비",
+          "아바타",
+          "엄청이름이긴영화열두글자",
+          "영화",
+          "영화2",
+        ],
+      },
+      {
+        category_idx: 5,
+        category_name: "스포츠",
+        hashtags: ["축구", "농구", "야구", "배구", "스케이트"],
+      },
+    ]
+
+    setCategoryMenu(tmpCategoryMenu)
+  }, [])
+
   return (
     <Div display="flex">
       <NavBox>
-        {categoryMenu.map(({ name, hashtags }) => (
+        {categoryMenu.map(({ category_idx, category_name, hashtags }) => (
           <NavCategoryItem
-            key={name}
-            menu={name}
+            key={category_idx}
+            menu={category_name}
             hashtags={hashtags}
             svg={"menuArrow"}
-            select={selectMenu === name && `${name}`}
+            select={selectMenu === category_name && `${category_name}`}
             setSelectMenu={setSelectMenu}
           />
         ))}

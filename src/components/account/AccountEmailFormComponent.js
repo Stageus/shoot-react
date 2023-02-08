@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useRecoilState } from "recoil"
 
 import { MdButton } from "../basic/Button"
 import Div from "../basic/Div"
@@ -8,6 +9,8 @@ import CountdownTimer from "../common/CountdownTimer"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 import useValidationInput from "../../hooks/useValidationInput"
+
+import { signUpState, emailAuthState } from "../../recoil/accountState"
 
 const AccountEmailFormComponent = () => {
   const emailRegExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
@@ -22,6 +25,33 @@ const AccountEmailFormComponent = () => {
 
   const [auth, onChangeAuth] = useInput()
   const [authFocus, onFocusAuth, onBlurAuth] = useFocusInput()
+
+  const [signUp, setSignUp] = useRecoilState(signUpState)
+  const [emailAuth, setEmailAuth] = useRecoilState(emailAuthState)
+  const [isEmailAuth, setIsEmailAuth] = useState(false)
+  const [timer, setTimer] = useState(false)
+  const [count, setCount] = useState(180)
+
+  useEffect(() => {
+    if (isEmail) {
+      setEmailAuth({ email: email })
+    }
+    if (isEmailAuth) {
+      setSignUp({
+        ...signUp,
+        email: email,
+      })
+    }
+    if (timer) {
+      const id = setInterval(() => {
+        setCount((count) => count - 1)
+      }, 1000)
+      if (!timer) {
+        clearInterval(id)
+      }
+      return () => clearInterval(id)
+    }
+  }, [email, isEmailAuth, count, timer])
 
   return (
     <React.Fragment>
@@ -53,7 +83,8 @@ const AccountEmailFormComponent = () => {
             backgroundColor="primary"
             onClick={() => {
               if (isEmail) {
-                alert(email)
+                console.log(emailAuth)
+                setTimer(true)
               }
             }}
           >
@@ -80,7 +111,11 @@ const AccountEmailFormComponent = () => {
           width="400px"
           margin="0px 0px 12px 0px"
         >
-          <CountdownTimer time={"180"} />
+          <Div>
+            <P fontSize="md" color="red">{`${String(
+              parseInt(count / 60)
+            ).padStart(2, "0")}:${String(count % 60).padStart(2, "0")}`}</P>
+          </Div>
         </Div>
         <Div
           display="flex"
@@ -100,7 +135,9 @@ const AccountEmailFormComponent = () => {
             backgroundColor="primary"
             margin="0px 0px 0px 6px"
             onClick={() => {
+              setTimer(false)
               alert(auth)
+              setIsEmailAuth(true)
             }}
           >
             <P color="white">인증하기</P>

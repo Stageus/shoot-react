@@ -10,41 +10,31 @@ export const categoryUpdateState = atom({
 
 // get
 export const categoryRequestState = atom({
-  key: "categoryUpdate",
-  default: [
-    {
-      request_category_name: "경제",
-      request_count: 25,
-      recent_request_time: "2022.12.14",
-    },
-    {
-      request_category_name: "수학",
-      request_count: 41,
-      recent_request_time: "2022.12.14",
-    },
-    {
-      request_category_name: "과학",
-      request_count: 22,
-      recent_request_time: "2022.12.14",
-    },
-  ],
+  key: "categoryRequest",
+  default: [],
 })
 
 // get
 export const reportChannelState = atom({
   key: "reportChannel",
+  default: [],
+})
+
+export const reportChannelEmailState = atom({
+  key: "reportChannelEmail",
   default: [
     {
-      reported_channel_email: "shoot.naver.com",
-      reported_channel_time: "2022-12-23",
-      reported_channel_name: "qwerr",
-      report_count: 5,
-    },
-    {
-      reported_channel_email: "stageus.naver.com",
-      reported_channel_time: "2022-12-28",
-      reported_channel_name: "poiu12",
-      report_count: 10,
+      /* report_idx : string,
+
+    object : "channel",
+    report_channel_email : string, 
+    report_contents : string, 
+    report_time : timestamp, 
+    report_type : int, 
+    
+    reported_channel_email : string, 
+    channel_name : string, 
+    channel_creation_time : timestamp */
     },
   ],
 })
@@ -52,14 +42,27 @@ export const reportChannelState = atom({
 // get
 export const reportPostState = atom({
   key: "reportPost",
+  default: [],
+})
+
+export const reportPostIdxState = atom({
+  key: "reportPostIdx",
   default: [
     {
-      reported_post_idx: 4,
-      reported_post_title: "hello",
-      reported_post_upload_time: "2022-11-12",
-      reported_channel_email: "shoot.naver.com",
-      reported_channel_name: "qwerr",
-      report_count: 2,
+      /* report_idx : string,
+
+    object : "channel",
+    report_channel_email : string, 
+    report_contents : string, 
+    report_time : timestamp, 
+    report_type : int, 
+    
+    reported_channel_email : string, 
+    reported_channel_name : string,
+		
+		reported_post_idx : int, 
+		reported_post_title : string, 
+		reported_post_upload_time : timestamp,  */
     },
   ],
 })
@@ -67,31 +70,58 @@ export const reportPostState = atom({
 // get
 export const reportCommentState = atom({
   key: "reportComment",
+  default: [],
+})
+
+export const reportCommentIdxState = atom({
+  key: "reportCommentIdx",
   default: [
     {
-      post_idx: 33,
-      reported_comment_idx: 2,
-      reported_comment_contents: "helloheool",
-      reported_comment_write_time: "2023-01-12",
-      reported_channel_email: "shoot.naver.com",
-      reported_channel_name: "qwerr",
-      report_count: 5,
+      /* report_idx: string,
+
+      object: "channel",
+      report_channel_email: string,
+      report_contents: string,
+      report_time: timestamp,
+      report_type: int,
+
+      post_idx: int,
+      reported_comment_idx: int,
+      reported_comment_contents: string,
+      reported_comment_write_time: timestamp,
+
+      reported_channel_email: string,
+      reported_channel_name: string, */
     },
   ],
 })
 
 // get
 export const reportReplyCommentState = atom({
-  key: "reportComment",
+  key: "reportReplyComment",
+  default: [],
+})
+
+export const reportReplyCommentIdxState = atom({
+  key: "reportReplyCommentIdx",
   default: [
     {
-      post_idx: 33,
-      reported_reply_comment_idx: 2,
-      reported_reply_comment_contents: "helloheool",
-      reported_reply_comment_write_time: "2023-01-12",
-      reported_channel_email: "shoot.naver.com",
-      reported_channel_name: "qwerr",
-      report_count: 5,
+      /* report_idx: string,
+
+      object: "channel",
+      report_channel_email: string,
+      reported_channel_email: string,
+      report_contents: string,
+      report_time: timestamp,
+      report_type: int,
+
+      post_idx: int,
+      reported_reply_comment_idx: int,
+      reported_reply_comment_contents: string,
+      reported_reply_comment_write_time: timestamp,
+
+      reported_channel_email: string,
+      reported_channel_name: string, */
     },
   ],
 })
@@ -99,17 +129,22 @@ export const reportReplyCommentState = atom({
 // get
 export const logState = atom({
   key: "log",
+  default: [],
+})
+
+export const logIdxState = atom({
+  key: "logIdx",
   default: [
     {
-      id: "shoot.naver.com", // 로그 아이디
-      ip: NULL || string, // 요청 아이피
-      req_channel_email: NULL || string, // 요청 채널 이메일
-      method: string, // 요청 메소드
-      api_path: string, // 요청 경로
-      req_time: timestamp,
-      res_time: timestamp,
-      status_code: int, // 응답 코드
-      result: string,
+      /*id: "1",
+    ip: "123.123.123",
+    req_channel_email: "shoot.naver.com",
+    method: "abc",
+    api_path: "path",
+    req_time: "timestamp",
+    res_time: "timestamp",
+    status_code: 1,
+  result: "string",*/
     },
   ],
 })
@@ -119,9 +154,9 @@ export const blockState = atom({
   key: "block",
   default: [
     {
-      period: int, // 초 단위 ( 0초만 아니면 됨 )
+      /*period: int, // 초 단위 ( 0초만 아니면 됨 )
       reason: NULL || string, // 정지 사유 ( 200글자 까지 )
-      email: string, // 정지할 채널의 이메일 ( 320 글자 까지 )
+      email: string, // 정지할 채널의 이메일 ( 320 글자 까지 )*/
     },
   ],
 })

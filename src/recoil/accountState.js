@@ -11,8 +11,8 @@ export const localLoginState = atom({
 })
 
 // post
-export const singUpState = atom({
-  key: "singUp",
+export const signUpState = atom({
+  key: "signUp",
   default: {
     email: "",
     pw: "",
@@ -31,6 +31,12 @@ export const emailAuthState = atom({
   default: {
     email: "",
   },
+})
+
+// get
+export const emailAuthNumberState = atom({
+  key: "emailAuthNumber",
+  default: [],
 })
 
 // put

@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import { useRecoilState } from "recoil"
 
 import Div from "../basic/Div"
 import P from "../basic/P"
@@ -8,6 +9,8 @@ import SmallEventInput from "./SmallEventInput"
 import useInput from "../../hooks/useInput"
 import useValidationInput from "../../hooks/useValidationInput"
 import useFocusInput from "../../hooks/useFocusInput"
+
+import { signUpState } from "../../recoil/accountState"
 
 const SelectBox = styled.select`
   width: 360px;
@@ -56,6 +59,43 @@ const AccountPersonalFormComponent = () => {
   const [dayFocus, onFocusDay, onBlurDay] = useFocusInput()
 
   const [selected, setSelected] = useState("")
+
+  const [signUp, setSignUp] = useRecoilState(signUpState)
+
+  useEffect(() => {
+    if (isYear && isMonth && isDay) {
+      setSignUp({
+        ...signUp,
+        birth: `${year}-${month}-${day}`, // YYYY-mm-DD
+      })
+    }
+
+    if (selected) {
+      if (selected == "남자") {
+        setSignUp({
+          ...signUp,
+          sex: 1,
+        })
+      } else if (selected == "여자") {
+        setSignUp({
+          ...signUp,
+          sex: 2,
+        })
+      } else {
+        setSignUp({
+          ...signUp,
+          sex: 0,
+        })
+      }
+    }
+
+    if (isChannelName) {
+      setSignUp({
+        ...signUp,
+        channelName: channelName,
+      })
+    }
+  }, [year, month, day, selected, channelName])
 
   const handleSelect = (e) => {
     setSelected(e.target.value)
