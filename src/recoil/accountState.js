@@ -33,6 +33,12 @@ export const emailAuthState = atom({
   },
 })
 
+// get
+export const emailAuthNumberState = atom({
+  key: "emailAuthNumber",
+  default: [],
+})
+
 // put
 export const resetPasswordState = atom({
   key: "resetPassword",
