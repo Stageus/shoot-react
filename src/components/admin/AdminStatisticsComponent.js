@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { H1 } from "../basic/H"
 import Div from "../basic/Div"
-import Stats from "./Stats"
+import ChartComponent from "./ChartComponent"
 
 const MainDiv = styled.main`
   position: fixed;
@@ -59,7 +59,7 @@ const AdminStatisticsComponent = () => {
     <MainDiv>
       <H1 fontSize="lg">통계 확인</H1>
       <Div width="980px" margin="10px 0px 0px 0px">
-        <Stats chartData={chartData} chartOption={chartOption} />
+        <ChartComponent chartData={chartData} chartOption={chartOption} />
       </Div>
     </MainDiv>
   )

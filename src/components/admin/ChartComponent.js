@@ -10,7 +10,7 @@ import {
   Title,
 } from "chart.js"
 
-const Stats = (props) => {
+const ChartComponent = (props) => {
   const chartData = props.chartData
   const chartOption = props.chartOption
   const canvasDom = useRef(null)
@@ -34,4 +34,4 @@ const Stats = (props) => {
   return <canvas ref={canvasDom}></canvas>
 }
 
-export default Stats
+export default ChartComponent
