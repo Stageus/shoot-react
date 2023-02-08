@@ -29,6 +29,8 @@ const AccountEmailFormComponent = () => {
   const [signUp, setSignUp] = useRecoilState(signUpState)
   const [emailAuth, setEmailAuth] = useRecoilState(emailAuthState)
   const [isEmailAuth, setIsEmailAuth] = useState(false)
+  const [timer, setTimer] = useState(false)
+  const [count, setCount] = useState(180)
 
   useEffect(() => {
     if (isEmail) {
@@ -40,7 +42,16 @@ const AccountEmailFormComponent = () => {
         email: email,
       })
     }
-  }, [email, isEmailAuth])
+    if (timer) {
+      const id = setInterval(() => {
+        setCount((count) => count - 1)
+      }, 1000)
+      if (!timer) {
+        clearInterval(id)
+      }
+      return () => clearInterval(id)
+    }
+  }, [email, isEmailAuth, count, timer])
 
   return (
     <React.Fragment>
@@ -73,6 +84,7 @@ const AccountEmailFormComponent = () => {
             onClick={() => {
               if (isEmail) {
                 console.log(emailAuth)
+                setTimer(true)
               }
             }}
           >
@@ -99,7 +111,11 @@ const AccountEmailFormComponent = () => {
           width="400px"
           margin="0px 0px 12px 0px"
         >
-          <CountdownTimer time={"180"} />
+          <Div>
+            <P fontSize="md" color="red">{`${String(
+              parseInt(count / 60)
+            ).padStart(2, "0")}:${String(count % 60).padStart(2, "0")}`}</P>
+          </Div>
         </Div>
         <Div
           display="flex"
@@ -119,6 +135,7 @@ const AccountEmailFormComponent = () => {
             backgroundColor="primary"
             margin="0px 0px 0px 6px"
             onClick={() => {
+              setTimer(false)
               alert(auth)
               setIsEmailAuth(true)
             }}
