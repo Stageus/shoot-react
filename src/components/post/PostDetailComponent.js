@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useRecoilValue } from "recoil"
+import { useSetRecoilState, useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
@@ -14,6 +14,7 @@ import PostDetailLinkList from "./PostDetailLinkList"
 import PostDetailSubscribeButton from "./PostDetailSubscribeButton"
 import { postInfoState } from "../../recoil/postState"
 import { userInfoState } from "../../recoil/headerState"
+import { modalOpenState, modalInfoState } from "../../recoil/modalState"
 
 const PostContainer = styled.article`
   position: relative;
@@ -57,12 +58,16 @@ const PostDetailComponent = () => {
     }
   }
 
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const setModalInfo = useSetRecoilState(modalInfoState)
   const openDetailModal = () => {
-    alert("본문열기")
+    setOpenModal(true)
+    setModalInfo({ type: "detail" })
   }
 
   const openCommentModal = () => {
-    alert("댓글열기")
+    setOpenModal(true)
+    setModalInfo({ type: "comment" })
   }
 
   return (

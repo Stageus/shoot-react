@@ -40,7 +40,6 @@ const CommentModalComponent = () => {
       width="409px"
       height="512px"
       padding="0 19px 0 27px"
-      border="1px solid #C8C8C8"
       borderRadius="5px"
     >
       <Div
