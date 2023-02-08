@@ -1,83 +1,69 @@
-import React from "react";
-
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import { Button, MdButton } from "../basic/Button";
-import P from "../basic/P";
+import useOutSideClick from "../../hooks/useOutSideClick";
+import ModalContainer from "./ModalContainer";
 import Div from "../basic/Div";
-import { H2 } from "../basic/H";
+import AlertModal from "./AlertModal";
+import ConfirmModal from "./ConfirmModal";
+import { modalOpenState, modalInfoState } from "../../recoil/modalState";
 
-const ModalDiv = styled(Div)`
-  overflow: hidden;
+const Overlay = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+`;
+const ModalWrap = styled.div`
+  width: fit-content;
+  height: fit-content;
+  border-radius: 15px;
+  background-color: #fff;
   position: absolute;
-  cursor: default;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Modal = (props) => {
-  const navigate = useNavigate();
-  const name = props.modalName;
+const Modal = () => {
+  const modalRef = useRef(null);
+  const setOpenModal = useSetRecoilState(modalOpenState);
+  const closeModal = () => {
+    setOpenModal(false);
+  };
 
+  const modalInfo = useRecoilValue(modalInfoState);
+  const modalType = modalInfo.type;
+
+  useOutSideClick(modalRef, closeModal);
+  useEffect(() => {
+    const $body = document.querySelector("body");
+    $body.style.overflow = "hidden";
+    return () => ($body.style.overflow = "auto");
+  }, []);
   return (
-    <ModalDiv
-      width="100vw"
-      height="100%"
-      position="absolute"
-      top="0"
-      backgroundColor="background"
-      display="flex"
-    >
-      <Div
-        minWidth="300px"
-        position="relative"
-        padding="30px"
-        backgroundColor="white"
-        borderRadius="5px"
-        display="flex"
-        direction="column"
-      >
-        {/*<H2>{name}</H2>*/}
-        {/*<Div margin="0 0 10px 0" width="100%">*/}
-        {/*    <H2 color="default" fontSize="lg">모달 임시 제목은 제목입니다</H2>*/}
-        {/*</Div>*/}
-
-        <Div minHeight="120px" display="flex" margin={"0 0 20px 0"}>
-          <P>'모달내용'이라는 카테고리 추가를 요청했습니다</P>
-        </Div>
-
-        <Div position="absolute" bottom="15px" right="20px">
-          {/*alert*/}
-          {/*<Div>*/}
-          {/*    <MdButton backgroundColor="primary" onClick={() => navigate(-1)}>*/}
-          {/*        <P color="white" fontWeight="600">확인</P>*/}
-          {/*    </MdButton>*/}
-          {/*</Div>*/}
-
-          {/*confirm*/}
-          <Div>
-            <MdButton
-              backgroundColor="gray"
-              margin="0 10px 0 0"
-              onClick={() => navigate(-1)}
-            >
-              <P color="white" fontWeight="600">
-                취소
-              </P>
-            </MdButton>
-            <MdButton
-              backgroundColor="primary"
-              onClick={() => alert("action!")}
-            >
-              <P color="white" fontWeight="600">
-                확인
-              </P>
-            </MdButton>
+    <ModalContainer>
+      <Overlay>
+        <ModalWrap ref={modalRef}>
+          {/* <CloseButton onClick={handleClose}>
+            <i className="fa-solid fa-xmark"></i>
+          </CloseButton> */}
+          <Div margin="30px">
+            {(modalType === "confirm" && <ConfirmModal />) ||
+              (modalType === "alert" && <AlertModal />)}
           </Div>
-        </Div>
-      </Div>
-    </ModalDiv>
+        </ModalWrap>
+      </Overlay>
+    </ModalContainer>
   );
 };
 
