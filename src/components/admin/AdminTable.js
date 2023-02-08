@@ -435,7 +435,7 @@ const AdminLogTable = () => {
   const [log, setLog] = useRecoilState(logState)
 
   useEffect(() => {
-    let tmpLog = [
+    /* let tmpLog = [
       {
         id: "1",
         ip: "123.123.123",
@@ -447,9 +447,18 @@ const AdminLogTable = () => {
         status_code: 1,
         result: "string",
       },
-    ]
+    ]*/
 
-    setLog(tmpLog)
+    fetch("http://api.슛.site/log/all", {
+      method: "GET",
+      credentials: "include",
+    }).then(async (response) => {
+      console.log(response)
+
+      const result = await response.json()
+
+      console.log(result)
+    })
   }, [])
 
   return (
@@ -463,73 +472,74 @@ const AdminLogTable = () => {
           <ThStyle>응답</ThStyle>
           <ThStyle></ThStyle>
         </tr>
-        {log.map(
-          ({
-            id,
-            ip,
-            req_channel_email,
-            method,
-            api_path,
-            req_time,
-            res_time,
-            status_code,
-            result,
-          }) => (
-            <React.Fragment>
-              <tr key={id}>
-                <TdStyle>{req_channel_email}</TdStyle>
-                <TdStyle>{ip}</TdStyle>
-                <TdStyle>{api_path}</TdStyle>
-                <TdStyle>{req_time}</TdStyle>
-                <TdStyle>{status_code}</TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div
-                      width="20px"
-                      height="20px"
-                      pointer
-                      onClick={() => {
-                        setSelect(id)
-                        setOpen(true)
-                      }}
-                    >
-                      <Img src="../assets/images/downArrow.svg" />
+        {log &&
+          log.map(
+            ({
+              id,
+              ip,
+              req_channel_email,
+              method,
+              api_path,
+              req_time,
+              res_time,
+              status_code,
+              result,
+            }) => (
+              <React.Fragment>
+                <tr key={id}>
+                  <TdStyle>{req_channel_email}</TdStyle>
+                  <TdStyle>{ip}</TdStyle>
+                  <TdStyle>{api_path}</TdStyle>
+                  <TdStyle>{req_time}</TdStyle>
+                  <TdStyle>{status_code}</TdStyle>
+                  <TdStyle>
+                    <Div display="flex" width="100%">
+                      <Div
+                        width="20px"
+                        height="20px"
+                        pointer
+                        onClick={() => {
+                          setSelect(id)
+                          setOpen(true)
+                        }}
+                      >
+                        <Img src="../assets/images/downArrow.svg" />
+                      </Div>
                     </Div>
-                  </Div>
-                </TdStyle>
-              </tr>
-              {id === select && open && (
-                <tr>
-                  <ThInfoStyle colSpan="6">
-                    <P>이메일: email</P>
-                    <P>IP: ip</P>
-                    <P>URL: url</P>
-                    <P>시간: time</P>
-                    <P>상태코드: code</P>
-                    <P>Result: data</P>
-                    <MdButton backgroundColor="red" margin="5px">
-                      <P color="white" fontSize="sm" fontWeight="700">
-                        정지하기
-                      </P>
-                    </MdButton>
-                    <MdButton
-                      backgroundColor="gray"
-                      margin="5px"
-                      onClick={() => {
-                        setOpen(false)
-                        setSelect(0)
-                      }}
-                    >
-                      <P color="white" fontSize="sm" fontWeight="700">
-                        닫기
-                      </P>
-                    </MdButton>
-                  </ThInfoStyle>
+                  </TdStyle>
                 </tr>
-              )}
-            </React.Fragment>
-          )
-        )}
+                {id === select && open && (
+                  <tr>
+                    <ThInfoStyle colSpan="6">
+                      <P>이메일: email</P>
+                      <P>IP: ip</P>
+                      <P>URL: url</P>
+                      <P>시간: time</P>
+                      <P>상태코드: code</P>
+                      <P>Result: data</P>
+                      <MdButton backgroundColor="red" margin="5px">
+                        <P color="white" fontSize="sm" fontWeight="700">
+                          정지하기
+                        </P>
+                      </MdButton>
+                      <MdButton
+                        backgroundColor="gray"
+                        margin="5px"
+                        onClick={() => {
+                          setOpen(false)
+                          setSelect(0)
+                        }}
+                      >
+                        <P color="white" fontSize="sm" fontWeight="700">
+                          닫기
+                        </P>
+                      </MdButton>
+                    </ThInfoStyle>
+                  </tr>
+                )}
+              </React.Fragment>
+            )
+          )}
       </tbody>
     </TableStyle>
   )
