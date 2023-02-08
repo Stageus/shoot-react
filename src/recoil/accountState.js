@@ -11,8 +11,8 @@ export const localLoginState = atom({
 })
 
 // post
-export const singUpState = atom({
-  key: "singUp",
+export const signUpState = atom({
+  key: "signUp",
   default: {
     email: "",
     pw: "",
