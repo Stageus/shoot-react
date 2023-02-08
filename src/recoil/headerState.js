@@ -51,7 +51,7 @@ export const alarmListState = atom({
   default: [
     {
       notification_type: 0,
-      notification_time: "10시간 전",
+      notification_time: "2023-01-06T19:27:14.672Z",
       notify_email: "veryhard@shoot.com",
       notify_channel_name: "힘들어",
       post_idx: 10,
@@ -60,7 +60,7 @@ export const alarmListState = atom({
     },
     {
       notification_type: 1,
-      notification_time: "10시간 전",
+      notification_time: "2021-02-06T19:27:14.672Z",
       notify_email: "veryhard@shoot.com",
       notify_channel_name: "힘들어",
       post_idx: undefined,
@@ -69,7 +69,7 @@ export const alarmListState = atom({
     },
     {
       notification_type: 2,
-      notification_time: "10시간 전",
+      notification_time: "2023-02-06T18:55:14.672Z",
       notify_email: "veryhard@shoot.com",
       notify_channel_name: "힘들어",
       post_idx: undefined,
@@ -78,7 +78,7 @@ export const alarmListState = atom({
     },
     {
       notification_type: 3,
-      notification_time: "10시간 전",
+      notification_time: "2023-02-06T19:27:14.672Z",
       notify_email: "veryhard@shoot.com",
       notify_channel_name: "힘들어",
       post_idx: undefined,
@@ -87,7 +87,7 @@ export const alarmListState = atom({
     },
     {
       notification_type: 4,
-      notification_time: "10시간 전",
+      notification_time: "2023-02-06T19:27:14.672Z",
       notify_email: "veryhard@shoot.com",
       notify_channel_name: "힘들어",
       post_idx: undefined,
@@ -96,7 +96,7 @@ export const alarmListState = atom({
     },
     {
       notification_type: 5,
-      notification_time: "10시간 전",
+      notification_time: "2023-02-06T19:27:14.672Z",
       notify_email: "veryhard@shoot.com",
       notify_channel_name: "힘들어",
       post_idx: undefined,
@@ -105,7 +105,7 @@ export const alarmListState = atom({
     },
     {
       notification_type: 6,
-      notification_time: "10시간 전",
+      notification_time: "2023-02-06T19:27:14.672Z",
       notify_email: "veryhard@shoot.com",
       notify_channel_name: "힘들어",
       post_idx: 70,

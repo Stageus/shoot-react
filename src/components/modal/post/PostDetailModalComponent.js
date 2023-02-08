@@ -26,6 +26,11 @@ const PostDetailModalComponent = () => {
     hashtag,
   } = postInfo
 
+  const postUploadTime = new Date(post_upload_time)
+  const postUploadYear = postUploadTime.getFullYear()
+  const postUploadMonth = postUploadTime.getMonth() + 1
+  const postUploadDate = postUploadTime.getDate()
+
   let hashtagContent
   if (hashtag !== undefined) {
     hashtagContent = hashtag.map((element, Idx) => {
@@ -95,7 +100,7 @@ const PostDetailModalComponent = () => {
           </Div>
           <Div>
             <P fontSize="lg" fontWeight="700">
-              {post_upload_time}
+              {`${postUploadYear}.${postUploadMonth}.${postUploadDate}`}
             </P>
           </Div>
         </Div>
@@ -103,8 +108,8 @@ const PostDetailModalComponent = () => {
       <Div margin="27px 0">
         <P>{post_description}</P>
       </Div>
-      {(post_type === 1 && <PostDetailVoteListComponent />) ||
-        (post_type === 2 && <PostDetailLinkList />)}
+      {(post_type === 2 && <PostDetailVoteListComponent />) ||
+        (post_type === 3 && <PostDetailLinkList />)}
       <Div display="flex" justifyContent="start" margin="21px 0 0 0">
         {hashtagContent}
       </Div>
