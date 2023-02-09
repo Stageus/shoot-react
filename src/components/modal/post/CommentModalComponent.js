@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useEffect } from "react"
-import { useRecoilValue, useRecoilState } from "recoil"
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
@@ -10,6 +10,7 @@ import CommnetInput from "./CommentInput"
 import Comment from "./Comment"
 import { postInfoState } from "../../../recoil/postState"
 import { commentListState } from "../../../recoil/postState"
+import { modalOpenState } from "../../../recoil/modalState"
 
 const ModalDiv = styled(Div)`
   overflow-y: auto;
@@ -31,6 +32,11 @@ const CommentModalComponent = () => {
     })
   }
 
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const modalCloseEvent = () => {
+    setOpenModal(false)
+  }
+
   useEffect(() => {
     alert(`게시글 번호가 ${post_idx}인 댓글 리스트 불러오는 api`)
   }, [postInfo])
@@ -40,7 +46,6 @@ const CommentModalComponent = () => {
       width="409px"
       height="512px"
       padding="0 19px 0 27px"
-      border="1px solid #C8C8C8"
       borderRadius="5px"
     >
       <Div
@@ -59,8 +64,8 @@ const CommentModalComponent = () => {
             <P color="gray">{comment_count}</P>
           </Div>
         </Div>
-        <Div width="24px">
-          <Img src="/assets/images/closeBlack.svg" />
+        <Div pointer width="24px">
+          <Img onClick={modalCloseEvent} src="/assets/images/closeBlack.svg" />
         </Div>
       </Div>
       <Div width="100%" margin="36px 0 0 0">

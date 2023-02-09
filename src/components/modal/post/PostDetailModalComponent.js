@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useRecoilValue } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
@@ -9,6 +9,7 @@ import PostDetailVoteListComponent from "./PostDetailVoteListComponent"
 import Hashtag from "../../common/Hashtag"
 import { postInfoState, likeCountState } from "../../../recoil/postState"
 import PostDetailLinkList from "../../post/PostDetailLinkList"
+import { modalOpenState } from "../../../recoil/modalState"
 
 const ModalDiv = styled(Div)`
   overflow-y: auto;
@@ -42,12 +43,16 @@ const PostDetailModalComponent = () => {
     })
   }
 
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const modalCloseEvent = () => {
+    setOpenModal(false)
+  }
+
   return (
     <ModalDiv
       width="409px"
       height="512px"
       padding="0 19px 0 27px"
-      border="1px solid #C8C8C8"
       borderRadius="5px"
     >
       <Div
@@ -61,8 +66,8 @@ const PostDetailModalComponent = () => {
             본문
           </P>
         </Div>
-        <Div width="24px">
-          <Img src="/assets/images/closeBlack.svg" />
+        <Div pointer width="24px">
+          <Img onClick={modalCloseEvent} src="/assets/images/closeBlack.svg" />
         </Div>
       </Div>
       <Div margin="25px 0 0 0">
