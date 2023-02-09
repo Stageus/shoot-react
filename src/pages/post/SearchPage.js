@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
+import SearchChannelListComponent from "../../components/post/SearchChannelListComponent"
 import { postItemListState } from "../../recoil/postState"
 
 const SearchPage = () => {
@@ -44,13 +45,14 @@ const SearchPage = () => {
   })
 
   return (
-    <PostComponent
-      title={
-        (searchType === "hash" ? "#" : searchType === "channel" ? "@" : "") +
-        searchKeyword
-      }
-      contentType="postList"
-    />
+    <React.Fragment>
+      {(searchType !== "channel" && (
+        <PostComponent
+          title={(searchType === "hash" ? "#" : "") + searchKeyword}
+          contentType="postList"
+        />
+      )) || <SearchChannelListComponent title={`@${searchKeyword}`} />}
+    </React.Fragment>
   )
 }
 
