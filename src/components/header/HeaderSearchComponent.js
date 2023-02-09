@@ -43,8 +43,19 @@ const HeaderSearchComponent = () => {
     if (searchContent === "") {
       alert("검색어를 입력해주세요")
     } else {
-      alert("최근검색어 리스트 추가 api")
-      navigate(`/search/${searchContent}`)
+      if (isLogin) {
+        alert("최근검색어 리스트 추가 api")
+      }
+      const searchType = searchContent.slice(0, 1)
+      if (searchType === "#") {
+        const searchHash = searchContent.slice(1, searchContent.length)
+        navigate(`/search/hash/${searchHash}`)
+      } else if (searchType === "@") {
+        const searchChannel = searchContent.slice(1, searchContent.length)
+        navigate(`/search/channel/${searchChannel}`)
+      } else {
+        navigate(`/search/all/${searchContent}`)
+      }
       setSearchHistoryOpen(false)
     }
   }
