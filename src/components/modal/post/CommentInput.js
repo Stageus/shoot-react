@@ -14,7 +14,7 @@ const InputDiv = styled(Div)`
 `
 
 const CommentInput = (props) => {
-  const { commentType, idx } = props
+  const { commentType, idx, defaultValue } = props
   const userInfo = useRecoilValue(userInfoState)
   const { profile_img, email } = userInfo
   const profileObject = {
@@ -34,9 +34,14 @@ const CommentInput = (props) => {
       ).value
       if (commentType === "comment") {
         alert(`post번호가 ${idx}인 곳에 ${CommentInputValue} 댓글 추가`) //401 에러 나올 경우 setIsLogin(false)
-      } else {
+      } else if (commentType === "reply") {
         alert(`comment번호가 ${idx}인 곳에 ${CommentInputValue} 대댓글 추가`) //401 에러 나올 경우 setIsLogin(false)
+      } else if (commentType === "changeComment") {
+        alert(`commet번호가 ${idx}인 곳에 ${CommentInputValue} 댓글 수정`)
+      } else {
+        alert(`reply번호가 ${idx}인 곳에 ${CommentInputValue} 대댓글 수정`)
       }
+      alert("댓글 다시 불러오는 api")
     }
   }
 
@@ -54,6 +59,7 @@ const CommentInput = (props) => {
             placeholder={
               commentType === "comment" ? "댓글 추가" : "대댓글 추가"
             }
+            value={defaultValue}
             width="100%"
             padding="0"
           />
