@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { useRecoilState } from "recoil"
+import { Link } from "react-router-dom"
 
 import { SmButton } from "../basic/Button"
 import Div from "../basic/Div"
@@ -45,18 +46,22 @@ const Nav = () => {
     {
       name: "HOT",
       svg: "hot",
+      link: "/hot",
     },
     {
       name: "즐겨찾기",
       svg: "star",
+      link: "/bookmark",
     },
     {
       name: "구독한 채널",
       svg: "subscribe",
+      link: "/subscribe",
     },
     {
       name: "시청기록",
       svg: "viewRecord",
+      link: "/history",
     },
   ]
 
@@ -107,24 +112,32 @@ const Nav = () => {
     <Div display="flex">
       <NavBox>
         {categoryMenu.map(({ category_idx, category_name, category_time }) => (
-          <NavCategoryItem
-            key={category_idx}
-            idx={category_idx}
-            menu={category_name}
-            svg={"menuArrow"}
-            select={selectMenu === category_name && `${category_name}`}
-            setSelectMenu={setSelectMenu}
-          />
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`/category/${category_name}`}
+          >
+            <NavCategoryItem
+              key={category_name}
+              idx={category_idx}
+              menu={category_name}
+              svg={"menuArrow"}
+              select={selectMenu === category_name && `${category_name}`}
+              setSelectMenu={setSelectMenu}
+            />
+          </Link>
         ))}
         <Line />
-        {generalMenu.map(({ name, svg }) => (
-          <NavItem
-            key={name}
-            menu={name}
-            svg={svg}
-            setSelectMenu={setSelectMenu}
-            select={selectMenu === name && `${name}`}
-          />
+        {generalMenu.map(({ name, svg, link }) => (
+          <Link style={{ textDecoration: "none" }} to={`${link}`}>
+            <NavItem
+              key={name}
+              menu={name}
+              svg={svg}
+              setSelectMenu={setSelectMenu}
+              select={selectMenu === name && `${name}`}
+              link={link}
+            />
+          </Link>
         ))}
 
         <Line />

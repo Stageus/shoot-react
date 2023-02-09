@@ -1,4 +1,6 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useParams } from "react-router-dom"
+
 import { Button } from "../basic/Button"
 import Div from "../basic/Div"
 import { IconText } from "../common/IconText"
@@ -11,9 +13,19 @@ const NavCategoryItem = (props) => {
   const setSelectMenu = props.setSelectMenu
   const idx = props.idx
 
+  let params = useParams()
+
+  let category = params.categoryId
+
   const selectHandler = (name) => {
     setSelectMenu(name)
   }
+
+  useEffect(() => {
+    if (category === `${menu}`) {
+      setSelectMenu(`${menu}`)
+    }
+  }, [])
 
   return (
     <React.Fragment>
