@@ -27,13 +27,14 @@ const ModalWrap = styled.div`
   height: fit-content;
   border-radius: 15px;
   background-color: #fff;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10000;
 `
 
 const Modal = () => {
@@ -46,7 +47,7 @@ const Modal = () => {
   const modalInfo = useRecoilValue(modalInfoState)
   const modalType = modalInfo.type
 
-  useOutSideClick(modalRef, closeModal)
+  // useOutSideClick(modalRef, closeModal)
   useEffect(() => {
     const $body = document.querySelector("body")
     $body.style.overflow = "hidden"
@@ -54,7 +55,8 @@ const Modal = () => {
   }, [])
   return (
     <ModalContainer>
-      <Overlay>
+      <Overlay onClick={closeModal}></Overlay>
+      <Div width="100%" height="100%">
         <ModalWrap ref={modalRef}>
           {/* <CloseButton onClick={handleClose}>
             <i className="fa-solid fa-xmark"></i>
@@ -66,7 +68,7 @@ const Modal = () => {
               (modalType === "comment" && <CommentModalComponent />)}
           </Div>
         </ModalWrap>
-      </Overlay>
+      </Div>
     </ModalContainer>
   )
 }
