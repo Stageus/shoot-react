@@ -6,10 +6,10 @@ import NavHashtag from "./NavHashtag"
 
 const NavCategoryItem = (props) => {
   const menu = props.menu
-  const hashtags = props.hashtags
   const svg = props.svg
   const select = props.select
   const setSelectMenu = props.setSelectMenu
+  const idx = props.idx
 
   const selectHandler = (name) => {
     setSelectMenu(name)
@@ -42,7 +42,7 @@ const NavCategoryItem = (props) => {
           )}
         </Div>
       </Button>
-      {menu !== "홈" && select && <NavHashtag hashtags={hashtags} />}
+      {menu !== "홈" && select && <NavHashtag idx={idx} />}
     </React.Fragment>
   )
 }

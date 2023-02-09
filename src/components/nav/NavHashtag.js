@@ -1,10 +1,14 @@
 import React from "react"
+import { useRecoilState } from "recoil"
+
 import Div from "../basic/Div"
 import P from "../basic/P"
 import Hashtag from "../common/Hashtag"
+import { topHashtagState } from "../../recoil/navState"
 
 const NavHashtag = (props) => {
-  const hashtags = props.hashtags
+  const idx = props.idx
+  const [topHashtag, setTopHashtag] = useRecoilState(topHashtagState)
 
   return (
     <Div margin="0px 0px 0px 43px">
@@ -14,10 +18,10 @@ const NavHashtag = (props) => {
         </P>
       </Div>
 
-      {hashtags &&
-        hashtags.map((hashtag) => (
-          <Div key={hashtag} margin="0px 0px 4px 0px">
-            <Hashtag hashtag={hashtag} fontSize="sm" />
+      {topHashtag &&
+        topHashtag.map((hashtag) => (
+          <Div key={hashtag.name} margin="0px 0px 4px 0px">
+            <Hashtag hashtag={hashtag.name} fontSize="sm" />
           </Div>
         ))}
     </Div>
