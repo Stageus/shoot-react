@@ -59,7 +59,7 @@ const CommentInput = (props) => {
             placeholder={
               commentType === "comment" ? "댓글 추가" : "대댓글 추가"
             }
-            value={defaultValue}
+            defaultValue={defaultValue}
             width="100%"
             padding="0"
           />
