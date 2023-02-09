@@ -8,6 +8,7 @@ import AlertModal from "./AlertModal"
 import ConfirmModal from "./ConfirmModal"
 import PostDetailModalComponent from "./post/PostDetailModalComponent"
 import CommentModalComponent from "./post/CommentModalComponent"
+import useOutSideClick from "../../hooks/useOutSideClick"
 import { modalOpenState, modalInfoState } from "../../recoil/modalState"
 
 const Overlay = styled.div`
@@ -45,6 +46,7 @@ const Modal = () => {
   const modalInfo = useRecoilValue(modalInfoState)
   const modalType = modalInfo.type
 
+  useOutSideClick(modalRef, closeModal)
   useEffect(() => {
     const $body = document.querySelector("body")
     $body.style.overflow = "hidden"
@@ -52,7 +54,7 @@ const Modal = () => {
   }, [])
   return (
     <ModalContainer>
-      <Overlay onClick={closeModal}>
+      <Overlay>
         <ModalWrap ref={modalRef}>
           {/* <CloseButton onClick={handleClose}>
             <i className="fa-solid fa-xmark"></i>
