@@ -8,6 +8,7 @@ const EventInput = (props) => {
   const placeholder = props.placeholder
   const src = props.src
   const type = props.type
+  const readOnly = props.readOnly
 
   let border
   {
@@ -40,6 +41,7 @@ const EventInput = (props) => {
             onChange={props.onChange}
             onFocus={props.onFocus}
             onBlur={props.onBlur}
+            disabled={readOnly}
           />
         </Div>
       ) : (
@@ -53,6 +55,7 @@ const EventInput = (props) => {
             onFocus={props.onFocus}
             onBlur={props.onBlur}
             margin="0px 0px 0px -10px"
+            disabled={readOnly}
           />
         </Div>
       )}
