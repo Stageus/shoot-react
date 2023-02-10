@@ -16,6 +16,7 @@ const SeeMore = (props) => {
   const parent = props.parent
   const parentInfo = props.parentInfo
   const width = props.width
+  const commentModifyEvnet = props.commentModifyEvnet
 
   const [openSeeMore, setOpenSeeMore] = useToggle()
   const toggleSeeMore = () => {
@@ -34,8 +35,12 @@ const SeeMore = (props) => {
     // alert 대신에 나중에 수정 page로 이동하는 기능으로 바꿔야함
   }
   const clickModifyEvent = () => {
-    document.getElementById(`modify_${parent}_${parentInfo}`).style.display =
-      "flex"
+    if (parent === "comment" || parent === "reply_comment") {
+      commentModifyEvnet()
+    } else {
+      document.getElementById(`modify_${parent}_${parentInfo}`).style.display =
+        "flex"
+    }
   }
 
   const deleteEvent = () => {
