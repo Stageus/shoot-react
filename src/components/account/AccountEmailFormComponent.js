@@ -70,6 +70,7 @@ const AccountEmailFormComponent = () => {
           onFocus={onFocusEmail}
           onBlur={onBlurEmail}
           isFocus={emailFocus}
+          readOnly={isEmailAuth ? true : false}
         />
         {!emailFocus ? <P color="red">{emailMessage}</P> : null}
 
@@ -104,6 +105,7 @@ const AccountEmailFormComponent = () => {
           onFocus={onFocusAuth}
           onBlur={onBlurAuth}
           isFocus={authFocus}
+          readOnly={isEmailAuth ? true : false}
         />
         <Div
           display="flex"

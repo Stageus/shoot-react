@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { useRecoilState } from "recoil"
+import { Link } from "react-router-dom"
 
 import { SmButton } from "../basic/Button"
 import Div from "../basic/Div"
@@ -45,18 +46,22 @@ const Nav = () => {
     {
       name: "HOT",
       svg: "hot",
+      link: "/hot",
     },
     {
       name: "즐겨찾기",
       svg: "star",
+      link: "/bookmark",
     },
     {
       name: "구독한 채널",
       svg: "subscribe",
+      link: "/subscribe",
     },
     {
       name: "시청기록",
       svg: "viewRecord",
+      link: "/history",
     },
   ]
 
@@ -67,67 +72,72 @@ const Nav = () => {
       {
         category_idx: 1,
         category_name: "홈",
-        hashtags: [],
+        category_time: "",
       },
       {
         category_idx: 2,
         category_name: "게임",
-        hashtags: [
-          "롤",
-          "오버워치",
-          "롤토체스",
-          "배틀그라운드",
-          "메이플스토리",
-        ],
+        category_time: "",
       },
       {
         category_idx: 3,
         category_name: "음악",
-        hashtags: ["클래식", "가요", "아이브", "르세라핌", "빅뱅"],
+        category_time: "",
       },
       {
         category_idx: 4,
         category_name: "영화",
-        hashtags: [
-          "무비",
-          "아바타",
-          "엄청이름이긴영화열두글자",
-          "영화",
-          "영화2",
-        ],
+        category_time: "",
       },
       {
         category_idx: 5,
         category_name: "스포츠",
-        hashtags: ["축구", "농구", "야구", "배구", "스케이트"],
+        category_time: "",
       },
     ]
 
     setCategoryMenu(tmpCategoryMenu)
+
+    /*fetch("http://api.슛.site/category/all", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.data)
+        setCategoryMenu(res.data)
+      })*/
   }, [])
 
   return (
     <Div display="flex">
       <NavBox>
-        {categoryMenu.map(({ category_idx, category_name, hashtags }) => (
-          <NavCategoryItem
-            key={category_idx}
-            menu={category_name}
-            hashtags={hashtags}
-            svg={"menuArrow"}
-            select={selectMenu === category_name && `${category_name}`}
-            setSelectMenu={setSelectMenu}
-          />
+        {categoryMenu.map(({ category_idx, category_name, category_time }) => (
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`/category/${category_name}`}
+          >
+            <NavCategoryItem
+              key={category_name}
+              idx={category_idx}
+              menu={category_name}
+              svg={"menuArrow"}
+              select={selectMenu === category_name && `${category_name}`}
+              setSelectMenu={setSelectMenu}
+            />
+          </Link>
         ))}
         <Line />
-        {generalMenu.map(({ name, svg }) => (
-          <NavItem
-            key={name}
-            menu={name}
-            svg={svg}
-            setSelectMenu={setSelectMenu}
-            select={selectMenu === name && `${name}`}
-          />
+        {generalMenu.map(({ name, svg, link }) => (
+          <Link style={{ textDecoration: "none" }} to={`${link}`}>
+            <NavItem
+              key={name}
+              menu={name}
+              svg={svg}
+              setSelectMenu={setSelectMenu}
+              select={selectMenu === name && `${name}`}
+              link={link}
+            />
+          </Link>
         ))}
 
         <Line />

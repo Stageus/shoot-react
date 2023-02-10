@@ -1,4 +1,6 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useParams } from "react-router-dom"
+
 import { Button } from "../basic/Button"
 import Div from "../basic/Div"
 import { IconText } from "../common/IconText"
@@ -6,14 +8,24 @@ import NavHashtag from "./NavHashtag"
 
 const NavCategoryItem = (props) => {
   const menu = props.menu
-  const hashtags = props.hashtags
   const svg = props.svg
   const select = props.select
   const setSelectMenu = props.setSelectMenu
+  const idx = props.idx
+
+  let params = useParams()
+
+  let category = params.categoryId
 
   const selectHandler = (name) => {
     setSelectMenu(name)
   }
+
+  useEffect(() => {
+    if (category === `${menu}`) {
+      setSelectMenu(`${menu}`)
+    }
+  }, [])
 
   return (
     <React.Fragment>
@@ -42,7 +54,7 @@ const NavCategoryItem = (props) => {
           )}
         </Div>
       </Button>
-      {menu !== "홈" && select && <NavHashtag hashtags={hashtags} />}
+      {menu !== "홈" && select && <NavHashtag idx={idx} />}
     </React.Fragment>
   )
 }
