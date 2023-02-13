@@ -113,7 +113,24 @@ const AdminCategoryRequestTable = () => {
                     </Div>
                   </TdStyle>
                   <TdStyle>
-                    <Div display="flex" width="100%">
+                    <Div
+                      display="flex"
+                      width="100%"
+                      onClick={() => {
+                        fetch(
+                          `https://api.슛.site/request-category/${request_category_name}`,
+                          {
+                            method: "DELETE",
+                            credentials: "include",
+                          }
+                        )
+                          .then((res) => res.json())
+                          .then((res) => {
+                            setCategoryRequest(res.data)
+                            console.log(res)
+                          })
+                      }}
+                    >
                       <Div width="20px" height="20px" pointer>
                         <Img src="/assets/images/delete.svg" />
                       </Div>
