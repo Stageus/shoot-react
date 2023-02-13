@@ -134,19 +134,19 @@ export const logState = atom({
 
 export const logIdxState = atom({
   key: "logIdx",
-  default: [
+  default: null /*[
     {
-      /*id: "1",
-    ip: "123.123.123",
-    req_channel_email: "shoot.naver.com",
-    method: "abc",
-    api_path: "path",
-    req_time: "timestamp",
-    res_time: "timestamp",
-    status_code: 1,
-  result: "string",*/
+      id: "1",
+      ip: "123.123.123",
+      req_channel_email: "shoot.naver.com",
+      method: "abc",
+      api_path: "path",
+      req_time: "timestamp",
+      res_time: "timestamp",
+      status_code: 1,
+      result: "string",
     },
-  ],
+  ],*/,
 })
 
 // post

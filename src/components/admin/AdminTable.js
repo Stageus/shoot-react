@@ -14,6 +14,7 @@ import {
   reportCommentState,
   reportReplyCommentState,
   logState,
+  logIdxState,
 } from "../../recoil/adminState"
 
 const TableStyle = styled.table`
@@ -50,7 +51,7 @@ const AdminCategoryRequestTable = () => {
     useRecoilState(categoryRequestState)
 
   useEffect(() => {
-    let tmpCategoryRequest = [
+    /*let tmpCategoryRequest = [
       {
         request_category_name: "경제",
         request_count: 20,
@@ -68,7 +69,17 @@ const AdminCategoryRequestTable = () => {
       },
     ]
 
-    setCategoryRequest(tmpCategoryRequest)
+    setCategoryRequest(tmpCategoryRequest)*/
+
+    fetch("https://api.슛.site/request-category/all", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setCategoryRequest(res.data)
+        console.log(res)
+      })
   }, [])
 
   return (
@@ -82,35 +93,36 @@ const AdminCategoryRequestTable = () => {
           <ThStyle>추가</ThStyle>
           <ThStyle>삭제</ThStyle>
         </tr>
-        {categoryRequest.map(
-          (
-            { request_category_name, request_count, recent_request_time },
-            index
-          ) => (
-            <>
-              <tr key={request_category_name}>
-                <TdStyle>{index + 1}</TdStyle>
-                <TdStyle>{request_category_name}</TdStyle>
-                <TdStyle>{request_count}</TdStyle>
-                <TdStyle>{recent_request_time}</TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/add.svg" />
+        {categoryRequest &&
+          categoryRequest.map(
+            (
+              { request_category_name, request_count, recent_request_time },
+              index
+            ) => (
+              <>
+                <tr key={request_category_name}>
+                  <TdStyle>{index + 1}</TdStyle>
+                  <TdStyle>{request_category_name}</TdStyle>
+                  <TdStyle>{request_count}</TdStyle>
+                  <TdStyle>{recent_request_time}</TdStyle>
+                  <TdStyle>
+                    <Div display="flex" width="100%">
+                      <Div width="20px" height="20px" pointer>
+                        <Img src="/assets/images/add.svg" />
+                      </Div>
                     </Div>
-                  </Div>
-                </TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/delete.svg" />
+                  </TdStyle>
+                  <TdStyle>
+                    <Div display="flex" width="100%">
+                      <Div width="20px" height="20px" pointer>
+                        <Img src="/assets/images/delete.svg" />
+                      </Div>
                     </Div>
-                  </Div>
-                </TdStyle>
-              </tr>
-            </>
-          )
-        )}
+                  </TdStyle>
+                </tr>
+              </>
+            )
+          )}
       </tbody>
     </TableStyle>
   )
@@ -121,12 +133,7 @@ const AdminCategoryUpdateTable = () => {
     useRecoilState(categoryRequestState)
 
   useEffect(() => {
-    let tmpCategoryUpdate = [
-      {
-        request_category_name: "경제",
-        request_count: 20,
-        recent_request_time: "2022.12.14",
-      },
+    /*let tmpCategoryUpdate = [
       {
         request_category_name: "수학",
         request_count: 41,
@@ -137,9 +144,23 @@ const AdminCategoryUpdateTable = () => {
         request_count: 22,
         recent_request_time: "2022.12.14",
       },
+      {
+        request_category_name: "경제",
+        request_count: 20,
+        recent_request_time: "2022.12.14",
+      },
     ]
 
-    setCategoryUpdate(tmpCategoryUpdate)
+    setCategoryUpdate(tmpCategoryUpdate)*/
+    fetch("https://api.슛.site/request-category/all", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setCategoryUpdate(res.data)
+        console.log(res)
+      })
   }, [])
 
   return (
@@ -151,27 +172,28 @@ const AdminCategoryUpdateTable = () => {
           <ThStyle>추가 날짜</ThStyle>
           <ThStyle>삭제</ThStyle>
         </tr>
-        {categoryUpdate.map(
-          (
-            { request_category_name, request_count, recent_request_time },
-            index
-          ) => (
-            <>
-              <tr key={index}>
-                <TdStyle>{index + 1}</TdStyle>
-                <TdStyle>{request_category_name}</TdStyle>
-                <TdStyle>{recent_request_time}</TdStyle>
-                <TdStyle>
-                  <MdButton backgroundColor="red">
-                    <P color="white" fontSize="sm">
-                      삭제하기
-                    </P>
-                  </MdButton>
-                </TdStyle>
-              </tr>
-            </>
-          )
-        )}
+        {categoryUpdate &&
+          categoryUpdate.map(
+            (
+              { request_category_name, request_count, recent_request_time },
+              index
+            ) => (
+              <>
+                <tr key={index}>
+                  <TdStyle>{index + 1}</TdStyle>
+                  <TdStyle>{request_category_name}</TdStyle>
+                  <TdStyle>{recent_request_time}</TdStyle>
+                  <TdStyle>
+                    <MdButton backgroundColor="red">
+                      <P color="white" fontSize="sm">
+                        삭제하기
+                      </P>
+                    </MdButton>
+                  </TdStyle>
+                </tr>
+              </>
+            )
+          )}
       </tbody>
     </TableStyle>
   )
@@ -433,6 +455,7 @@ const AdminLogTable = () => {
   const [open, setOpen] = useState(false)
   const [select, setSelect] = useState(0)
   const [log, setLog] = useRecoilState(logState)
+  const [logIdx, setLogIdx] = useRecoilState(logIdxState)
 
   useEffect(() => {
     /* let tmpLog = [
@@ -449,16 +472,15 @@ const AdminLogTable = () => {
       },
     ]*/
 
-    fetch("http://api.슛.site/log/all", {
+    fetch("https://api.슛.site/log/all", {
       method: "GET",
       credentials: "include",
-    }).then(async (response) => {
-      console.log(response)
-
-      const result = await response.json()
-
-      console.log(result)
     })
+      .then((res) => res.json())
+      .then((res) => {
+        setLog(res.data)
+        console.log(res)
+      })
   }, [])
 
   return (
@@ -499,6 +521,15 @@ const AdminLogTable = () => {
                         height="20px"
                         pointer
                         onClick={() => {
+                          fetch(`https://api.슛.site/log/${id}`, {
+                            method: "GET",
+                            credentials: "include",
+                          })
+                            .then((res) => res.json())
+                            .then((res) => {
+                              setLogIdx(res.data)
+                              console.log(res)
+                            })
                           setSelect(id)
                           setOpen(true)
                         }}
@@ -508,15 +539,15 @@ const AdminLogTable = () => {
                     </Div>
                   </TdStyle>
                 </tr>
-                {id === select && open && (
+                {id === select && open && logIdx && (
                   <tr>
                     <ThInfoStyle colSpan="6">
-                      <P>이메일: email</P>
-                      <P>IP: ip</P>
-                      <P>URL: url</P>
-                      <P>시간: time</P>
-                      <P>상태코드: code</P>
-                      <P>Result: data</P>
+                      <P>이메일:{logIdx.req_channel_email}</P>
+                      <P>IP: {logIdx.ip}</P>
+                      <P>URL: {logIdx.api_path}</P>
+                      <P>시간: {logIdx.res_time}</P>
+                      <P>상태코드: {logIdx.status_code}</P>
+                      <P>Result: {logIdx.result}</P>
                       <MdButton backgroundColor="red" margin="5px">
                         <P color="white" fontSize="sm" fontWeight="700">
                           정지하기
