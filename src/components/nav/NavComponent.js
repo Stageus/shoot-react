@@ -10,7 +10,8 @@ import { Input } from "../basic/Input"
 import P from "../basic/P"
 import NavItem from "./NavItem"
 import NavCategoryItem from "./NavCategoryItem"
-import { categoryMenuState } from "../../recoil/navState"
+import { categoryMenuState, categoryState } from "../../recoil/navState"
+import useInput from "../../hooks/useInput"
 
 const NavBox = styled.nav`
   position: fixed;
@@ -42,6 +43,7 @@ const Line = styled.hr`
 
 const Nav = () => {
   const [selectMenu, setSelectMenu] = useState("홈")
+
   const generalMenu = [
     {
       name: "HOT",
@@ -68,7 +70,8 @@ const Nav = () => {
   const [categoryMenu, setCategoryMenu] = useRecoilState(categoryMenuState)
 
   useEffect(() => {
-    let tmpCategoryMenu = [
+    //임시데이터
+    /* let tmpCategoryMenu = [
       {
         category_idx: 1,
         category_name: "홈",
@@ -96,36 +99,51 @@ const Nav = () => {
       },
     ]
 
-    setCategoryMenu(tmpCategoryMenu)
+    setCategoryMenu(tmpCategoryMenu) */
 
-    /*fetch("http://api.슛.site/category/all", {
+    if (isCategoryRequest) {
+      setCategory({ category: categoryRequest })
+    }
+
+    fetch("https://api.슛.site/category/all", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.data)
         setCategoryMenu(res.data)
-      })*/
+        setCategoryMenu(res.data)
+      })
   }, [])
 
   return (
     <Div display="flex">
       <NavBox>
-        {categoryMenu.map(({ category_idx, category_name, category_time }) => (
-          <Link
-            style={{ textDecoration: "none" }}
-            to={`/category/${category_name}`}
-          >
-            <NavCategoryItem
-              key={category_name}
-              idx={category_idx}
-              menu={category_name}
-              svg={"menuArrow"}
-              select={selectMenu === category_name && `${category_name}`}
-              setSelectMenu={setSelectMenu}
-            />
-          </Link>
-        ))}
+        <Link style={{ textDecoration: "none" }} to={`/`}>
+          <NavCategoryItem
+            key={"홈"}
+            idx={0}
+            menu={"홈"}
+            svg={"menuArrow"}
+            select={selectMenu === "홈" && "홈"}
+            setSelectMenu={setSelectMenu}
+          />
+        </Link>
+        {categoryMenu &&
+          categoryMenu.map(({ category_idx, category_name, category_time }) => (
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/category/${category_name}`}
+            >
+              <NavCategoryItem
+                key={category_name}
+                idx={category_idx}
+                menu={category_name}
+                svg={"menuArrow"}
+                select={selectMenu === category_name && `${category_name}`}
+                setSelectMenu={setSelectMenu}
+              />
+            </Link>
+          ))}
         <Line />
         {generalMenu.map(({ name, svg, link }) => (
           <Link style={{ textDecoration: "none" }} to={`${link}`}>
@@ -162,8 +180,11 @@ const Nav = () => {
               fontSize="sm"
               borderRadius="5px"
               padding="0px 0px 0px 10px"
+              onChange={(e) => {
+                onChangeCategoryRequest(e)
+              }}
             />
-            <SmButton backgroundColor="primary" margin="5px">
+            <SmButton>
               <P color="white" fontSize="sm" fontWeight="800">
                 입력
               </P>
