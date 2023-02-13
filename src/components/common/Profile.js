@@ -23,6 +23,10 @@ const Profile = (props) => {
     alert("구독취소")
   }
 
+  const profileImgError = (e) => {
+    e.target.src = "/assets/images/user.svg"
+  }
+
   return (
     <Div display="flex">
       <Div
@@ -31,7 +35,10 @@ const Profile = (props) => {
         width={width || "54px"}
         height={width || "54px"}
       >
-        <Img src={profileImg || "/assets/images/user.svg"} />
+        <Img
+          src={profileImg || "/assets/images/user.svg"}
+          onError={profileImgError}
+        />
       </Div>
       {props.name && (
         <Div margin="10px">
@@ -48,9 +55,9 @@ const Profile = (props) => {
               <P>{email}</P>
             </Div>
           )}
-          {props.viewCount && (
+          {props.viewCount !== undefined && (
             <Div>
-              <P>{props.viewCount}</P>
+              <P>{`조회수 ${props.viewCount}회`}</P>
             </Div>
           )}
           {(props.isSubscribe === false && (
