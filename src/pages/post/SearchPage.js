@@ -4,19 +4,26 @@ import { useParams } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
+import SearchChannelListComponent from "../../components/post/SearchChannelListComponent"
 import { postItemListState } from "../../recoil/postState"
 
 const SearchPage = () => {
   const setPostItemList = useSetRecoilState(postItemListState)
   const params = useParams()
 
-  let searchInfo = params.search
+  let searchType = params.searchType
+  let searchKeyword = params.searchKeyword
   useEffect(() => {
-    searchInfo = params.search
+    searchKeyword = params.searchKeyword
 
-    alert(
-      `검색결과가 ${searchInfo}인 post 데이터리스트 받아오는 api 작성 후 post state에 담기`
-    )
+    if (searchType === "all") {
+      alert(`검색결과가 ${searchKeyword}인 post 데이터리스트 받아오는 api 작성`)
+    } else if (searchType === "hash") {
+      alert(`해시태그가 ${searchKeyword}인 post 데이터리스트 받아오는 api 작성`)
+    } else if (searchType === "channel") {
+      alert(`채널정보가 ${searchKeyword}인 post 데이터리스트 받아오는 api 작성`)
+    }
+
     // 임시 state
     let tmpPostList = []
     for (let idx = 1; idx <= 60; idx++) {
@@ -37,7 +44,16 @@ const SearchPage = () => {
     setPostItemList(tmpPostList)
   })
 
-  return <PostComponent title={searchInfo} contentType="postList" />
+  return (
+    <React.Fragment>
+      {(searchType !== "channel" && (
+        <PostComponent
+          title={(searchType === "hash" ? "#" : "") + searchKeyword}
+          contentType="postList"
+        />
+      )) || <SearchChannelListComponent title={`@${searchKeyword}`} />}
+    </React.Fragment>
+  )
 }
 
 export default SearchPage

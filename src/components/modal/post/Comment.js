@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useEffect } from "react"
 import styled from "styled-components"
 import { useRecoilState, useRecoilValue } from "recoil"
@@ -93,66 +93,87 @@ const Comment = (props) => {
       setReplyCommentList([])
     }
   }
+  const [modifyState, setModifyState] = useState(false)
+  const changeModifyState = () => {
+    setModifyState(true)
+  }
 
   return (
     <Div display="flex" alignItems="start" width="100%">
-      <Profile
-        width={(write_channel_email && "40px") || "24px"}
-        profileObject={profileObject}
-      />
+      {modifyState === false && (
+        <Profile
+          width={(write_channel_email && "40px") || "24px"}
+          profileObject={profileObject}
+        />
+      )}
       <CommentContent position="relative" margin="0 0 0 12px">
-        <Div display="flex">
-          <Div margin="0 3px 0 0">
-            <P fontSize="12px">{channel_name}</P>
-          </Div>
-          <Div>
-            <P fontSize="12px" color="gray">
-              {differenceTime}
-            </P>
-          </Div>
-        </Div>
-        <Div position="absolute" top="0" right="-15px">
-          {(isMyPost === true && (
-            <SeeMore
-              modify
-              delete
-              alarm={true}
-              parent={comment_idx === undefined ? "reply_comment" : "comment"}
-              parentInfo={comment_idx || reply_comment_idx}
-              width="25px"
-            />
-          )) || (
-            <SeeMore
-              report
-              parent={comment_idx === undefined ? "reply_comment" : "comment"}
-              parentInfo={comment_idx || reply_comment_idx}
-              width="25px"
-            />
-          )}
-        </Div>
-        <Div padding="0 20px 0 0">
-          <P fontSize="sm">{comment_contents || reply_comment_contents}</P>
-        </Div>
-        <Div display="flex" margin="7px 0 0 0">
-          <CommentLike
-            type={(comment_idx && "comment") || "reply"}
-            idx={(comment_idx && comment_idx) || reply_comment_idx}
-            goodState={good_state || comment_good_state}
-            goodCount={comment_good_count || reply_comment_good_count}
+        {(modifyState === false && (
+          <React.Fragment>
+            <Div display="flex">
+              <Div margin="0 3px 0 0">
+                <P fontSize="12px">{channel_name}</P>
+              </Div>
+              <Div>
+                <P fontSize="12px" color="gray">
+                  {differenceTime}
+                </P>
+              </Div>
+            </Div>
+            <Div position="absolute" top="0" right="-15px">
+              {(isMyPost === true && (
+                <SeeMore
+                  commentModifyEvnet={changeModifyState}
+                  modify
+                  delete
+                  alarm={true}
+                  parent={
+                    comment_idx === undefined ? "reply_comment" : "comment"
+                  }
+                  parentInfo={comment_idx || reply_comment_idx}
+                  width="25px"
+                />
+              )) || (
+                <SeeMore
+                  report
+                  parent={
+                    comment_idx === undefined ? "reply_comment" : "comment"
+                  }
+                  parentInfo={comment_idx || reply_comment_idx}
+                  width="25px"
+                />
+              )}
+            </Div>
+            <Div padding="0 20px 0 0">
+              <P fontSize="sm">{comment_contents || reply_comment_contents}</P>
+            </Div>
+            <Div display="flex" margin="7px 0 0 0">
+              <CommentLike
+                type={(comment_idx && "comment") || "reply"}
+                idx={(comment_idx && comment_idx) || reply_comment_idx}
+                goodState={good_state || comment_good_state}
+                goodCount={comment_good_count || reply_comment_good_count}
+              />
+              <Div pointer margin="0 0 0 10px">
+                <P onClick={() => setOpenReplyInput()} fontSize="sm">
+                  대댓글
+                </P>
+              </Div>
+            </Div>
+            {openReplyInput && (
+              <Div width="100%" margin="5px 0 0 0">
+                <CommentInput
+                  commentType="reply"
+                  idx={comment_idx || parentCommentIdx}
+                />
+              </Div>
+            )}
+          </React.Fragment>
+        )) || (
+          <CommentInput
+            defaultValue={comment_contents || reply_comment_contents}
+            commentType={(comment_idx && "changeComment") || "changeReply"}
+            idx={comment_idx || parentCommentIdx}
           />
-          <Div pointer margin="0 0 0 10px">
-            <P onClick={() => setOpenReplyInput()} fontSize="sm">
-              대댓글
-            </P>
-          </Div>
-        </Div>
-        {openReplyInput && (
-          <Div width="100%" margin="5px 0 0 0">
-            <CommentInput
-              commentType="reply"
-              idx={comment_idx || parentCommentIdx}
-            />
-          </Div>
         )}
         {reply_comment_count > 0 && (
           <Div>
