@@ -22,6 +22,8 @@ const AccountLocalLoginFormComponent = () => {
 
   const [localLogin, setLocalLogin] = useRecoilState(localLoginState)
 
+  const [loginResult, setLoginResult] = useState()
+
   const isCheckHandler = (e) => {
     if (e.target.checked) {
       setIsCheck(true)
@@ -37,6 +39,7 @@ const AccountLocalLoginFormComponent = () => {
       pw: password,
       autoLogin: isCheck,
     })
+    // console.log(JSON.stringify(localLogin))
   }, [email, password, isCheck])
 
   return (
@@ -61,7 +64,13 @@ const AccountLocalLoginFormComponent = () => {
         onBlur={onBlurPassword}
         isFocus={passwordFocus}
       />
-
+      {loginResult && (
+        <Div display="flex" margin="0px 0px 14px 0px">
+          <P color="red">
+            아이디(로그인 전용 이메일) 또는 비밀번호를 잘못 입력했습니다.
+          </P>
+        </Div>
+      )}
       <Div
         margin="0px 0px 12px 0px"
         width="400px"
@@ -103,16 +112,21 @@ const AccountLocalLoginFormComponent = () => {
         backgroundColor="primary"
         margin="0px 0px 30px 0px"
         onClick={() => {
-          console.log(localLogin)
-          fetch("http://api.슛.site/auth/local", {
+          fetch("https://api.슛.site/auth/local", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify(localLogin),
           }).then(async (res) => {
             const result = await res.json()
+            // setLoginResult(result) // 로그인 실패 시 에러 출력
             console.log(result)
+            console.log(res)
+
+            // var cookieData = document.cookie
+            // console.log(cookieData)
           })
         }}
       >
