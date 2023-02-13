@@ -43,6 +43,10 @@ const PostItem = (props) => {
   const { email } = userInfo
   const isMyPost = email === upload_channel_email
 
+  const postThumbnailError = (e) => {
+    e.target.src = "/assets/images/postThumbnail.png"
+  }
+
   return (
     <Article>
       <Div
@@ -51,7 +55,10 @@ const PostItem = (props) => {
         pointer
         width="100%"
       >
-        <Img src={post_thumbnail} />
+        <Img
+          src={post_thumbnail || "/assets/images/postThumbnail.png"}
+          onError={postThumbnailError}
+        />
       </Div>
       <Div width="94%" padding="0 3%">
         <Div position="relative" width="100%" margin="10px 0">
