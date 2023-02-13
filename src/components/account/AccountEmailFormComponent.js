@@ -10,7 +10,11 @@ import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 import useValidationInput from "../../hooks/useValidationInput"
 
-import { signUpState, emailAuthState } from "../../recoil/accountState"
+import {
+  signUpState,
+  emailAuthState,
+  emailAuthNumberState,
+} from "../../recoil/accountState"
 
 const AccountEmailFormComponent = () => {
   const emailRegExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
@@ -28,6 +32,8 @@ const AccountEmailFormComponent = () => {
 
   const [signUp, setSignUp] = useRecoilState(signUpState)
   const [emailAuth, setEmailAuth] = useRecoilState(emailAuthState)
+  const [emailAuthNumber, setEmailAuthNumber] =
+    useRecoilState(emailAuthNumberState)
   const [isEmailAuth, setIsEmailAuth] = useState(false)
   const [timer, setTimer] = useState(false)
   const [count, setCount] = useState(180)
@@ -83,8 +89,20 @@ const AccountEmailFormComponent = () => {
           <MdButton
             backgroundColor="primary"
             onClick={() => {
+              //인증 이메일 보내기
+              fetch("https://api.슛.site/auth/number/email", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(emailAuth),
+              }).then(async (res) => {
+                const result = await res.json()
+                console.log(result)
+              })
+
               if (isEmail) {
-                console.log(emailAuth)
+                console.log(JSON.stringify(emailAuth))
                 setTimer(true)
               }
             }}
@@ -128,7 +146,23 @@ const AccountEmailFormComponent = () => {
           <MdButton
             backgroundColor="gray"
             onClick={() => {
-              alert("resend")
+              //인증 이메일 보내기
+              fetch("https://api.슛.site/auth/number", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(emailAuth),
+              }).then(async (res) => {
+                const result = await res.json()
+                console.log(result)
+              })
+
+              if (isEmail) {
+                console.log(JSON.stringify(emailAuth))
+                setCount(180)
+                setTimer(true)
+              }
             }}
           >
             <P color="white">재전송</P>
@@ -137,9 +171,24 @@ const AccountEmailFormComponent = () => {
             backgroundColor="primary"
             margin="0px 0px 0px 6px"
             onClick={() => {
-              setTimer(false)
-              alert(auth)
-              setIsEmailAuth(true)
+              // 이메일 번호 비교
+              fetch(
+                `https://api.슛.site/auth/number/${email}?number=${emailAuthNumber}`,
+                // `https://api.슛.site/auth/number/kknyapple@naver.com?number=984783`,
+                {
+                  method: "GET",
+                }
+              ).then(async (res) => {
+                const result = await res.json()
+                console.log(result)
+
+                // 인증번호가 맞다면
+                setTimer(false)
+                setEmailAuthNumber(auth)
+                console.log(emailAuthNumber)
+                // alert(auth)
+                setIsEmailAuth(true)
+              })
             }}
           >
             <P color="white">인증하기</P>

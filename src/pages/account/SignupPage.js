@@ -37,7 +37,30 @@ const SignupPage = () => {
         backgroundColor="primary"
         margin="30px 0px 50px 0px"
         onClick={() => {
-          console.log(signUp)
+          const formData = new FormData()
+
+          formData.append("email", signUp.email)
+          formData.append("pw", signUp.pw)
+          formData.append("pwCheck", signUp.pwCheck)
+          formData.append("birth", signUp.birth)
+          formData.append("sex", signUp.sex)
+          formData.append("channelName", signUp.channelName)
+          formData.append("channelImg", signUp.channelImg)
+          formData.append("loginType", signUp.loginType)
+
+          // for (var entries of formData) console.log(entries) // formData 확인
+          // console.log(signUp)
+          fetch("https://api.슛.site/channel", {
+            method: "POST",
+            headers: {
+              // "Content-Type": "multipart/form-data",
+            },
+            body: formData,
+          }).then(async (res) => {
+            const result = await res.json()
+            console.log(result)
+            console.log(res)
+          })
         }}
       >
         <P color="white" fontSize="lg">
