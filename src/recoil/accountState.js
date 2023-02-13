@@ -47,3 +47,8 @@ export const resetPasswordState = atom({
     pwCheck: "",
   },
 })
+
+export const userTokenState = atom({
+  key: "userToken",
+  default: null,
+})
