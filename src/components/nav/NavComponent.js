@@ -72,37 +72,6 @@ const Nav = () => {
   const [isCategoryRequest, setIsCategoryRequest] = useState(true)
 
   useEffect(() => {
-    //임시데이터
-    /* let tmpCategoryMenu = [
-      {
-        category_idx: 1,
-        category_name: "홈",
-        category_time: "",
-      },
-      {
-        category_idx: 2,
-        category_name: "게임",
-        category_time: "",
-      },
-      {
-        category_idx: 3,
-        category_name: "음악",
-        category_time: "",
-      },
-      {
-        category_idx: 4,
-        category_name: "영화",
-        category_time: "",
-      },
-      {
-        category_idx: 5,
-        category_name: "스포츠",
-        category_time: "",
-      },
-    ]
-
-    setCategoryMenu(tmpCategoryMenu) */
-
     /* if (isCategoryRequest) {
       setCategory({ category: categoryRequest })
     } */
