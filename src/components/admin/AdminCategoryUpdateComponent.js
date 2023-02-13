@@ -8,9 +8,9 @@ import Div from "../basic/Div"
 import { AdminCategoryUpdateTable } from "./AdminTable"
 
 const MainDiv = styled.main`
-  position: fixed;
+  position: sticky;
   width: calc(100vw - 280px);
-  top: 60px;
+  margin-top: 60px;
   left: 220px;
   overflow-x: auto;
 `

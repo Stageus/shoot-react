@@ -14,7 +14,6 @@ const NavBox = styled.nav`
   width: 220px;
   height: calc(100vh - 60px);
   text-align: center;
-  top: 60px;
   overflow: auto;
   overflow-y: auto;
   &::-webkit-scrollbar {
