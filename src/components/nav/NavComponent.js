@@ -43,7 +43,7 @@ const Line = styled.hr`
 
 const Nav = () => {
   const [selectMenu, setSelectMenu] = useState("홈")
-
+  const [categoryRequest, onChangeCategoryRequest] = useInput()
   const generalMenu = [
     {
       name: "HOT",
@@ -68,6 +68,8 @@ const Nav = () => {
   ]
 
   const [categoryMenu, setCategoryMenu] = useRecoilState(categoryMenuState)
+  const [category, setCategory] = useRecoilState(categoryState)
+  const [isCategoryRequest, setIsCategoryRequest] = useState(true)
 
   useEffect(() => {
     //임시데이터
@@ -101,11 +103,12 @@ const Nav = () => {
 
     setCategoryMenu(tmpCategoryMenu) */
 
-    if (isCategoryRequest) {
+    /* if (isCategoryRequest) {
       setCategory({ category: categoryRequest })
-    }
+    } */
 
     fetch("https://api.슛.site/category/all", {
+      credentials: "include",
       method: "GET",
     })
       .then((res) => res.json())
@@ -182,9 +185,31 @@ const Nav = () => {
               padding="0px 0px 0px 10px"
               onChange={(e) => {
                 onChangeCategoryRequest(e)
+                setCategory({ category: categoryRequest })
               }}
             />
-            <SmButton>
+            <SmButton
+              backgroundColor="primary"
+              margin="5px"
+              onClick={() => {
+                // setIsCategoryRequest(true)
+
+                console.log(category)
+                console.log(categoryRequest)
+                fetch("https://api.슛.site/request-category", {
+                  credentials: "include",
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(category),
+                }).then(async (res) => {
+                  const result = await res.json()
+                  console.log(result)
+                  console.log(res)
+                })
+              }}
+            >
               <P color="white" fontSize="sm" fontWeight="800">
                 입력
               </P>

@@ -5,6 +5,11 @@ export const categoryMenuState = atom({
   default: null,
 })
 
+export const categoryState = atom({
+  key: "category",
+  default: null,
+})
+
 export const topHashtagState = atom({
   key: "topHashtag",
   default: [
