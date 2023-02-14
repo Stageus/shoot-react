@@ -218,18 +218,14 @@ const AdminReportPostTable = () => {
   const [reportPost, setReportPost] = useRecoilState(reportPostState)
 
   useEffect(() => {
-    let tmpReportPost = [
-      {
-        reported_post_idx: 4,
-        reported_post_title: "hello",
-        reported_post_upload_time: "2022-11-12",
-        reported_channel_email: "shoot.naver.com",
-        reported_channel_name: "qwerr",
-        report_count: 2,
-      },
-    ]
-
-    setReportPost(tmpReportPost)
+    fetch("https://api.슛.site/report/post/all", {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReportPost(res.data)
+      })
   }, [])
 
   return (
@@ -261,7 +257,27 @@ const AdminReportPostTable = () => {
               <TdStyle>{reported_channel_name}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
               <TdStyle>
-                <Div display="flex" width="100%">
+                <Div
+                  display="flex"
+                  width="100%"
+                  onClick={() => {
+                    fetch(
+                      `https://api.슛.site/report?group=post&idx=${reported_post_idx}`,
+                      {
+                        method: "DELETE",
+                        credentials: "include",
+                      }
+                    ).then(async (res) => {
+                      const result = await res.json()
+                      const filteredData = reportPost.filter(
+                        (element) =>
+                          reported_post_idx !== element.reported_post_idx
+                      )
+
+                      setReportPost(filteredData)
+                    })
+                  }}
+                >
                   <Div width="20px" height="20px" pointer>
                     <Img src="/assets/images/delete.svg" />
                   </Div>
