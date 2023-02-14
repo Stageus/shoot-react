@@ -132,9 +132,8 @@ const AdminCategoryRequestTable = () => {
                         .then((res) => {
                           const filteredData = categoryRequest.filter(
                             (element) =>
-                              !request_category_name.includes(
-                                element.request_category_name
-                              )
+                              request_category_name !==
+                              element.request_category_name
                           )
                           console.log(filteredData)
                           setCategoryRequest(filteredData)
@@ -194,8 +193,7 @@ const AdminCategoryUpdateTable = () => {
                       .then((res) => res.json())
                       .then((res) => {
                         const filteredData = categoryMenu.filter(
-                          (element) =>
-                            !category_idx.includes(element.category_idx)
+                          (element) => category_idx !== element.category_idx
                         )
                         console.log(filteredData)
                         setCategoryMenu(filteredData)
@@ -402,7 +400,7 @@ const AdminReportCommentTable = () => {
             report_count,
           }) => (
             <tr key={reported_comment_idx}>
-              <TdStyle>{post_idx}</TdStyle>
+              <TdStyle>{reported_comment_idx}</TdStyle>
               <TdStyle>{reported_comment_write_time}</TdStyle>
               <TdStyle>{reported_channel_email}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
@@ -478,7 +476,7 @@ const AdminReportReplyCommentTable = () => {
             report_count,
           }) => (
             <tr key={reported_reply_comment_idx}>
-              <TdStyle>{post_idx}</TdStyle>
+              <TdStyle>{reported_reply_comment_idx}</TdStyle>
               <TdStyle>{reported_reply_comment_write_time}</TdStyle>
               <TdStyle>{reported_channel_email}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
