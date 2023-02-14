@@ -68,20 +68,13 @@ const HeaderFunctionComponent = () => {
     setIsLogin(false)
   }
 
+  const profileImgError = (e) => {
+    e.target.src = "/assets/images/user.svg"
+  }
+
   useEffect(() => {
-    alert("로그인 상태 가져오는 api") //이후 setIsLogin에 넣기
-    if (isLogin === false) {
-      setUserInfo({})
-    } else {
-      alert("유저 정보 가져오는 api")
-      const tmpUserInfo = {
-        email: "test1@shoot.com",
-        name: "test1",
-        profile_img: "/assets/images/user.svg",
-      }
-      setUserInfo(tmpUserInfo)
-    }
-  }, [isLogin])
+    return setProfilePopupOpen(false)
+  }, [])
 
   return (
     <Div display="flex">
@@ -108,7 +101,8 @@ const HeaderFunctionComponent = () => {
           <Div ref={profilePopupRef} position="relative" margin="0 27px 0 0">
             <IconText
               onClick={openProfilePopupEvent}
-              src={profile_img}
+              src={profile_img || "/assets/images/user.svg"}
+              onError={profileImgError}
               text={name}
               width="40px"
             />

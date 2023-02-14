@@ -8,6 +8,7 @@ import {
   searchHistoryListState,
   serchHistoryOpenState,
 } from "../../recoil/headerState"
+import { useDeleteFetch, useGetFetch, usePostFetch } from "../../hooks/useFetch"
 
 const HeaderSearchHistortyAutoSave = () => {
   const [searchHistoryAutoSave, setSearchHistoryAutoSave] = useRecoilState(
@@ -15,23 +16,32 @@ const HeaderSearchHistortyAutoSave = () => {
   )
   const setSearchHistoryList = useSetRecoilState(searchHistoryListState)
 
+  const [autosavePostSources, autosavePostFetchData] = usePostFetch()
+  const [autosaveDeleteSources, autosaveDeleteFetchData] = useDeleteFetch()
   const toggleSearchHistoryAutoSaveEvent = () => {
     if (searchHistoryAutoSave) {
-      alert("자동저장 끄기 api")
+      autosavePostFetchData("search-history-off")
       setSearchHistoryAutoSave(false)
       setSearchHistoryList([])
     } else {
-      alert("자동저장 켜기 api")
+      autosaveDeleteFetchData("search-history-off")
       setSearchHistoryAutoSave(true)
     }
   }
 
-  const serchHistoryOpen = useRecoilValue(serchHistoryOpenState)
+  const searchHistoryOpen = useRecoilValue(serchHistoryOpenState)
+  const [autosaveGetSources, autosaveGetFetchData] = useGetFetch()
   useEffect(() => {
-    if (serchHistoryOpen) {
-      console.log("검색기록 자동 저장 상태 api")
+    if (searchHistoryOpen === true) {
+      autosaveGetFetchData("search-history-off")
     }
-  })
+  }, [searchHistoryOpen])
+
+  useEffect(() => {
+    if (searchHistoryOpen === true) {
+      setSearchHistoryAutoSave(autosaveGetSources.data.state)
+    }
+  }, [autosaveGetSources])
 
   return (
     <Div display="flex" justifyContent="right" width="100%">
