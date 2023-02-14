@@ -59,9 +59,8 @@ const AdminNav = () => {
     <React.Fragment>
       <NavBox>
         {adminMenu.map(({ name, svg, link }) => (
-          <Link style={{ textDecoration: "none" }} to={`${link}`}>
+          <Link style={{ textDecoration: "none" }} to={`${link}`} key={name}>
             <NavItem
-              key={name}
               menu={name}
               svg={svg}
               setSelectMenu={setSelectMenu}
