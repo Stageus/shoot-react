@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useRecoilState } from "recoil"
 
 import { Input } from "../basic/Input"
@@ -14,6 +14,8 @@ import useFocusInput from "../../hooks/useFocusInput"
 import { localLoginState, userTokenState } from "../../recoil/accountState"
 
 const AccountLocalLoginFormComponent = () => {
+  const navigate = useNavigate()
+
   const [email, onChangeEmail] = useInput()
   const [emailFocus, onFocusEmail, onBlurEmail] = useFocusInput()
   const [password, onChangePassword] = useInput()
@@ -128,14 +130,19 @@ const AccountLocalLoginFormComponent = () => {
             body: JSON.stringify(localLogin),
           }).then(async (res) => {
             const result = await res.json()
-            // setLoginResult(result) // 로그인 실패 시 에러 출력
+
             console.log(result)
-            console.log(res)
+            console.log(res.status)
 
-            let cookie = getCookie(document.cookie)
+            if (res.status === 200) {
+              let cookie = getCookie(document.cookie)
 
-            setUserToken(cookie)
-            console.log(userToken)
+              setUserToken(cookie)
+              console.log(userToken)
+              navigate("/")
+            } else {
+              setLoginResult(result) // 로그인 실패 시 에러 출력
+            }
           })
         }}
       >
