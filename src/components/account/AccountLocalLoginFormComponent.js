@@ -11,7 +11,7 @@ import EventInput from "./EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
-import { localLoginState } from "../../recoil/accountState"
+import { localLoginState, userTokenState } from "../../recoil/accountState"
 
 const AccountLocalLoginFormComponent = () => {
   const [email, onChangeEmail] = useInput()
@@ -21,8 +21,9 @@ const AccountLocalLoginFormComponent = () => {
   const [isCheck, setIsCheck] = useState(false)
 
   const [localLogin, setLocalLogin] = useRecoilState(localLoginState)
-
   const [loginResult, setLoginResult] = useState()
+
+  const [userToken, setUserToken] = useRecoilState(userTokenState)
 
   const isCheckHandler = (e) => {
     if (e.target.checked) {
@@ -41,6 +42,12 @@ const AccountLocalLoginFormComponent = () => {
     })
     // console.log(JSON.stringify(localLogin))
   }, [email, password, isCheck])
+
+  const getCookie = (cookie) => {
+    let value = cookie.split("=")
+
+    return value[1]
+  }
 
   return (
     <React.Fragment>
@@ -125,8 +132,10 @@ const AccountLocalLoginFormComponent = () => {
             console.log(result)
             console.log(res)
 
-            // var cookieData = document.cookie
-            // console.log(cookieData)
+            let cookie = getCookie(document.cookie)
+
+            setUserToken(cookie)
+            console.log(userToken)
           })
         }}
       >
