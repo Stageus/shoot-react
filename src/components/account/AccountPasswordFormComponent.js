@@ -8,7 +8,7 @@ import useInput from "../../hooks/useInput"
 import useValidationInput from "../../hooks/useValidationInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
-import { signUpState } from "../../recoil/accountState"
+import { resetPasswordState, signUpState } from "../../recoil/accountState"
 
 const AccountPasswordFormComponent = () => {
   const passwordRegExp =
@@ -31,11 +31,18 @@ const AccountPasswordFormComponent = () => {
     useFocusInput()
 
   const [signUp, setSignUp] = useRecoilState(signUpState)
+  const [resetPassword, setResetPassword] = useRecoilState(resetPasswordState)
 
   useEffect(() => {
+    // 회원가입 페이지
+    // 비밀번호 변경 페이지
     if (isPassword) {
       setSignUp({
         ...signUp,
+        pw: password,
+      })
+      setResetPassword({
+        ...resetPassword,
         pw: password,
       })
     }
@@ -43,6 +50,10 @@ const AccountPasswordFormComponent = () => {
     if (isPasswordCheck) {
       setSignUp({
         ...signUp,
+        pwCheck: passwordCheck,
+      })
+      setResetPassword({
+        ...resetPassword,
         pwCheck: passwordCheck,
       })
     }
