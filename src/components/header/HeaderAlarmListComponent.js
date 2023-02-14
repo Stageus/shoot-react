@@ -6,6 +6,7 @@ import Div from "../basic/Div"
 import { H2 } from "../basic/H"
 import HeaderAlarmBox from "./HeaderAlarmBox"
 import { alarmOpenState, alarmListState } from "../../recoil/headerState"
+import { useGetFetch } from "../../hooks/useFetch"
 
 const AlarmContainer = styled(Div)`
   max-height: 240px;
@@ -19,11 +20,22 @@ const HeaderAlarmListComponent = () => {
   })
 
   const alarmOpen = useRecoilValue(alarmOpenState)
+  const [alarmGetSources, alarmGetFetchData] = useGetFetch()
   useEffect(() => {
     if (alarmOpen === true) {
-      alert("알람 리스트 가져오는 api")
+      alarmGetFetchData("notification/all")
     }
-  })
+  }, [alarmOpen])
+
+  useEffect(() => {
+    if (alarmOpen === true) {
+      if (alarmGetSources !== null && alarmGetSources !== undefined) {
+        const tmpAlarmList = alarmGetSources.data
+        setAlarmList(tmpAlarmList)
+      }
+    }
+  }, [alarmGetSources])
+
   return (
     <Div
       display={alarmOpen === true ? "block" : "none"}
