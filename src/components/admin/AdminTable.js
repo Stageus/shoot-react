@@ -295,22 +295,14 @@ const AdminReportChannelTable = () => {
   const [reportChannel, setReportChannel] = useRecoilState(reportChannelState)
 
   useEffect(() => {
-    let tmpReportChannel = [
-      {
-        reported_channel_email: "shoot.naver.com",
-        reported_channel_time: "2022-12-23",
-        reported_channel_name: "qwerr",
-        report_count: 5,
-      },
-      {
-        reported_channel_email: "stageus.naver.com",
-        reported_channel_time: "2022-12-28",
-        reported_channel_name: "poiu12",
-        report_count: 10,
-      },
-    ]
-
-    setReportChannel(tmpReportChannel)
+    fetch("https://api.슛.site/report/channel/all", {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReportChannel(res.data)
+      })
   }, [])
 
   return (
@@ -341,7 +333,28 @@ const AdminReportChannelTable = () => {
               <TdStyle>{reported_channel_name}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
               <TdStyle>
-                <Div display="flex" width="100%">
+                <Div
+                  display="flex"
+                  width="100%"
+                  onClick={() => {
+                    fetch(
+                      `https://api.슛.site/report?group=channel&idx=${reported_channel_email}`,
+                      {
+                        method: "DELETE",
+                        credentials: "include",
+                      }
+                    ).then(async (res) => {
+                      const result = await res.json()
+                      const filteredData = reportChannel.filter(
+                        (element) =>
+                          reported_channel_email !==
+                          element.reported_channel_email
+                      )
+
+                      setReportChannel(filteredData)
+                    })
+                  }}
+                >
                   <Div width="20px" height="20px" pointer>
                     <Img src="/assets/images/delete.svg" />
                   </Div>
