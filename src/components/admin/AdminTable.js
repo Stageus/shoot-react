@@ -598,10 +598,12 @@ const AdminLogTable = () => {
                             .then((res) => res.json())
                             .then((res) => {
                               setLogIdx(res.data)
-                              console.log(res)
                             })
                           setSelect(id)
                           setOpen(true)
+                          open
+                            ? id === select && setOpen(false)
+                            : id === select && setOpen(true)
                         }}
                       >
                         <Img src="../assets/images/downArrow.svg" />
