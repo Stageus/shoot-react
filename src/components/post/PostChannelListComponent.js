@@ -14,20 +14,27 @@ const PostListContainer = styled(Div)`
 
 const PostItemChannelListComponent = () => {
   const postItemList = useRecoilValue(postItemListState)
+  console.log(postItemList)
 
   const PostItemChannelListContent = postItemList.map((element, Idx) => {
-    const { profile_img, upload_channel_email, channel_name } = element
-    const PostItemList = element.post.map((element, Idx) => {
-      const postItemObject = {
-        ...element,
-        profile_img: profile_img,
-        upload_channel_email: upload_channel_email,
-        channel_name: channel_name,
-      }
-      return (
-        <PostItem key={`postItemBox_${Idx}`} postItemObject={postItemObject} />
-      )
-    })
+    const { profile_img, upload_channel_email, channel_name, post } = element
+    let PostChannelList
+    if (post !== undefined && post !== []) {
+      PostChannelList = post.map((element, Idx) => {
+        const postItemObject = {
+          ...element,
+          profile_img: profile_img,
+          upload_channel_email: upload_channel_email,
+          channel_name: channel_name,
+        }
+        return (
+          <PostItem
+            key={`postItemBox_${Idx}`}
+            postItemObject={postItemObject}
+          />
+        )
+      })
+    }
 
     const profileObject = {
       profileImg: profile_img,
@@ -44,7 +51,7 @@ const PostItemChannelListComponent = () => {
           height="500px"
           margin="7px 0 0 0"
         >
-          {PostItemList}
+          {PostChannelList}
         </PostListContainer>
       </Div>
     )
