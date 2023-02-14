@@ -9,6 +9,7 @@ import { MdButton } from "../basic/Button"
 
 import {
   categoryRequestState,
+  categoryUpdateState,
   reportChannelState,
   reportPostState,
   reportCommentState,
@@ -16,6 +17,7 @@ import {
   logState,
   logIdxState,
 } from "../../recoil/adminState"
+import { categoryMenuState } from "../../recoil/navState"
 
 const TableStyle = styled.table`
   border: 1px solid black;
@@ -49,28 +51,25 @@ const ThInfoStyle = styled.th`
 const AdminCategoryRequestTable = () => {
   const [categoryRequest, setCategoryRequest] =
     useRecoilState(categoryRequestState)
+  const [categoryUpdate, setCategoryUpdate] =
+    useRecoilState(categoryUpdateState)
 
   useEffect(() => {
-    /*let tmpCategoryRequest = [
-      {
-        request_category_name: "경제",
-        request_count: 20,
-        recent_request_time: "2022.12.14",
+    fetch("https://api.슛.site/category", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      {
-        request_category_name: "수학",
-        request_count: 41,
-        recent_request_time: "2022.12.14",
-      },
-      {
-        request_category_name: "과학",
-        request_count: 22,
-        recent_request_time: "2022.12.14",
-      },
-    ]
+      body: JSON.stringify(categoryUpdate),
+    }).then(async (res) => {
+      const result = await res.json()
+      console.log(result)
+      console.log(categoryUpdate)
+    })
+  }, [categoryUpdate])
 
-    setCategoryRequest(tmpCategoryRequest)*/
-
+  useEffect(() => {
     fetch("https://api.슛.site/request-category/all", {
       method: "GET",
       credentials: "include",
@@ -78,7 +77,7 @@ const AdminCategoryRequestTable = () => {
       .then((res) => res.json())
       .then((res) => {
         setCategoryRequest(res.data)
-        console.log(res)
+        console.log(res.data)
       })
   }, [])
 
@@ -106,7 +105,13 @@ const AdminCategoryRequestTable = () => {
                   <TdStyle>{request_count}</TdStyle>
                   <TdStyle>{recent_request_time}</TdStyle>
                   <TdStyle>
-                    <Div display="flex" width="100%">
+                    <Div
+                      display="flex"
+                      width="100%"
+                      onClick={() => {
+                        setCategoryUpdate({ category: request_category_name })
+                      }}
+                    >
                       <Div width="20px" height="20px" pointer>
                         <Img src="/assets/images/add.svg" />
                       </Div>
@@ -126,8 +131,14 @@ const AdminCategoryRequestTable = () => {
                         )
                           .then((res) => res.json())
                           .then((res) => {
-                            setCategoryRequest(res.data)
-                            console.log(res)
+                            const filteredData = categoryRequest.filter(
+                              (element) =>
+                                !request_category_name.includes(
+                                  element.request_category_name
+                                )
+                            )
+                            console.log(filteredData)
+                            setCategoryRequest(filteredData)
                           })
                       }}
                     >
@@ -146,37 +157,16 @@ const AdminCategoryRequestTable = () => {
 }
 
 const AdminCategoryUpdateTable = () => {
-  const [categoryUpdate, setCategoryUpdate] =
-    useRecoilState(categoryRequestState)
+  const [categoryMenu, setCategoryMenu] = useRecoilState(categoryMenuState)
 
   useEffect(() => {
-    /*let tmpCategoryUpdate = [
-      {
-        request_category_name: "수학",
-        request_count: 41,
-        recent_request_time: "2022.12.14",
-      },
-      {
-        request_category_name: "과학",
-        request_count: 22,
-        recent_request_time: "2022.12.14",
-      },
-      {
-        request_category_name: "경제",
-        request_count: 20,
-        recent_request_time: "2022.12.14",
-      },
-    ]
-
-    setCategoryUpdate(tmpCategoryUpdate)*/
-    fetch("https://api.슛.site/request-category/all", {
-      method: "GET",
+    fetch("https://api.슛.site/category/all", {
       credentials: "include",
+      method: "GET",
     })
       .then((res) => res.json())
       .then((res) => {
-        setCategoryUpdate(res.data)
-        console.log(res)
+        setCategoryMenu(res.data)
       })
   }, [])
 
@@ -189,28 +179,40 @@ const AdminCategoryUpdateTable = () => {
           <ThStyle>추가 날짜</ThStyle>
           <ThStyle>삭제</ThStyle>
         </tr>
-        {categoryUpdate &&
-          categoryUpdate.map(
-            (
-              { request_category_name, request_count, recent_request_time },
-              index
-            ) => (
-              <>
-                <tr key={index}>
-                  <TdStyle>{index + 1}</TdStyle>
-                  <TdStyle>{request_category_name}</TdStyle>
-                  <TdStyle>{recent_request_time}</TdStyle>
-                  <TdStyle>
-                    <MdButton backgroundColor="red">
-                      <P color="white" fontSize="sm">
-                        삭제하기
-                      </P>
-                    </MdButton>
-                  </TdStyle>
-                </tr>
-              </>
-            )
-          )}
+        {categoryMenu &&
+          categoryMenu.map(({ category_idx, category_name, category_time }) => (
+            <>
+              <tr key={category_idx}>
+                <TdStyle>{category_idx}</TdStyle>
+                <TdStyle>{category_name}</TdStyle>
+                <TdStyle>{category_time}</TdStyle>
+                <TdStyle>
+                  <MdButton
+                    backgroundColor="red"
+                    onClick={() => {
+                      fetch(`https://api.슛.site/category/${category_idx}`, {
+                        method: "DELETE",
+                        credentials: "include",
+                      })
+                        .then((res) => res.json())
+                        .then((res) => {
+                          const filteredData = categoryMenu.filter(
+                            (element) =>
+                              !category_idx.includes(element.category_idx)
+                          )
+                          console.log(filteredData)
+                          setCategoryMenu(filteredData)
+                        })
+                    }}
+                  >
+                    <P color="white" fontSize="sm">
+                      삭제하기
+                    </P>
+                  </MdButton>
+                </TdStyle>
+              </tr>
+            </>
+          ))}
       </tbody>
     </TableStyle>
   )
