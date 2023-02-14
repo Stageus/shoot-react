@@ -111,10 +111,10 @@ const Comment = (props) => {
           <React.Fragment>
             <Div display="flex">
               <Div margin="0 3px 0 0">
-                <P fontSize="12px">{channel_name}</P>
+                <P fontSize="sm">{channel_name}</P>
               </Div>
               <Div>
-                <P fontSize="12px" color="gray">
+                <P fontSize="sm" color="gray">
                   {differenceTime}
                 </P>
               </Div>

@@ -9,6 +9,7 @@ import Img from "../basic/Img"
 import { Input } from "../basic/Input"
 import HeaderSearchHistoryListComponent from "./HeaderSearchHistoryListComponent"
 import { serchHistoryOpenState, isLoginState } from "../../recoil/headerState"
+import { usePostFetch } from "../../hooks/useFetch"
 
 const SearchInput = styled(Input)`
   flex: 1;
@@ -38,21 +39,26 @@ const HeaderSearchComponent = () => {
     }
   }
 
+  const [historyPostSources, historyPostFetchData] = usePostFetch()
   const searchEvent = () => {
-    const searchContent = document.getElementById("searchInput").value
+    let searchContent = document.getElementById("searchInput").value
     if (searchContent === "") {
       alert("검색어를 입력해주세요")
     } else {
       if (isLogin) {
-        alert("최근검색어 리스트 추가 api")
+        const fetchBody = {
+          keyword: searchContent,
+        }
+        historyPostFetchData("search-history", fetchBody)
       }
       const searchType = searchContent.slice(0, 1)
+      if (searchType === "#" || searchType === "@") {
+        searchContent = searchContent.slice(1, searchContent.length)
+      }
       if (searchType === "#") {
-        const searchHash = searchContent.slice(1, searchContent.length)
-        navigate(`/search/hash/${searchHash}`)
+        navigate(`/search/hash/${searchContent}`)
       } else if (searchType === "@") {
-        const searchChannel = searchContent.slice(1, searchContent.length)
-        navigate(`/search/channel/${searchChannel}`)
+        navigate(`/search/channel/${searchContent}`)
       } else {
         navigate(`/search/all/${searchContent}`)
       }
@@ -61,8 +67,8 @@ const HeaderSearchComponent = () => {
   }
 
   useEffect(() => {
-    setSearchHistoryOpen(false)
-  })
+    return setSearchHistoryOpen(false)
+  }, [])
 
   return (
     <Div
