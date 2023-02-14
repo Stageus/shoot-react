@@ -3,9 +3,7 @@ import { atom } from "recoil"
 // post
 export const categoryUpdateState = atom({
   key: "categoryUpdate",
-  default: {
-    category: "",
-  },
+  default: [],
 })
 
 // get
