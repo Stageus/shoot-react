@@ -372,19 +372,14 @@ const AdminReportCommentTable = () => {
   const [reportComment, setReportComment] = useRecoilState(reportCommentState)
 
   useEffect(() => {
-    let tmpReportComment = [
-      {
-        post_idx: 33,
-        reported_comment_idx: 2,
-        reported_comment_contents: "helloheool",
-        reported_comment_write_time: "2023-01-12",
-        reported_channel_email: "shoot.naver.com",
-        reported_channel_name: "qwerr",
-        report_count: 5,
-      },
-    ]
-
-    setReportComment(tmpReportComment)
+    fetch("https://api.슛.site/report/comment/all", {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReportComment(res.data)
+      })
   }, [])
 
   return (
@@ -412,7 +407,27 @@ const AdminReportCommentTable = () => {
               <TdStyle>{reported_channel_email}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
               <TdStyle>
-                <Div display="flex" width="100%">
+                <Div
+                  display="flex"
+                  width="100%"
+                  onClick={() => {
+                    fetch(
+                      `https://api.슛.site/report?group=comment&idx=${reported_comment_idx}`,
+                      {
+                        method: "DELETE",
+                        credentials: "include",
+                      }
+                    ).then(async (res) => {
+                      const result = await res.json()
+                      const filteredData = reportComment.filter(
+                        (element) =>
+                          reported_comment_idx !== element.reported_comment_idx
+                      )
+
+                      setReportComment(filteredData)
+                    })
+                  }}
+                >
                   <Div width="20px" height="20px" pointer>
                     <Img src="/assets/images/delete.svg" />
                   </Div>
