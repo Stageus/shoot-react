@@ -53,18 +53,20 @@ const PostDetailVote = (props) => {
         tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "-")
         voteAmount--
       } else {
-        votePostFetchData(`vote/${vote_idx}`)
         if (currentVoteIdx === undefined) {
-          voteAmount++
-        } else {
-          tmpVoteCountList = setVoteCountListLogic(
-            tmpVoteCountList,
-            currentVoteIdx,
-            "-"
-          )
+          votePostFetchData(`vote/${vote_idx}`)
+          if (currentVoteIdx === undefined) {
+            voteAmount++
+          } else {
+            tmpVoteCountList = setVoteCountListLogic(
+              tmpVoteCountList,
+              currentVoteIdx,
+              "-"
+            )
+          }
+          currentVoteIdx = myIdx
+          tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "+")
         }
-        currentVoteIdx = myIdx
-        tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "+")
       }
       setVoteInfo({
         voteIdx: currentVoteIdx,
