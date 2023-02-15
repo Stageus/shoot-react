@@ -18,6 +18,7 @@ import {
   commentListState,
   replyCommentListState,
 } from "../../../recoil/postState"
+import { useGetFetch } from "../../../hooks/useFetch"
 
 const CommentContent = styled(Div)`
   flex: 1;
@@ -63,6 +64,7 @@ const Comment = (props) => {
   const myEmail = userInfo.email
   // 임시 data
   const isMyPost = myEmail === write_channel_email || myEmail === email
+
   const [replyCommentList, setReplyCommentList] = useReplyComment()
   const [backReplyCommentList, setBackReplyCommentList] = useRecoilState(
     replyCommentListState
@@ -81,11 +83,19 @@ const Comment = (props) => {
       )
     })
   }
+
+  const [replyGetSources, replyGetFetchData] = useGetFetch()
   const addReplyCommentEvent = () => {
-    alert(`댓글 번호가 ${comment_idx}인 대댓글 불러오는 api`)
-    const tmpReplyCommentList = [...replyCommentList, ...backReplyCommentList]
-    setReplyCommentList(tmpReplyCommentList)
+    replyGetFetchData(`reply-comment/all?comment-idx=${comment_idx}`)
   }
+  useEffect(() => {
+    if (replyGetSources !== null && replyGetSources !== undefined) {
+      setBackReplyCommentList(replyGetSources.data)
+      const tmpReplyCommentList = [...replyCommentList, ...backReplyCommentList]
+      setReplyCommentList(tmpReplyCommentList)
+    }
+  }, [replyGetSources])
+
   const openReplyCommentEvent = () => {
     if (replyCommentList.length === 0) {
       addReplyCommentEvent()
@@ -93,7 +103,9 @@ const Comment = (props) => {
       setReplyCommentList([])
     }
   }
+
   const [modifyState, setModifyState] = useState(false)
+
   const changeModifyState = () => {
     setModifyState(true)
   }
@@ -150,8 +162,14 @@ const Comment = (props) => {
               <CommentLike
                 type={(comment_idx && "comment") || "reply"}
                 idx={(comment_idx && comment_idx) || reply_comment_idx}
-                goodState={good_state || comment_good_state}
-                goodCount={comment_good_count || reply_comment_good_count}
+                goodState={
+                  good_state !== undefined ? good_state : comment_good_state
+                }
+                goodCount={
+                  comment_good_count !== undefined
+                    ? comment_good_count
+                    : reply_comment_good_count
+                }
               />
               <Div pointer margin="0 0 0 10px">
                 <P onClick={() => setOpenReplyInput()} fontSize="sm">
