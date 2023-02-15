@@ -8,6 +8,7 @@ import {
   postInfoState,
 } from "../../recoil/postState"
 import { isLoginState } from "../../recoil/headerState"
+import { useDeleteFetch, usePostFetch } from "../../hooks/useFetch"
 
 const PostDetailLikeIcon = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
@@ -16,6 +17,8 @@ const PostDetailLikeIcon = () => {
   const [isLike, setIsLike] = useRecoilState(isLikeState)
   const [likeCount, setLikeCount] = useRecoilState(likeCountState)
 
+  const [likePostSources, likePostFetchData] = usePostFetch()
+  const [likeDeleteSources, likeDeleteFetchData] = useDeleteFetch()
   const like = () => {
     if (isLogin === false) {
       alert(
@@ -23,11 +26,11 @@ const PostDetailLikeIcon = () => {
       )
     } else {
       if (isLike) {
-        alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 취소 api`) //401 에러 나올 경우 setIsLogin(false)
+        likeDeleteFetchData(`post-good/${post_idx}`)
         setIsLike(false)
         setLikeCount(likeCount - 1)
       } else {
-        alert(`게시글 번호가 ${post_idx}인 게시글 좋아요 api`) //401 에러 나올 경우 setIsLogin(false)
+        likePostFetchData(`post-good/${post_idx}`)
         setIsLike(true)
         setLikeCount(likeCount + 1)
       }

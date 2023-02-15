@@ -5,6 +5,7 @@ import Div from "../../basic/Div"
 import P from "../../basic/P"
 import { voteInfoState } from "../../../recoil/postState"
 import { isLoginState } from "../../../recoil/headerState"
+import { useDeleteFetch, usePostFetch } from "../../../hooks/useFetch"
 
 const PostDetailVote = (props) => {
   const { vote_idx, vote_contents } = props.voteObject
@@ -36,6 +37,9 @@ const PostDetailVote = (props) => {
   }
 
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
+
+  const [votePostSources, votePostFetchData] = usePostFetch()
+  const [voteDeleteSources, voteDeleteFetchData] = useDeleteFetch()
   const voteEvent = () => {
     if (isLogin === false) {
       alert(
@@ -44,23 +48,25 @@ const PostDetailVote = (props) => {
     } else {
       let tmpVoteCountList = voteCountList
       if (myIdx === currentVoteIdx) {
-        alert(`투표 번호 ${vote_idx} 투표 취소 api`) //401 에러 나올 경우 setIsLogin(false)
+        voteDeleteFetchData(`vote/${vote_idx}`)
         currentVoteIdx = undefined
         tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "-")
         voteAmount--
       } else {
-        alert(`투표 번호 ${vote_idx} 투표 api`) //401 에러 나올 경우 setIsLogin(false)
         if (currentVoteIdx === undefined) {
-          voteAmount++
-        } else {
-          tmpVoteCountList = setVoteCountListLogic(
-            tmpVoteCountList,
-            currentVoteIdx,
-            "-"
-          )
+          votePostFetchData(`vote/${vote_idx}`)
+          if (currentVoteIdx === undefined) {
+            voteAmount++
+          } else {
+            tmpVoteCountList = setVoteCountListLogic(
+              tmpVoteCountList,
+              currentVoteIdx,
+              "-"
+            )
+          }
+          currentVoteIdx = myIdx
+          tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "+")
         }
-        currentVoteIdx = myIdx
-        tmpVoteCountList = setVoteCountListLogic(tmpVoteCountList, myIdx, "+")
       }
       setVoteInfo({
         voteIdx: currentVoteIdx,
@@ -90,7 +96,9 @@ const PostDetailVote = (props) => {
       {voteInfo !== undefined && (
         <Div margin="0 8px">
           <P color={myIdx === currentVoteIdx ? "green" : "gray"}>
-            {`${parseInt((myVoteCount / voteAmount) * 100)}%`}
+            {voteAmount !== 0
+              ? `${parseInt((myVoteCount / voteAmount) * 100)}%`
+              : "0%"}
           </P>
         </Div>
       )}
