@@ -102,7 +102,7 @@ const ReportPostModalTable = () => {
                               : report_idx === select && setOpen(true)
                           }}
                         >
-                          <Img src="../assets/images/downArrow.svg" />
+                          <Img src="/assets/images/downArrow.svg" />
                         </Div>
                       </Div>
                     </TdStyle>
