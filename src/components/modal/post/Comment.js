@@ -40,7 +40,7 @@ const Comment = (props) => {
     profile_img,
     channel_name,
     comment_good_state,
-    good_state,
+    reply_comment_good_state,
   } = props.commentObject
   const parentCommentIdx = props.parentCommentIdx
 
@@ -163,7 +163,9 @@ const Comment = (props) => {
                 type={(comment_idx && "comment") || "reply"}
                 idx={(comment_idx && comment_idx) || reply_comment_idx}
                 goodState={
-                  good_state !== undefined ? good_state : comment_good_state
+                  reply_comment_good_state !== undefined
+                    ? reply_comment_good_state
+                    : comment_good_state
                 }
                 goodCount={
                   comment_good_count !== undefined
