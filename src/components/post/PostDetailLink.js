@@ -24,11 +24,11 @@ const PostDetailLink = (props) => {
       margin="0 10%"
       borderRadius="5px"
     >
-      <Div padding="11px 9px" backgorundColor="">
-        <Div margin="0 0 12px 0">
+      <Div width="100%" backgorundColor="">
+        <Div width="95%" margin="11px 9px 12px">
           <P fontSize="lg">{name}</P>
         </Div>
-        <Div>
+        <Div width="95%" margin="0 9px 11px">
           <P fontSize="lg">{link}</P>
         </Div>
       </Div>
