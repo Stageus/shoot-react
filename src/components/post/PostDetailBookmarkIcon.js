@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil"
 import { IconTextCircle } from "../common/IconText"
 import { isBookmarkState, postInfoState } from "../../recoil/postState"
 import { isLoginState } from "../../recoil/headerState"
+import { useDeleteFetch, usePostFetch } from "../../hooks/useFetch"
 
 const PostDetailBookmarkIcon = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
@@ -11,6 +12,8 @@ const PostDetailBookmarkIcon = () => {
   const { post_idx, bookmark_state } = postInfo
   const [isBookmark, setIsBookmark] = useRecoilState(isBookmarkState)
 
+  const [bookmarkPostSources, bookmarkPostFetchData] = usePostFetch()
+  const [bookmarkDeleteSources, bookmarkDeleteFetchData] = useDeleteFetch()
   const bookmark = () => {
     if (isLogin === false) {
       alert(
@@ -18,10 +21,10 @@ const PostDetailBookmarkIcon = () => {
       )
     } else {
       if (isBookmark) {
-        alert(`게시글 번호가 ${post_idx}인 게시글 즐겨찾기 취소 api`) //401 에러 나올 경우 setIsLogin(false)
+        bookmarkDeleteFetchData(`bookmark?post-idx=${post_idx}`)
         setIsBookmark(false)
       } else {
-        alert(`게시글 번호가 ${post_idx}인 게시글 즐겨찾기 api`) //401 에러 나올 경우 setIsLogin(false)
+        bookmarkPostFetchData(`bookmark?post-idx=${post_idx}`)
         setIsBookmark(true)
       }
     }
