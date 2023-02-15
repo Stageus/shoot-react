@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil"
 import { IconText } from "../../common/IconText"
 import useCommentLike from "../../../hooks/useCommentLike"
 import { isLoginState } from "../../../recoil/headerState"
+import { useDeleteFetch, usePostFetch } from "../../../hooks/useFetch"
 
 const CommentLike = (props) => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
@@ -23,6 +24,8 @@ const CommentLike = (props) => {
     })
   }, [])
 
+  const [likePostSources, likePostFetchData] = usePostFetch()
+  const [likeDeleteSources, likeDeleteFetchData] = useDeleteFetch()
   const like = () => {
     if (isLogin === false) {
       alert(
@@ -31,15 +34,15 @@ const CommentLike = (props) => {
     } else {
       if (type === "comment") {
         if (currnetGoodState) {
-          alert(`댓글 번호가 ${idx}인 게시글 좋아요 취소 api`) //401 에러 나올 경우 setIsLogin(false)
+          likeDeleteFetchData(`comment-good/${idx}`)
         } else {
-          alert(`댓글 번호가 ${idx}인 게시글 좋아요 api`) //401 에러 나올 경우 setIsLogin(false)
+          likePostFetchData(`comment-good/${idx}`)
         }
       } else {
         if (currnetGoodState) {
-          alert(`대댓글 번호가 ${idx}인 게시글 좋아요 취소 api`)
+          likeDeleteFetchData(`reply-comment-good/${idx}`)
         } else {
-          alert(`대댓글 번호가 ${idx}인 게시글 좋아요 api`)
+          likePostFetchData(`reply-comment-good/${idx}`)
         }
       }
       toggleCommentLike()
