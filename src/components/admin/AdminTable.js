@@ -16,8 +16,12 @@ import {
   reportReplyCommentState,
   logState,
   logIdxState,
+  reportPostSelectState,
+  reportChannelSelectState,
+  blockSelectedState,
 } from "../../recoil/adminState"
 import { categoryMenuState } from "../../recoil/navState"
+import { modalInfoState, modalOpenState } from "../../recoil/modalState"
 
 const TableStyle = styled.table`
   border: 1px solid black;
@@ -214,6 +218,9 @@ const AdminCategoryUpdateTable = () => {
 
 const AdminReportPostTable = () => {
   const [reportPost, setReportPost] = useRecoilState(reportPostState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
 
   useEffect(() => {
     fetch("https://api.슛.site/report/post/all", {
@@ -249,7 +256,22 @@ const AdminReportPostTable = () => {
           }) => (
             <tr key={reported_post_idx}>
               <TdStyle>{reported_post_idx}</TdStyle>
-              <TdStyle>{reported_post_title}</TdStyle>
+              <TdStyle
+                // Modal
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportPost",
+                  })
+                  setBlockSelected({
+                    idx: reported_post_idx,
+                    email: reported_channel_email,
+                  })
+                }}
+              >
+                {reported_post_title}
+              </TdStyle>
               <TdStyle>{reported_post_upload_time}</TdStyle>
               <TdStyle>{reported_channel_email}</TdStyle>
               <TdStyle>{reported_channel_name}</TdStyle>
@@ -291,6 +313,9 @@ const AdminReportPostTable = () => {
 
 const AdminReportChannelTable = () => {
   const [reportChannel, setReportChannel] = useRecoilState(reportChannelState)
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
 
   useEffect(() => {
     fetch("https://api.슛.site/report/channel/all", {
@@ -326,7 +351,18 @@ const AdminReportChannelTable = () => {
           ) => (
             <tr key={reported_channel_time}>
               <TdStyle>{index + 1}</TdStyle>
-              <TdStyle>{reported_channel_email}</TdStyle>
+              <TdStyle
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportChannel",
+                  })
+                  setBlockSelected({ email: reported_channel_email })
+                }}
+              >
+                {reported_channel_email}
+              </TdStyle>
               <TdStyle>{reported_channel_time}</TdStyle>
               <TdStyle>{reported_channel_name}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
@@ -368,6 +404,9 @@ const AdminReportChannelTable = () => {
 
 const AdminReportCommentTable = () => {
   const [reportComment, setReportComment] = useRecoilState(reportCommentState)
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
 
   useEffect(() => {
     fetch("https://api.슛.site/report/comment/all", {
@@ -400,7 +439,21 @@ const AdminReportCommentTable = () => {
             report_count,
           }) => (
             <tr key={reported_comment_idx}>
-              <TdStyle>{reported_comment_idx}</TdStyle>
+              <TdStyle
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportComment",
+                  })
+                  setBlockSelected({
+                    idx: reported_comment_idx,
+                    email: reported_channel_email,
+                  })
+                }}
+              >
+                {reported_comment_idx}
+              </TdStyle>
               <TdStyle>{reported_comment_write_time}</TdStyle>
               <TdStyle>{reported_channel_email}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
@@ -443,6 +496,9 @@ const AdminReportReplyCommentTable = () => {
   const [reportReplyComment, setReportReplyComment] = useRecoilState(
     reportReplyCommentState
   )
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
 
   useEffect(() => {
     fetch("https://api.슛.site/report/reply-comment/all", {
@@ -476,7 +532,21 @@ const AdminReportReplyCommentTable = () => {
             report_count,
           }) => (
             <tr key={reported_reply_comment_idx}>
-              <TdStyle>{reported_reply_comment_idx}</TdStyle>
+              <TdStyle
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportReplyComment",
+                  })
+                  setBlockSelected({
+                    idx: reported_reply_comment_idx,
+                    email: reported_channel_email,
+                  })
+                }}
+              >
+                {reported_reply_comment_idx}
+              </TdStyle>
               <TdStyle>{reported_reply_comment_write_time}</TdStyle>
               <TdStyle>{reported_channel_email}</TdStyle>
               <TdStyle>{report_count}</TdStyle>
