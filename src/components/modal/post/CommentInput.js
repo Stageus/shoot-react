@@ -1,16 +1,26 @@
-import React from "react"
+import React, { useRef } from "react"
 import styled from "styled-components"
 import { useRecoilState, useRecoilValue } from "recoil"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
-import { Input } from "../../basic/Input"
 import { SmButton } from "../../basic/Button"
 import Profile from "../../common/Profile"
 import { userInfoState, isLoginState } from "../../../recoil/headerState"
 
 const InputDiv = styled(Div)`
   flex: 1;
+`
+
+const CommentTextArea = styled.textarea`
+  width: 100%;
+  padding: 0px;
+  border: 0;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
 `
 
 const CommentInput = (props) => {
@@ -45,6 +55,13 @@ const CommentInput = (props) => {
     }
   }
 
+  const textarea = useRef()
+
+  const resizeTextareaHeightLogic = () => {
+    textarea.current.style.height = "auto"
+    textarea.current.style.height = textarea.current.scrollHeight + "px"
+  }
+
   return (
     <Div width="100%">
       <Div display="flex" width="100%">
@@ -52,25 +69,25 @@ const CommentInput = (props) => {
           profileObject={profileObject}
           width={commentType === "comment" ? "40px" : "24px"}
         />
-        <InputDiv margin="0 0 0 6px" borderBottom="1px solid #C8C8C8">
-          <Input
+        <InputDiv
+          width="100%"
+          margin="0 0 0 6px"
+          borderBottom="1px solid #C8C8C8"
+        >
+          <CommentTextArea
+            onChange={resizeTextareaHeightLogic}
             id={`${commentType}Input_${idx}`}
-            type="text"
+            ref={textarea}
+            rows={1}
+            warp="virtual"
             placeholder={
               commentType === "comment" ? "댓글 추가" : "대댓글 추가"
             }
             defaultValue={defaultValue}
-            width="100%"
-            padding="0"
           />
         </InputDiv>
       </Div>
-      <Div
-        display="flex"
-        justifyContent="end"
-        width="100%"
-        margin={commentType === "comment" ? " " : "5px"}
-      >
+      <Div display="flex" justifyContent="end" width="100%" margin="5px 0 0 0">
         <SmButton onClick={EnterCommentEvent} backgroundColor="primary">
           <P color="white" fontSize="sm" fontWeight="700">
             입력

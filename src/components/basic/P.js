@@ -8,6 +8,7 @@ const P = styled.p`
   font-size: ${(props) =>
     props.theme.fontSize[props.fontSize] || props.theme.fontSize.md};
   font-weight: ${(props) => props.fontWeight || "400"};
+  word-wrap: break-word;
   color: ${(props) =>
     props.theme.color[props.color] || props.theme.color.default};
 `
