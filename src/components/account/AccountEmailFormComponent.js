@@ -15,6 +15,7 @@ import {
   signUpState,
   emailAuthState,
   emailAuthNumberState,
+  resetPasswordState,
 } from "../../recoil/accountState"
 
 const AccountEmailFormComponent = () => {
@@ -42,6 +43,8 @@ const AccountEmailFormComponent = () => {
   const [isEmailAuthNumber, setIsEmailAuthNumber] = useState(true)
   const [timer, setTimer] = useState(false)
   const [count, setCount] = useState(180)
+
+  const [resetPassword, setResetPassword] = useRecoilState(resetPasswordState)
 
   useEffect(() => {
     if (isEmail) {
@@ -101,6 +104,8 @@ const AccountEmailFormComponent = () => {
           <MdButton
             backgroundColor="primary"
             onClick={() => {
+              console.log(emailAuth)
+
               //인증 이메일 보내기
               fetch("https://api.슛.site/auth/number/email", {
                 method: "POST",
@@ -115,6 +120,10 @@ const AccountEmailFormComponent = () => {
 
               if (isEmail) {
                 console.log(JSON.stringify(emailAuth))
+                setResetPassword({
+                  ...resetPassword,
+                  email: email,
+                })
                 setTimer(true)
               }
             }}
@@ -183,6 +192,13 @@ const AccountEmailFormComponent = () => {
             backgroundColor="primary"
             margin="0px 0px 0px 6px"
             onClick={() => {
+              setTimer(false)
+              setEmailAuthNumber(auth) // 불필요 코드
+              console.log(emailAuthNumber)
+              setIsEmailAuth(true)
+
+              console.log(resetPassword)
+
               // 이메일 번호 비교
               fetch(
                 `https://api.슛.site/auth/number/${email}?number=${emailAuthNumber}`,
@@ -196,9 +212,16 @@ const AccountEmailFormComponent = () => {
                 // 인증번호가 맞다면
                 if (res.status === 200) {
                   setTimer(false)
-                  setEmailAuthNumber(auth)
+                  setEmailAuthNumber(auth) // 불필요 코드
                   console.log(emailAuthNumber)
                   setIsEmailAuth(true)
+
+                  setResetPassword({
+                    ...resetPassword,
+                    email: email,
+                  })
+                  console.log(resetPassword)
+                  console.log("ok")
                   // navigate("/reset-pw") // 비밀번호 찾기 페이지
                 }
               })
