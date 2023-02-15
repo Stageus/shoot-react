@@ -16,7 +16,7 @@ const MainPage = () => {
   useEffect(() => {
     const postIdx = params.postId
     postInfoGetFetchData(`post/${postIdx}`)
-  }, [])
+  }, [params])
 
   useEffect(() => {
     if (postInfoGetSources !== null && postInfoGetSources !== undefined) {
