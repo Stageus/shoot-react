@@ -1,12 +1,16 @@
 import React from "react"
+import { useRecoilState } from "recoil"
 
 import { LgButton } from "../../components/basic/Button"
 import Div from "../../components/basic/Div"
 import P from "../../components/basic/P"
 import Img from "../../components/basic/Img"
 import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
+import { resetPasswordState } from "../../recoil/accountState"
 
 const RestPasswordPage = () => {
+  const [resetPassword, setResetPassword] = useRecoilState(resetPasswordState)
+
   return (
     <Div
       width="100%"
@@ -26,7 +30,23 @@ const RestPasswordPage = () => {
 
       <AccountPasswordFormComponent />
 
-      <LgButton backgroundColor="primary" margin="30px 0px 50px 0px">
+      <LgButton
+        backgroundColor="primary"
+        margin="30px 0px 50px 0px"
+        onClick={() => {
+          console.log(resetPassword)
+          /* fetch(`https://api.슛.site/channel/pw`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(resetPassword),
+              }).then(async (res) => {
+                const result = await res.json()
+                console.log(result)
+              }) */
+        }}
+      >
         <P color="white" fontSize="lg">
           확인
         </P>

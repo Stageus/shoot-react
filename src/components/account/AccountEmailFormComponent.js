@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useRecoilState } from "recoil"
+import { useNavigate } from "react-router-dom"
 
 import { MdButton } from "../basic/Button"
 import Div from "../basic/Div"
@@ -17,6 +18,8 @@ import {
 } from "../../recoil/accountState"
 
 const AccountEmailFormComponent = () => {
+  const navigate = useNavigate()
+
   const emailRegExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const emailErrorMessage = "올바른 형식의 이메일을 입력해주세요."
 
@@ -34,7 +37,9 @@ const AccountEmailFormComponent = () => {
   const [emailAuth, setEmailAuth] = useRecoilState(emailAuthState)
   const [emailAuthNumber, setEmailAuthNumber] =
     useRecoilState(emailAuthNumberState)
+
   const [isEmailAuth, setIsEmailAuth] = useState(false)
+  const [isEmailAuthNumber, setIsEmailAuthNumber] = useState(true)
   const [timer, setTimer] = useState(false)
   const [count, setCount] = useState(180)
 
@@ -58,6 +63,13 @@ const AccountEmailFormComponent = () => {
       return () => clearInterval(id)
     }
   }, [email, isEmailAuth, count, timer])
+
+  useEffect(() => {
+    if (isEmailAuthNumber) {
+      setEmailAuthNumber(auth)
+      console.log(emailAuthNumber)
+    }
+  }, [auth])
 
   return (
     <React.Fragment>
@@ -174,7 +186,6 @@ const AccountEmailFormComponent = () => {
               // 이메일 번호 비교
               fetch(
                 `https://api.슛.site/auth/number/${email}?number=${emailAuthNumber}`,
-                // `https://api.슛.site/auth/number/kknyapple@naver.com?number=984783`,
                 {
                   method: "GET",
                 }
@@ -183,11 +194,13 @@ const AccountEmailFormComponent = () => {
                 console.log(result)
 
                 // 인증번호가 맞다면
-                setTimer(false)
-                setEmailAuthNumber(auth)
-                console.log(emailAuthNumber)
-                // alert(auth)
-                setIsEmailAuth(true)
+                if (res.status === 200) {
+                  setTimer(false)
+                  setEmailAuthNumber(auth)
+                  console.log(emailAuthNumber)
+                  setIsEmailAuth(true)
+                  // navigate("/reset-pw") // 비밀번호 찾기 페이지
+                }
               })
             }}
           >
