@@ -10,6 +10,13 @@ import PostDetailModalComponent from "./post/PostDetailModalComponent"
 import CommentModalComponent from "./post/CommentModalComponent"
 import useOutSideClick from "../../hooks/useOutSideClick"
 import { modalOpenState, modalInfoState } from "../../recoil/modalState"
+import {
+  ReportChannelModalTable,
+  ReportCommentModalTable,
+  ReportPostModalTable,
+  ReportReplyCommentModalTable,
+} from "./admin/AdminModalTable"
+import BlockModalComponent from "./admin/BlockModalComponent"
 
 const Overlay = styled.div`
   position: fixed;
@@ -65,7 +72,14 @@ const Modal = () => {
             {(modalType === "confirm" && <ConfirmModal />) ||
               (modalType === "alert" && <AlertModal />) ||
               (modalType === "detail" && <PostDetailModalComponent />) ||
-              (modalType === "comment" && <CommentModalComponent />)}
+              (modalType === "comment" && <CommentModalComponent />) ||
+              (modalType === "ReportPost" && <ReportPostModalTable />) ||
+              (modalType === "ReportChannel" && <ReportChannelModalTable />) ||
+              (modalType === "ReportComment" && <ReportCommentModalTable />) ||
+              (modalType === "ReportReplyComment" && (
+                <ReportReplyCommentModalTable />
+              )) ||
+              (modalType === "block" && <BlockModalComponent />)}
           </Div>
         </ModalWrap>
       </Div>
