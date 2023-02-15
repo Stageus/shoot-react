@@ -11,7 +11,13 @@ import {
   reportChannelEmailState,
   reportCommentIdxState,
   reportReplyCommentIdxState,
+  reportPostSelectState,
+  reportChannelSelectState,
+  blockSelectedState,
 } from "../../../recoil/adminState"
+import { modalInfoState, modalOpenState } from "../../../recoil/modalState"
+import BlockButton from "./BlockButton"
+import CloseButton from "./CloseButton"
 
 const TableStyle = styled.table`
   border: 1px solid black;
@@ -45,17 +51,18 @@ const ReportPostModalTable = () => {
   const [open, setOpen] = useState(false)
   const [select, setSelect] = useState(0)
   const [reportPostIdx, setReportPostIdx] = useRecoilState(reportPostIdxState)
-
-  let idx = 45
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
 
   useEffect(() => {
-    fetch(`https://api.슛.site/report/post/${idx}/all`, {
-      method: "GET",
-      credentials: "include",
-    }).then(async (res) => {
-      const result = await res.json()
-      setReportPostIdx(result.data)
-    })
+    if (blockSelected) {
+      fetch(`https://api.슛.site/report/post/${blockSelected.idx}/all`, {
+        method: "GET",
+        credentials: "include",
+      }).then(async (res) => {
+        const result = await res.json()
+        setReportPostIdx(result.data)
+      })
+    }
   }, [])
 
   return (
@@ -102,7 +109,7 @@ const ReportPostModalTable = () => {
                               : report_idx === select && setOpen(true)
                           }}
                         >
-                          <Img src="../assets/images/downArrow.svg" />
+                          <Img src="/assets/images/downArrow.svg" />
                         </Div>
                       </Div>
                     </TdStyle>
@@ -124,16 +131,10 @@ const ReportPostModalTable = () => {
             )}
         </tbody>
       </TableStyle>
-      <MdButton backgroundColor="red" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          정지하기
-        </P>
-      </MdButton>
-      <MdButton backgroundColor="gray" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          닫기
-        </P>
-      </MdButton>
+      <Div display="flex" width="100%">
+        <BlockButton />
+        <CloseButton />
+      </Div>
     </React.Fragment>
   )
 }
@@ -144,17 +145,18 @@ const ReportChannelModalTable = () => {
   const [reportChannelEmail, setReportChannelEmail] = useRecoilState(
     reportChannelEmailState
   )
-
-  let email = "skattr13@naver.com"
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
 
   useEffect(() => {
-    fetch(`https://api.슛.site/report/channel/${email}/all`, {
-      method: "GET",
-      credentials: "include",
-    }).then(async (res) => {
-      const result = await res.json()
-      setReportChannelEmail(result.data)
-    })
+    if (blockSelected) {
+      fetch(`https://api.슛.site/report/channel/${blockSelected.email}/all`, {
+        method: "GET",
+        credentials: "include",
+      }).then(async (res) => {
+        const result = await res.json()
+        setReportChannelEmail(result.data)
+      })
+    }
   }, [])
 
   return (
@@ -199,7 +201,7 @@ const ReportChannelModalTable = () => {
                               : report_idx === select && setOpen(true)
                           }}
                         >
-                          <Img src="../assets/images/downArrow.svg" />
+                          <Img src="/assets/images/downArrow.svg" />
                         </Div>
                       </Div>
                     </TdStyle>
@@ -221,16 +223,10 @@ const ReportChannelModalTable = () => {
             )}
         </tbody>
       </TableStyle>
-      <MdButton backgroundColor="red" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          정지하기
-        </P>
-      </MdButton>
-      <MdButton backgroundColor="gray" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          닫기
-        </P>
-      </MdButton>
+      <Div display="flex" width="100%">
+        <BlockButton />
+        <CloseButton />
+      </Div>
     </React.Fragment>
   )
 }
@@ -241,17 +237,18 @@ const ReportCommentModalTable = () => {
   const [reportCommentIdx, setReportCommentIdx] = useRecoilState(
     reportCommentIdxState
   )
-
-  let idx = 55
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
 
   useEffect(() => {
-    fetch(`https://api.슛.site/report/comment/${idx}/all`, {
-      method: "GET",
-      credentials: "include",
-    }).then(async (res) => {
-      const result = await res.json()
-      setReportCommentIdx(result.data)
-    })
+    if (blockSelected) {
+      fetch(`https://api.슛.site/report/comment/${blockSelected.idx}/all`, {
+        method: "GET",
+        credentials: "include",
+      }).then(async (res) => {
+        const result = await res.json()
+        setReportCommentIdx(result.data)
+      })
+    }
   }, [])
 
   return (
@@ -299,7 +296,7 @@ const ReportCommentModalTable = () => {
                               : report_idx === select && setOpen(true)
                           }}
                         >
-                          <Img src="../assets/images/downArrow.svg" />
+                          <Img src="/assets/images/downArrow.svg" />
                         </Div>
                       </Div>
                     </TdStyle>
@@ -321,16 +318,10 @@ const ReportCommentModalTable = () => {
             )}
         </tbody>
       </TableStyle>
-      <MdButton backgroundColor="red" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          정지하기
-        </P>
-      </MdButton>
-      <MdButton backgroundColor="gray" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          닫기
-        </P>
-      </MdButton>
+      <Div display="flex" width="100%">
+        <BlockButton />
+        <CloseButton />
+      </Div>
     </React.Fragment>
   )
 }
@@ -341,17 +332,21 @@ const ReportReplyCommentModalTable = () => {
   const [reportReplyCommentIdx, setReportReplyCommentIdx] = useRecoilState(
     reportReplyCommentIdxState
   )
-
-  let idx = 17
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
 
   useEffect(() => {
-    fetch(`https://api.슛.site/report/reply-comment/${idx}/all`, {
-      method: "GET",
-      credentials: "include",
-    }).then(async (res) => {
-      const result = await res.json()
-      setReportReplyCommentIdx(result.data)
-    })
+    if (blockSelected) {
+      fetch(
+        `https://api.슛.site/report/reply-comment/${blockSelected.idx}/all`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      ).then(async (res) => {
+        const result = await res.json()
+        setReportReplyCommentIdx(result.data)
+      })
+    }
   }, [])
 
   return (
@@ -399,7 +394,7 @@ const ReportReplyCommentModalTable = () => {
                               : report_idx === select && setOpen(true)
                           }}
                         >
-                          <Img src="../assets/images/downArrow.svg" />
+                          <Img src="/assets/images/downArrow.svg" />
                         </Div>
                       </Div>
                     </TdStyle>
@@ -421,16 +416,10 @@ const ReportReplyCommentModalTable = () => {
             )}
         </tbody>
       </TableStyle>
-      <MdButton backgroundColor="red" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          정지하기
-        </P>
-      </MdButton>
-      <MdButton backgroundColor="gray" margin="5px">
-        <P color="white" fontSize="sm" fontWeight="700">
-          닫기
-        </P>
-      </MdButton>
+      <Div display="flex" width="100%">
+        <BlockButton />
+        <CloseButton />
+      </Div>
     </React.Fragment>
   )
 }

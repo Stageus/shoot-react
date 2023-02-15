@@ -45,6 +45,7 @@ export const resetPasswordState = atom({
   default: {
     pw: "",
     pwCheck: "",
+    email: "",
   },
 })
 
