@@ -3,7 +3,7 @@ import { Router, Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import GlobalStyles from "./globalStyles";
 import theme from "./theme";
@@ -17,7 +17,7 @@ import SubscribePage from "./pages/post/SubscribePage";
 import HistoryPage from "./pages/post/HistoryPage";
 import SearchPage from "./pages/post/SearchPage";
 import { ChannelPage } from "./pages/channel/ChannelPage";
-import ChannelnfoContainer from "./components/channel/ChannelnfoComponent";
+import ChannelInfoContainer from "./components/channel/ChannelInfoComponent";
 import UploadComponent from "./components/upload/UploadComponent";
 import NavComponent from "./components/nav/NavComponent";
 import LoginPage from "./pages/account/LoginPage";
@@ -35,45 +35,19 @@ import AdminReportReplyComment from "./components/admin/AdminReportReplyComment"
 import AdminLogComponent from "./components/admin/AdminLogComponent";
 import AdminStatisticsComponent from "./components/admin/AdminStatisticsComponent";
 
-// import ChannelModifyComponent from "./components/channel/ChannelModifyComponent";
+import ChannelModifyComponent from "./components/channel/ChannelModifyComponent";
 import Modal from "./components/modal/Modal";
-import ConfirmModal from "./components/modal/ConfirmModal";
-import AlertModal from "./components/modal/AlertModal";
-import { modalOpenState, modalInfoState } from "./recoil/modalState";
+import { modalOpenState } from "./recoil/modalState";
 
 const App = () => {
-  // const [openModal, setOpenModal] = useRecoilState(modalOpenState);
-  // const setModalInfo = useSetRecoilState(modalInfoState);
-
-  // const alertMessage = () => {
-  //   alert("gd");
-  // };
-
-  // const openAlertEvent = () => {
-  //   setOpenModal(true);
-  //   setModalInfo({
-  //     type: "alert",
-  //     content: "'모달내용'이라는 카테고리 추가를 요청했습니다",
-  //   });
-  // };
-
-  // const openConfirmEvent = () => {
-  //   setOpenModal(true);
-  //   setModalInfo({
-  //     type: "confirm",
-  //     content: "'모달내용'이라는 카테고리 추가를 요청했습니다",
-  //     modalFunc: alertMessage,
-  //   });
-  // };
+  const openModal = useRecoilValue(modalOpenState);
 
   return (
     // store 사용으로 props도 없어짐
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       {/* 모달 사용 */}
-      {/* <Button onClick={openAlertEvent}>Click Me Alert !</Button>
-      <Button onClick={openConfirmEvent}>Click Me Confirm !</Button>
-      {openModal && <Modal />} */}
+      {openModal && <Modal />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/detail/post-id/:postId" element={<PostDetailPage />} />
@@ -83,15 +57,16 @@ const App = () => {
         <Route path="/bookmark" element={<BookmarkPage />} />
         <Route path="/subscribe" element={<SubscribePage />} />
         <Route path="/history" element={<HistoryPage />} />
-        <Route path="/search/:search" element={<SearchPage />} />
-
-        <Route path="/channel/*" element={<ChannelPage />}>
-          {/*<Route path="/channel/:channel-id/*" component={ChannelRoutes} element={<ChannelPage/>}>*/}
-          <Route path="info" element={<ChannelnfoContainer />} />
+        <Route
+          path="/search/:searchType/:searchKeyword"
+          element={<SearchPage />}
+        />
+        <Route path="/channel/:channelEmail" element={<ChannelPage />}>
+          <Route path="info" element={<ChannelInfoContainer />} />
         </Route>
 
-        {/* <Route path="/channel/modify" element={<ChannelModifyComponent />} /> */}
-        {/* <Route path="/upload" element={<UploadComponent />} /> */}
+        <Route path="/modify" element={<ChannelModifyComponent />} />
+        <Route path="/upload" element={<UploadComponent />} />
 
         <Route path="/" element={<NavComponent />} />
         <Route path="/login" element={<LoginPage />} />
