@@ -28,8 +28,7 @@ const PostDetailSubscribeButton = () => {
     if (isLogin === false) {
       const modalInfo = {
         type: "confirm",
-        content:
-          "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현",
+        content: "로그인 후 이용 가능합니다. 로그인 하시겠습니까?",
         modalFunc: moveLoginPageEvent,
       }
       setOpenModal(true)
