@@ -1,11 +1,13 @@
 import React, { useEffect } from "react"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 
 import P from "../basic/P"
 import { MdButton } from "../basic/Button"
 import { isSubscribeState, postInfoState } from "../../recoil/postState"
 import { isLoginState } from "../../recoil/headerState"
 import { useDeleteFetch, usePostFetch } from "../../hooks/useFetch"
+import { modalInfoState, modalOpenState } from "../../recoil/modalState"
+import { useNavigate } from "react-router-dom"
 
 const PostDetailSubscribeButton = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
@@ -13,12 +15,24 @@ const PostDetailSubscribeButton = () => {
   const { upload_channel_email, subscribe_state } = postInfo
   const [isSubscribe, setIsSubscribe] = useRecoilState(isSubscribeState)
 
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const setModalInfo = useSetRecoilState(modalInfoState)
+  const navigate = useNavigate()
+  const moveLoginPageEvent = () => {
+    navigate("/login")
+    setOpenModal(false)
+  }
+
   const [subscribePostSources, subscribePostFetchData] = usePostFetch()
   const setSubscribe = () => {
     if (isLogin === false) {
-      alert(
-        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
-      )
+      const modalInfo = {
+        type: "confirm",
+        content: "로그인 후 이용 가능합니다. 로그인 하시겠습니까?",
+        modalFunc: moveLoginPageEvent,
+      }
+      setOpenModal(true)
+      setModalInfo(modalInfo)
     } else {
       subscribePostFetchData(`subscribe?email=${upload_channel_email}`)
       setIsSubscribe(true)

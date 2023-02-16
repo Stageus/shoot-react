@@ -5,12 +5,12 @@ import P from "../basic/P"
 import Div from "../basic/Div"
 
 const IconText = (props) => {
-  const { src, text, onClick, width, fontColor, fontSize } = props
+  const { src, text, onClick, onError, width, fontColor, fontSize } = props
 
   return (
     <Div onMouseDown={onClick} display="flex" margin="3px 0" pointer>
       <Div width={width || "20px"} height={width || "20px"}>
-        <Img src={src} />
+        <Img src={src} onError={onError} />
       </Div>
       <Div margin="0 0 0 5px">
         <P color={fontColor} fontSize={fontSize || "md"} fontWeight="700">

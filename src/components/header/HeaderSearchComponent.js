@@ -10,6 +10,7 @@ import { Input } from "../basic/Input"
 import HeaderSearchHistoryListComponent from "./HeaderSearchHistoryListComponent"
 import { serchHistoryOpenState, isLoginState } from "../../recoil/headerState"
 import { usePostFetch } from "../../hooks/useFetch"
+import { modalInfoState, modalOpenState } from "../../recoil/modalState"
 
 const SearchInput = styled(Input)`
   flex: 1;
@@ -39,11 +40,19 @@ const HeaderSearchComponent = () => {
     }
   }
 
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const setModalInfo = useSetRecoilState(modalInfoState)
+
   const [historyPostSources, historyPostFetchData] = usePostFetch()
   const searchEvent = () => {
     let searchContent = document.getElementById("searchInput").value
     if (searchContent === "") {
-      alert("검색어를 입력해주세요")
+      const modalInfo = {
+        type: "alert",
+        content: "검색어를 입력해주세요!",
+      }
+      setOpenModal(true)
+      setModalInfo(modalInfo)
     } else {
       if (isLogin) {
         const fetchBody = {

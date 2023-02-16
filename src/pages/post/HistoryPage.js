@@ -19,7 +19,7 @@ const HistoryPage = () => {
     if (isLogin === false) {
       navigate("/")
     } else {
-      postChannelGetFetchData("post/subscriber/all")
+      postChannelGetFetchData("post/history/all")
     }
   }, [])
 

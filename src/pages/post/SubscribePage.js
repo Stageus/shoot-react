@@ -19,7 +19,7 @@ const SubscribePage = () => {
     if (isLogin === false) {
       navigate("/")
     } else {
-      postChannelGetFetchData("post/subscriber/all")
+      postChannelGetFetchData("post/subscribe/all?groupby=channel")
     } // 쿼리 필요
   }, [])
 

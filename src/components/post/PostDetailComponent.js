@@ -82,7 +82,10 @@ const PostDetailComponent = () => {
           borderRadius="5px"
         >
           <video
-            src={post_video}
+            src={
+              post_video &&
+              `https://jochong.s3.ap-northeast-2.amazonaws.com/post/${post_video}`
+            }
             autoPlay
             loop
             playsInline

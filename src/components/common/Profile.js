@@ -36,7 +36,11 @@ const Profile = (props) => {
         height={width || "54px"}
       >
         <Img
-          src={profileImg || "/assets/images/user.svg"}
+          src={
+            (profileImg &&
+              `https://jochong.s3.ap-northeast-2.amazonaws.com/channel_img/${profileImg}`) ||
+            "/assets/images/user.svg"
+          }
           onError={profileImgError}
         />
       </Div>

@@ -11,7 +11,7 @@ const HotPage = () => {
 
   const [postChannelGetSources, postChannelGetFetchData] = useGetFetch()
   useEffect(() => {
-    postChannelGetFetchData("post/subscriber/all")
+    postChannelGetFetchData("post/hot/all")
   }, [])
 
   useEffect(() => {

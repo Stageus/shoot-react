@@ -11,11 +11,30 @@ import SeeMore from "./SeeMore"
 import { userInfoState } from "../../recoil/headerState"
 
 const Article = styled.article`
-  flex-grow: 1;
-  flex-basis: 0%;
-  padding: 10px 8px 25px;
-  min-width: 200px;
-  max-width: 250px;
+  min-width: ${(props) => props.minWidth || ""};
+
+  @media screen and (min-width: 1440px) {
+    width: 16.6%;
+  }
+  @media screen and (max-width: 1440px) {
+    width: 20%;
+  }
+  @media screen and (max-width: 1300px) {
+    width: 25%;
+  }
+  @media screen and (max-width: 1180px) {
+    width: 33%;
+  }
+  @media screen and (max-width: 900px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+`
+
+const ThumbnailDiv = styled(Div)`
+  aspect-ratio: 9/16;
 `
 
 const PostItem = (props) => {
@@ -36,6 +55,8 @@ const PostItem = (props) => {
     email: upload_channel_email,
   }
 
+  const minWidth = props.minWidth
+
   const movePostDetailEvent = () => {
     navigate(`/detail/post-id/${post_idx}`)
   }
@@ -49,21 +70,28 @@ const PostItem = (props) => {
   }
 
   return (
-    <Article>
-      <Div
+    <Article minWidth={minWidth}>
+      <ThumbnailDiv
+        display="flex"
         onClick={movePostDetailEvent}
         borderRadius="5px"
         pointer
-        width="100%"
+        width="94%"
+        margin="6% 3%"
+        border="1px solid #C8C8C8"
       >
         <Img
-          src={post_thumbnail || "/assets/images/postThumbnail.png"}
+          src={
+            (post_thumbnail &&
+              `https://jochong.s3.ap-northeast-2.amazonaws.com/post/${post_thumbnail}`) ||
+            "/assets/images/postThumbnail.png"
+          }
           onError={postThumbnailError}
         />
-      </Div>
-      <Div width="94%" padding="0 3%">
+      </ThumbnailDiv>
+      <Div width="94%" padding="0 3% 3%">
         <Div position="relative" width="100%" margin="10px 0">
-          <Div pointer>
+          <Div pointer width="92%">
             <H1 fontSize="lg" onClick={movePostDetailEvent}>
               {post_title}
             </H1>

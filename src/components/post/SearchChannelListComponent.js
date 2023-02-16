@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import { useRecoilState } from "recoil"
+import { useRecoilValue } from "recoil"
 
 import Div from "../basic/Div"
 import { H1 } from "../basic/H"
@@ -19,9 +19,7 @@ const SearchChannelListComponent = (props) => {
   const tilte = props.title
   const emptyMessage = props.emptyMessage
 
-  const [searchChannelList, setSearchChannelList] = useRecoilState(
-    searchChannelListState
-  )
+  const searchChannelList = useRecoilValue(searchChannelListState)
 
   let searchChannelListContent
   if (searchChannelList.length !== 0) {
@@ -31,10 +29,6 @@ const SearchChannelListComponent = (props) => {
       )
     })
   }
-
-  useEffect(() => {
-    alert("검색 채널 리스트 가져오기")
-  })
 
   return (
     <React.Fragment>
