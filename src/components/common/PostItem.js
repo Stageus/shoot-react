@@ -63,7 +63,7 @@ const PostItem = (props) => {
       </Div>
       <Div width="94%" padding="0 3%">
         <Div position="relative" width="100%" margin="10px 0">
-          <Div pointer>
+          <Div pointer width="92%">
             <H1 fontSize="lg" onClick={movePostDetailEvent}>
               {post_title}
             </H1>
