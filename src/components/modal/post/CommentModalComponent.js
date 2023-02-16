@@ -11,6 +11,7 @@ import Comment from "./Comment"
 import { postInfoState } from "../../../recoil/postState"
 import { commentListState } from "../../../recoil/postState"
 import { modalOpenState } from "../../../recoil/modalState"
+import { useGetFetch } from "../../../hooks/useFetch"
 
 const ModalDiv = styled(Div)`
   overflow-y: auto;
@@ -37,9 +38,17 @@ const CommentModalComponent = () => {
     setOpenModal(false)
   }
 
+  const [commentGetSources, commentGetFetchData] = useGetFetch()
   useEffect(() => {
-    alert(`게시글 번호가 ${post_idx}인 댓글 리스트 불러오는 api`)
+    commentGetFetchData(`comment/all?post-idx=${post_idx}`)
   }, [postInfo])
+
+  useEffect(() => {
+    if (commentGetSources !== null && commentGetSources !== undefined) {
+      const tmpCommentList = commentGetSources.data
+      setCommentList(tmpCommentList)
+    }
+  }, [commentGetSources])
 
   return (
     <ModalDiv

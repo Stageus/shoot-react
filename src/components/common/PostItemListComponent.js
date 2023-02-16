@@ -13,7 +13,12 @@ const PostItemListComponent = () => {
   })
 
   return (
-    <Div display="flex" height="100%">
+    <Div
+      display="flex"
+      justifyContent="flex-start"
+      alignItems="flex-start"
+      height="100%"
+    >
       {postItemListContent}
     </Div>
   )

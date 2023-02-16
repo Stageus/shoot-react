@@ -30,7 +30,13 @@ const HistoryPage = () => {
     }
   }, [postChannelGetSources])
 
-  return <PostComponent title="시청기록" contentType="postList" />
+  return (
+    <PostComponent
+      title="시청기록"
+      contentType="postList"
+      emptyMessage="시청했던 게시글이 없습니다."
+    />
+  )
 }
 
 export default HistoryPage

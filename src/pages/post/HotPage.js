@@ -21,7 +21,13 @@ const HotPage = () => {
     }
   }, [postChannelGetSources])
 
-  return <PostComponent title="HOT!" contentType="postList" />
+  return (
+    <PostComponent
+      title="HOT!"
+      contentType="postList"
+      emptyMessage="핫 게시글이 없습니다."
+    />
+  )
 }
 
 export default HotPage

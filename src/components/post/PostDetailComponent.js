@@ -71,80 +71,82 @@ const PostDetailComponent = () => {
   }
 
   return (
-    <PostContainer>
-      <Div
-        onClick={videoControl}
-        pointer
-        width="100%"
-        height="100%"
-        border="1px solid #333333"
-        borderRadius="5px"
-      >
-        <video
-          src={post_video}
-          autoPlay
-          loop
-          playsInline
-          id="postVideo"
+    <Div display="flex" width="100%" height="100%">
+      <PostContainer>
+        <Div
+          onClick={videoControl}
+          pointer
           width="100%"
           height="100%"
-        />
-      </Div>
-      <Div position="absolute" bottom="0" width="90%" margin="5%">
-        <Div display="flex" alignItems="end" margin="15px 0">
-          <Div>
-            <H1 fontSize="lg">{post_title}</H1>
-          </Div>
-          {post_type === 2 && (
-            <Div pointer margin="0 5px">
-              <P onClick={openDetailModal} fontSize="sm" color="gray">
-                투표하기
-              </P>
+          border="1px solid #333333"
+          borderRadius="5px"
+        >
+          <video
+            src={post_video}
+            autoPlay
+            loop
+            playsInline
+            id="postVideo"
+            width="100%"
+            height="100%"
+          />
+        </Div>
+        <Div position="absolute" bottom="0" width="90%" margin="5%">
+          <Div display="flex" alignItems="end" margin="15px 0">
+            <Div>
+              <H1 fontSize="lg">{post_title}</H1>
             </Div>
-          )}
+            {post_type === 2 && (
+              <Div pointer margin="0 5px">
+                <P onClick={openDetailModal} fontSize="sm" color="gray">
+                  투표하기
+                </P>
+              </Div>
+            )}
+          </Div>
+          <Div display="flex" width="100%" justifyContent="space-between">
+            <Profile profileObject={testObject1} name={upload_channel_name} />
+            {isMyPost === false && <PostDetailSubscribeButton />}
+          </Div>
+          {post_type === 3 && <PostDetailLinkList />}
         </Div>
-        <Div display="flex" width="100%" justifyContent="space-between">
-          <Profile profileObject={testObject1} name={upload_channel_name} />
-          {isMyPost === false && <PostDetailSubscribeButton />}
+        <Div
+          display="flex"
+          direction="column"
+          position="absolute"
+          right="0"
+          bottom="0"
+          transform="translate(100%, 0)"
+          padding="0 5px"
+        >
+          <PostDetailLikeIcon />
+          <PostDetailBookmarkIcon />
+          <IconTextCircle
+            onClick={openDetailModal}
+            src="/assets/images/postContent.svg"
+            text="본문보기"
+          />
+          <IconTextCircle
+            onClick={openCommentModal}
+            src="/assets/images/comment.svg"
+            text={comment_count}
+          />
+          {(isMyPost === false && (
+            <SeeMore share report parent="post" parentInfo={post_idx} />
+          )) ||
+            (isMyPost === true && (
+              <SeeMore
+                share
+                modify
+                delete
+                alarm={true}
+                parent="post"
+                parentInfo={post_idx}
+              />
+            ))}
         </Div>
-        {post_type === 3 && <PostDetailLinkList />}
-      </Div>
-      <Div
-        display="flex"
-        direction="column"
-        position="absolute"
-        right="0"
-        bottom="0"
-        transform="translate(100%, 0)"
-        padding="0 5px"
-      >
-        <PostDetailLikeIcon />
-        <PostDetailBookmarkIcon />
-        <IconTextCircle
-          onClick={openDetailModal}
-          src="/assets/images/postContent.svg"
-          text="본문보기"
-        />
-        <IconTextCircle
-          onClick={openCommentModal}
-          src="/assets/images/comment.svg"
-          text={comment_count}
-        />
-        {(isMyPost === false && (
-          <SeeMore share report parent="post" parentInfo={post_idx} />
-        )) ||
-          (isMyPost === true && (
-            <SeeMore
-              share
-              modify
-              delete
-              alarm={true}
-              parent="post"
-              parentInfo={post_idx}
-            />
-          ))}
-      </Div>
-    </PostContainer>
+      </PostContainer>
+    </Div>
   )
 }
 

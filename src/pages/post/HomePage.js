@@ -21,7 +21,12 @@ const HomePage = () => {
     }
   }, [postGetSources])
 
-  return <PostComponent contentType="postList" />
+  return (
+    <PostComponent
+      contentType="postList"
+      emptyMessage="업로드 된 게시글이 없습니다."
+    />
+  )
 }
 
 export default HomePage
