@@ -18,6 +18,10 @@ const Article = styled.article`
   max-width: 250px;
 `
 
+const ThumbnailDiv = styled(Div)`
+  aspect-ratio: 9/16;
+`
+
 const PostItem = (props) => {
   const navigate = useNavigate()
 
@@ -50,11 +54,13 @@ const PostItem = (props) => {
 
   return (
     <Article>
-      <Div
+      <ThumbnailDiv
+        display="flex"
         onClick={movePostDetailEvent}
         borderRadius="5px"
         pointer
         width="100%"
+        border="1px solid #C8C8C8"
       >
         <Img
           src={
@@ -64,7 +70,7 @@ const PostItem = (props) => {
           }
           onError={postThumbnailError}
         />
-      </Div>
+      </ThumbnailDiv>
       <Div width="94%" padding="0 3%">
         <Div position="relative" width="100%" margin="10px 0">
           <Div pointer width="92%">
