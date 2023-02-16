@@ -11,8 +11,6 @@ import { channelInfoObject } from "../../recoil/channelState";
 const ChannelInfoContainer = () => {
   const channelInfo = useRecoilValue(channelInfoObject);
 
-  console.log(channelInfo.birth);
-  console.log(channelInfo.creation_time);
   const birthDate = channelInfo.birth.substring(
     0,
     channelInfo.birth.indexOf("T")
