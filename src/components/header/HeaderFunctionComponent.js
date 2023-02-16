@@ -2,7 +2,7 @@ import React from "react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useRef } from "react"
-import { useRecoilState } from "recoil"
+import { useRecoilState, useSetRecoilState } from "recoil"
 
 import Div from "../basic/Div"
 import Img from "../basic/Img"
@@ -15,6 +15,7 @@ import {
   isLoginState,
   userInfoState,
 } from "../../recoil/headerState"
+import { modalInfoState, modalOpenState } from "../../recoil/modalState"
 
 const HeaderFunctionComponent = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
@@ -27,21 +28,28 @@ const HeaderFunctionComponent = () => {
 
   const { email, name, profile_img } = userInfo
 
-  const moveUploadEvent = () => {
-    alert("로그인 상태 가져오는 api") //이후 setIsLogin에 넣기
-    if (isLogin === true) {
-      navigate("/upload")
-    } else {
-      alert(
-        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
-      )
-    }
-  }
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const setModalInfo = useSetRecoilState(modalInfoState)
 
   const moveLoginEvent = () => {
     navigate("/login")
     // 임시 상태 변경
     setIsLogin(true)
+  }
+
+  const moveUploadEvent = () => {
+    alert("로그인 상태 가져오는 api") //이후 setIsLogin에 넣기
+    if (isLogin === true) {
+      navigate("/upload")
+    } else {
+      const modalInfo = {
+        type: "confirm",
+        content: "로그인 후 이용 가능합니다. 로그인 하시겠습니까?",
+        modalFunc: moveLoginEvent,
+      }
+      setOpenModal(true)
+      setModalInfo(modalInfo)
+    }
   }
 
   const clickOutProfilePopupEvent = (e) => {
@@ -66,6 +74,17 @@ const HeaderFunctionComponent = () => {
   const logoutLogic = () => {
     alert("로그아웃 기능 api")
     setIsLogin(false)
+    // window.location.reload()
+    setOpenModal(false)
+  }
+  const logoutClickEvent = () => {
+    const modalInfo = {
+      type: "confirm",
+      content: "로그아웃 하시겠습니까?",
+      modalFunc: logoutLogic,
+    }
+    setOpenModal(true)
+    setModalInfo(modalInfo)
   }
 
   const profileImgError = (e) => {
@@ -132,7 +151,7 @@ const HeaderFunctionComponent = () => {
                 text="내 채널"
               />
               <IconText
-                onClick={logoutLogic}
+                onClick={logoutClickEvent}
                 src="/assets/images/logout.svg"
                 text="로그아웃"
                 fontColor="gray"
