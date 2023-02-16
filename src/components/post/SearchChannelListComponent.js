@@ -4,6 +4,8 @@ import { useRecoilState } from "recoil"
 
 import Div from "../basic/Div"
 import { H1 } from "../basic/H"
+import Img from "../basic/Img"
+import P from "../basic/P"
 import SearchChannel from "./SearchChannel"
 import NavComponent from "../nav/NavComponent"
 import HeaderComponent from "../header/HeaderComponent"
@@ -15,6 +17,7 @@ const Main = styled.main`
 `
 const SearchChannelListComponent = (props) => {
   const tilte = props.title
+  const emptyMessage = props.emptyMessage
 
   const [searchChannelList, setSearchChannelList] = useRecoilState(
     searchChannelListState
@@ -45,7 +48,20 @@ const SearchChannelListComponent = (props) => {
             </H1>
           </Div>
         </Div>
-        <Div width="100%">{searchChannelListContent}</Div>
+        {(searchChannelList.length !== 0 && (
+          <Div width="100%">{searchChannelListContent}</Div>
+        )) || (
+          <Div display="flex" direction="column" width="100%" height="80%">
+            <Div width="66px" height="66px">
+              <Img src="/assets/images/emptyBang.svg" />
+            </Div>
+            <Div margin="26px">
+              <P fontSize="lg" fontWeight="700">
+                {emptyMessage}
+              </P>
+            </Div>
+          </Div>
+        )}
       </Main>
     </React.Fragment>
   )

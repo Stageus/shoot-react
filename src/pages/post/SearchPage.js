@@ -26,7 +26,7 @@ const SearchPage = () => {
 
     // 임시 state
     let tmpPostList = []
-    for (let idx = 1; idx <= 60; idx++) {
+    for (let idx = 1; idx <= 12; idx++) {
       const postObject = {
         post_idx: idx * 100,
         post_title: `이러 저러한 제목 번호${idx}`,
@@ -50,8 +50,14 @@ const SearchPage = () => {
         <PostComponent
           title={(searchType === "hash" ? "#" : "") + searchKeyword}
           contentType="postList"
+          emptyMessage="업로드 된 게시글이 없습니다."
         />
-      )) || <SearchChannelListComponent title={`@${searchKeyword}`} />}
+      )) || (
+        <SearchChannelListComponent
+          title={`@${searchKeyword}`}
+          emptyMessage="관련된 채널이 없습니다."
+        />
+      )}
     </React.Fragment>
   )
 }
