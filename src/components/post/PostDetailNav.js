@@ -27,7 +27,13 @@ const PostDetailNav = () => {
   const postDetailInfo = useRecoilValue(postInfoState)
 
   const postDetailNavContent = postItemList.map((element, Idx) => {
-    return <PostItem key={`postItemBox_${Idx}`} postItemObject={element} />
+    return (
+      <PostItem
+        key={`postItemBox_${Idx}`}
+        postItemObject={element}
+        minWidth="200px"
+      />
+    )
   })
 
   const [postGetSources, postGetFetchData] = useGetFetch()

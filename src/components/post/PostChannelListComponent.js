@@ -31,6 +31,7 @@ const PostItemChannelListComponent = () => {
           <PostItem
             key={`postItemBox_${Idx}`}
             postItemObject={postItemObject}
+            minWidth="200px"
           />
         )
       })

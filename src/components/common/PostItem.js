@@ -11,6 +11,8 @@ import SeeMore from "./SeeMore"
 import { userInfoState } from "../../recoil/headerState"
 
 const Article = styled.article`
+  min-width: ${(props) => props.minWidth || ""};
+
   @media screen and (min-width: 1440px) {
     width: 16.6%;
   }
@@ -53,6 +55,8 @@ const PostItem = (props) => {
     email: upload_channel_email,
   }
 
+  const minWidth = props.minWidth
+
   const movePostDetailEvent = () => {
     navigate(`/detail/post-id/${post_idx}`)
   }
@@ -66,7 +70,7 @@ const PostItem = (props) => {
   }
 
   return (
-    <Article>
+    <Article minWidth={minWidth}>
       <ThumbnailDiv
         display="flex"
         onClick={movePostDetailEvent}
