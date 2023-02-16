@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 
-import MainComponent from "../../components/post/PostComponent"
+import PostComponent from "../../components/post/PostComponent"
 import PostDetailNav from "../../components/post/PostDetailNav"
 import { useGetFetch } from "../../hooks/useFetch"
 import { postInfoState } from "../../recoil/postState"
@@ -28,7 +28,7 @@ const MainPage = () => {
   return (
     <React.Fragment>
       <PostDetailNav />
-      <MainComponent contentType="postDetail" padding="0 220px" />
+      <PostComponent contentType="postDetail" padding="0 220px" />
     </React.Fragment>
   )
 }
