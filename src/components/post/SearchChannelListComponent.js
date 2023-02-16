@@ -10,10 +10,6 @@ import HeaderComponent from "../header/HeaderComponent"
 import { searchChannelListState } from "../../recoil/postState"
 
 const Main = styled.main`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   padding: 60px 0 0 222px;
 `

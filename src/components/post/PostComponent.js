@@ -10,10 +10,6 @@ import Div from "../basic/Div"
 import { H1 } from "../basic/H"
 
 const Main = styled.main`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   padding: ${(props) => props.padding || "60px 0 0 222px"};
 `
