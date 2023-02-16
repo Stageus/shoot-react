@@ -31,7 +31,11 @@ const SubscribePage = () => {
   }, [postChannelGetSources])
 
   return (
-    <PostComponent title="구독한 채널 게시글" contentType="postChannelList" />
+    <PostComponent
+      title="구독한 채널 게시글"
+      contentType="postChannelList"
+      emptyMessage="구독한 채널의 게시글이 없습니다."
+    />
   )
 }
 

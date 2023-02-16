@@ -30,7 +30,13 @@ const BookmarkPage = () => {
     }
   }, [postChannelGetSources])
 
-  return <PostComponent title="즐겨찾기" contentType="postList" />
+  return (
+    <PostComponent
+      title="즐겨찾기"
+      contentType="postList"
+      emptyMessage="즐겨찾기한 게시물이 없습니다."
+    />
+  )
 }
 
 export default BookmarkPage
