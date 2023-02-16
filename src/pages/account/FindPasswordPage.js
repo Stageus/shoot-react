@@ -1,11 +1,18 @@
 import React from "react"
+import { useRecoilState } from "recoil"
+import { useNavigate } from "react-router-dom"
 
 import Div from "../../components/basic/Div"
 import P from "../../components/basic/P"
 import Img from "../../components/basic/Img"
 import AccountEmailFormComponent from "../../components/account/AccountEmailFormComponent"
+import { LgButton } from "../../components/basic/Button"
+import { isEmailAuthState } from "../../recoil/accountState"
 
 const FindPasswordPage = () => {
+  const navigate = useNavigate()
+  const [isEmailAuth, setIsEmailAuth] = useRecoilState(isEmailAuthState)
+
   return (
     <Div
       width="100%"
@@ -23,6 +30,19 @@ const FindPasswordPage = () => {
       </Div>
 
       <AccountEmailFormComponent />
+      <LgButton
+        backgroundColor={isEmailAuth ? "primary" : "gray"}
+        margin="30px 0px 50px 0px"
+        onClick={() => {
+          if (isEmailAuth) {
+            navigate("/reset-pw")
+          }
+        }}
+      >
+        <P color="white" fontSize="lg">
+          다음
+        </P>
+      </LgButton>
     </Div>
   )
 }

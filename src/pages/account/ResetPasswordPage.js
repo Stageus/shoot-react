@@ -1,5 +1,6 @@
 import React from "react"
 import { useRecoilState } from "recoil"
+import { useNavigate } from "react-router-dom"
 
 import { LgButton } from "../../components/basic/Button"
 import Div from "../../components/basic/Div"
@@ -10,6 +11,7 @@ import { resetPasswordState } from "../../recoil/accountState"
 
 const RestPasswordPage = () => {
   const [resetPassword, setResetPassword] = useRecoilState(resetPasswordState)
+  const navigate = useNavigate()
 
   return (
     <Div
@@ -42,7 +44,11 @@ const RestPasswordPage = () => {
             body: JSON.stringify(resetPassword),
           }).then(async (res) => {
             const result = await res.json()
-            console.log(result)
+            console.log(res)
+
+            if (res.status === 200) {
+              navigate("/")
+            }
           })
         }}
       >

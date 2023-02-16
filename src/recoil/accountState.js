@@ -53,3 +53,8 @@ export const userTokenState = atom({
   key: "userToken",
   default: null,
 })
+
+export const isEmailAuthState = atom({
+  key: "isEmailAuth",
+  default: false,
+})
