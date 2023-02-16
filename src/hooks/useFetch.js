@@ -58,4 +58,26 @@ const useDeleteFetch = (url) => {
   return [data, fetchData]
 }
 
-export { useGetFetch, usePostFetch, useDeleteFetch }
+const usePutFetch = () => {
+  const [data, setData] = useState(null)
+
+  const fetchData = async (url, info) => {
+    const res = await fetch(`https://api.슛.site/${url}`, {
+      method: "Put",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    })
+    const result = await res.json()
+    console.log(result)
+    setData(result)
+
+    console.log(`put : ${url}`)
+  }
+
+  return [data, fetchData]
+}
+
+export { useGetFetch, usePostFetch, useDeleteFetch, usePutFetch }
