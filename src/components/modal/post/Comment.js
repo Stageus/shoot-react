@@ -192,7 +192,7 @@ const Comment = (props) => {
           <CommentInput
             defaultValue={comment_contents || reply_comment_contents}
             commentType={(comment_idx && "changeComment") || "changeReply"}
-            idx={comment_idx || parentCommentIdx}
+            idx={comment_idx || reply_comment_idx}
           />
         )}
         {reply_comment_count > 0 && (

@@ -1,12 +1,14 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import styled from "styled-components"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 
 import Div from "../../basic/Div"
 import P from "../../basic/P"
 import { SmButton } from "../../basic/Button"
 import Profile from "../../common/Profile"
 import { userInfoState, isLoginState } from "../../../recoil/headerState"
+import { commentListState, postInfoState } from "../../../recoil/postState"
+import { useGetFetch, usePostFetch, usePutFetch } from "../../../hooks/useFetch"
 
 const InputDiv = styled(Div)`
   flex: 1;
@@ -33,6 +35,12 @@ const CommentInput = (props) => {
   }
 
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
+  const postInfo = useRecoilValue(postInfoState)
+  const { post_idx } = postInfo
+
+  const [commentGetSources, commentGetFetchData] = useGetFetch()
+  const [commentPostSources, commentPostFetchData] = usePostFetch()
+  const [commentPutSources, commentPutFetchData] = usePutFetch()
   const EnterCommentEvent = (e) => {
     if (isLogin === false) {
       alert(
@@ -42,18 +50,29 @@ const CommentInput = (props) => {
       const CommentInputValue = document.getElementById(
         `${commentType}Input_${idx}`
       ).value
-      if (commentType === "comment") {
-        alert(`post번호가 ${idx}인 곳에 ${CommentInputValue} 댓글 추가`) //401 에러 나올 경우 setIsLogin(false)
-      } else if (commentType === "reply") {
-        alert(`comment번호가 ${idx}인 곳에 ${CommentInputValue} 대댓글 추가`) //401 에러 나올 경우 setIsLogin(false)
-      } else if (commentType === "changeComment") {
-        alert(`commet번호가 ${idx}인 곳에 ${CommentInputValue} 댓글 수정`)
-      } else {
-        alert(`reply번호가 ${idx}인 곳에 ${CommentInputValue} 대댓글 수정`)
+      const fetchBody = {
+        contents: CommentInputValue,
       }
-      alert("댓글 다시 불러오는 api")
+      if (commentType === "comment") {
+        commentPostFetchData(`comment?post-idx=${idx}`, fetchBody)
+      } else if (commentType === "reply") {
+        commentPostFetchData(`reply-comment?comment-idx=${idx}`, fetchBody)
+      } else if (commentType === "changeComment") {
+        commentPutFetchData(`comment/${idx}`, fetchBody)
+      } else {
+        commentPutFetchData(`reply-comment/${idx}`, fetchBody)
+      }
+      commentGetFetchData(`comment/all?post-idx=${post_idx}`)
     }
   }
+
+  const setCommentList = useSetRecoilState(commentListState)
+  useEffect(() => {
+    if (commentGetSources !== null && commentGetSources !== undefined) {
+      const tmpCommentList = commentGetSources.data
+      setCommentList(tmpCommentList)
+    }
+  }, [commentGetSources])
 
   const textarea = useRef()
 
