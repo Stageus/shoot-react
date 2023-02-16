@@ -15,6 +15,7 @@ const Article = styled.article`
   flex-basis: 0%;
   padding: 10px 8px 25px;
   min-width: 200px;
+  max-width: 250px;
 `
 
 const PostItem = (props) => {
