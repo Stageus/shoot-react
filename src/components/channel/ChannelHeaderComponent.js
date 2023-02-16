@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { useGetFetch } from "../../hooks/useFetch";
 import Div from "../basic/Div";
@@ -7,23 +6,9 @@ import P from "../basic/P";
 import SeeMore from "../common/SeeMore";
 import ChannelHeaderProfile from "./ChannelHeaderProfile";
 import { channelInfoObject } from "../../recoil/channelState";
-import { useParams } from "react-router-dom";
 
 const ChannelHeader = () => {
-  const [channelInfo, setChannelInfo] = useRecoilState(channelInfoObject);
-  const [channelGetInfo, channelGetFetchData] = useGetFetch();
-  const params = useParams();
-
-  useEffect(() => {
-    channelGetFetchData(`channel/${params.channelEmail}`);
-  }, []);
-
-  useEffect(() => {
-    if (channelGetInfo !== null && channelGetInfo !== undefined) {
-      setChannelInfo(channelGetInfo.data);
-    }
-  }, [channelGetInfo]);
-
+  const channelInfo = useRecoilValue(channelInfoObject);
   return (
     <Div width="100%">
       <Div width="100%">
