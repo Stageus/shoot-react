@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil"
 
 import Div from "../basic/Div"
 import P from "../basic/P"
-import EventInput from "./EventInput"
+import EventInput from "../common/EventInput"
 import useInput from "../../hooks/useInput"
 import useValidationInput from "../../hooks/useValidationInput"
 import useFocusInput from "../../hooks/useFocusInput"

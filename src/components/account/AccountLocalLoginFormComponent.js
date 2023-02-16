@@ -7,7 +7,7 @@ import { Input } from "../basic/Input"
 import { LgButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"
-import EventInput from "./EventInput"
+import EventInput from "../common/EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
