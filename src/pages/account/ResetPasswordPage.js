@@ -1,5 +1,6 @@
 import React from "react"
 import { useRecoilState } from "recoil"
+import { useNavigate } from "react-router-dom"
 
 import { LgButton } from "../../components/basic/Button"
 import Div from "../../components/basic/Div"
@@ -7,9 +8,11 @@ import P from "../../components/basic/P"
 import Img from "../../components/basic/Img"
 import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
 import { resetPasswordState } from "../../recoil/accountState"
+import AccountHeaderComponent from "../../components/account/AccountHeaderComponent"
 
 const RestPasswordPage = () => {
   const [resetPassword, setResetPassword] = useRecoilState(resetPasswordState)
+  const navigate = useNavigate()
 
   return (
     <Div
@@ -18,11 +21,7 @@ const RestPasswordPage = () => {
       direction="column"
       margin="100px 0px 0px 0px"
     >
-      <Div display="flex" width="100%" margin="20px 0px 20px 0px">
-        <Div width="150px" pointer>
-          <Img src="/assets/images/largeShootLogo.svg" />
-        </Div>
-      </Div>
+      <AccountHeaderComponent />
 
       <Div margin="0px 0px 30px 0px">
         <P>새로운 비밀번호를 입력해주세요.</P>
@@ -42,7 +41,11 @@ const RestPasswordPage = () => {
             body: JSON.stringify(resetPassword),
           }).then(async (res) => {
             const result = await res.json()
-            console.log(result)
+            console.log(res)
+
+            if (res.status === 200) {
+              navigate("/")
+            }
           })
         }}
       >

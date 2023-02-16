@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useRecoilState } from "recoil"
-import { useNavigate } from "react-router-dom"
 
 import { MdButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"
-import EventInput from "./EventInput"
+import EventInput from "../common/EventInput"
 import CountdownTimer from "../common/CountdownTimer"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
@@ -16,11 +15,10 @@ import {
   emailAuthState,
   emailAuthNumberState,
   resetPasswordState,
+  isEmailAuthState,
 } from "../../recoil/accountState"
 
 const AccountEmailFormComponent = () => {
-  const navigate = useNavigate()
-
   const emailRegExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const emailErrorMessage = "올바른 형식의 이메일을 입력해주세요."
 
@@ -39,12 +37,13 @@ const AccountEmailFormComponent = () => {
   const [emailAuthNumber, setEmailAuthNumber] =
     useRecoilState(emailAuthNumberState)
 
-  const [isEmailAuth, setIsEmailAuth] = useState(false)
+  const [isEmailAuth, setIsEmailAuth] = useRecoilState(isEmailAuthState)
   const [isEmailAuthNumber, setIsEmailAuthNumber] = useState(true)
   const [timer, setTimer] = useState(false)
   const [count, setCount] = useState(180)
 
   const [resetPassword, setResetPassword] = useRecoilState(resetPasswordState)
+  const [emailAuthResult, setEmailAuthResult] = useState()
 
   useEffect(() => {
     if (isEmail) {
@@ -146,6 +145,13 @@ const AccountEmailFormComponent = () => {
           isFocus={authFocus}
           readOnly={isEmailAuth ? true : false}
         />
+        {emailAuthResult && (
+          <Div display="flex" margin="0px 0px 14px 0px">
+            <P color="red">
+              아이디(로그인 전용 이메일) 또는 비밀번호를 잘못 입력했습니다.
+            </P>
+          </Div>
+        )}
         <Div
           display="flex"
           justifyContent="flex-end"
@@ -192,13 +198,6 @@ const AccountEmailFormComponent = () => {
             backgroundColor="primary"
             margin="0px 0px 0px 6px"
             onClick={() => {
-              setTimer(false)
-              setEmailAuthNumber(auth) // 불필요 코드
-              console.log(emailAuthNumber)
-              setIsEmailAuth(true)
-
-              console.log(resetPassword)
-
               // 이메일 번호 비교
               fetch(
                 `https://api.슛.site/auth/number/${email}?number=${emailAuthNumber}`,
@@ -209,20 +208,15 @@ const AccountEmailFormComponent = () => {
                 const result = await res.json()
                 console.log(result)
 
-                // 인증번호가 맞다면
                 if (res.status === 200) {
+                  setEmailAuthResult(null)
                   setTimer(false)
                   setEmailAuthNumber(auth) // 불필요 코드
                   console.log(emailAuthNumber)
                   setIsEmailAuth(true)
-
-                  setResetPassword({
-                    ...resetPassword,
-                    email: email,
-                  })
                   console.log(resetPassword)
-                  console.log("ok")
-                  // navigate("/reset-pw") // 비밀번호 찾기 페이지
+                } else {
+                  setEmailAuthResult(result)
                 }
               })
             }}

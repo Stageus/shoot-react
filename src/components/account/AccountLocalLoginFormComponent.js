@@ -7,7 +7,7 @@ import { Input } from "../basic/Input"
 import { LgButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"
-import EventInput from "./EventInput"
+import EventInput from "../common/EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
@@ -42,7 +42,6 @@ const AccountLocalLoginFormComponent = () => {
       pw: password,
       autoLogin: isCheck,
     })
-    // console.log(JSON.stringify(localLogin))
   }, [email, password, isCheck])
 
   const getCookie = (cookie) => {
@@ -50,6 +49,13 @@ const AccountLocalLoginFormComponent = () => {
 
     return value[1]
   }
+
+  let cookie = getCookie(document.cookie)
+
+  useEffect(() => {
+    setUserToken(cookie)
+    console.log(userToken)
+  }, [cookie])
 
   return (
     <React.Fragment>
@@ -135,10 +141,10 @@ const AccountLocalLoginFormComponent = () => {
             console.log(res.status)
 
             if (res.status === 200) {
-              let cookie = getCookie(document.cookie)
+              /* let cookie = getCookie(document.cookie)
 
               setUserToken(cookie)
-              console.log(userToken)
+              console.log(userToken) */
               navigate("/")
             } else {
               setLoginResult(result) // 로그인 실패 시 에러 출력
