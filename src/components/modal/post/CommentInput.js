@@ -9,6 +9,8 @@ import Profile from "../../common/Profile"
 import { userInfoState, isLoginState } from "../../../recoil/headerState"
 import { commentListState, postInfoState } from "../../../recoil/postState"
 import { useGetFetch, usePostFetch, usePutFetch } from "../../../hooks/useFetch"
+import { useNavigate } from "react-router-dom"
+import { modalInfoState, modalOpenState } from "../../../recoil/modalState"
 
 const InputDiv = styled(Div)`
   flex: 1;
@@ -38,14 +40,27 @@ const CommentInput = (props) => {
   const postInfo = useRecoilValue(postInfoState)
   const { post_idx } = postInfo
 
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const setModalInfo = useSetRecoilState(modalInfoState)
+  const navigate = useNavigate()
+  const moveLoginPageEvent = () => {
+    navigate("/login")
+    setOpenModal(false)
+  }
+
   const [commentGetSources, commentGetFetchData] = useGetFetch()
   const [commentPostSources, commentPostFetchData] = usePostFetch()
   const [commentPutSources, commentPutFetchData] = usePutFetch()
   const EnterCommentEvent = (e) => {
     if (isLogin === false) {
-      alert(
-        "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현"
-      )
+      const modalInfo = {
+        type: "confirm",
+        content:
+          "로그인 후 이용 가능합니다. 로그인 하시겠습니까? 알람 띄우기 기능 구현",
+        modalFunc: moveLoginPageEvent,
+      }
+      setOpenModal(true)
+      setModalInfo(modalInfo)
     } else {
       const CommentInputValue = document.getElementById(
         `${commentType}Input_${idx}`
