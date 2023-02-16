@@ -57,7 +57,11 @@ const PostItem = (props) => {
         width="100%"
       >
         <Img
-          src={post_thumbnail || "/assets/images/postThumbnail.png"}
+          src={
+            (post_thumbnail &&
+              `https://jochong.s3.ap-northeast-2.amazonaws.com/post/${post_thumbnail}`) ||
+            "/assets/images/postThumbnail.png"
+          }
           onError={postThumbnailError}
         />
       </Div>

@@ -101,7 +101,11 @@ const HeaderFunctionComponent = () => {
           <Div ref={profilePopupRef} position="relative" margin="0 27px 0 0">
             <IconText
               onClick={openProfilePopupEvent}
-              src={profile_img || "/assets/images/user.svg"}
+              src={
+                (profile_img &&
+                  `https://jochong.s3.ap-northeast-2.amazonaws.com/channel_img/${profile_img}`) ||
+                "/assets/images/user.svg"
+              }
               onError={profileImgError}
               text={name}
               width="40px"
