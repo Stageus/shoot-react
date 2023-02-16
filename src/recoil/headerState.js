@@ -19,7 +19,7 @@ export const profilePopupOpenState = atom({
 // header backEndState
 export const isLoginState = atom({
   key: "isLogin",
-  default: false, //boolean
+  default: true, //boolean
 })
 
 export const userInfoState = atom({

@@ -39,32 +39,7 @@ export const postInfoState = atom({
 
 export const searchChannelListState = atom({
   key: "searchChannelList",
-  default: [
-    {
-      email: "test1@shoot.com",
-      name: "test1",
-      profile_img: "/assets/images/user.svg",
-      description: "이러 저러한 채널 설명1",
-    },
-    {
-      email: "test2@shoot.com",
-      name: "test2",
-      profile_img: "/assets/images/user.svg",
-      description: "이러 저러한 채널 설명2",
-    },
-    {
-      email: "test3@shoot.com",
-      name: "test3",
-      profile_img: "/assets/images/user.svg",
-      description: "이러 저러한 채널 설명3",
-    },
-    {
-      email: "test4@shoot.com",
-      name: "test4",
-      profile_img: "/assets/images/user.svg",
-      description: "이러 저러한 채널 설명4",
-    },
-  ],
+  default: [],
 })
 
 export const commentListState = atom({
