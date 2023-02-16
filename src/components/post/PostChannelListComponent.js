@@ -45,10 +45,10 @@ const PostItemChannelListComponent = () => {
         <Profile profileObject={profileObject} name={element.channel_name} />
         <PostListContainer
           display="flex"
-          justifyContent="start"
+          justifyContent="flex-start"
+          alignItems="flex-start"
           wrap="nowrap"
           width="100%"
-          height="500px"
           margin="7px 0 0 0"
         >
           {PostChannelList}
