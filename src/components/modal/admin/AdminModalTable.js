@@ -5,7 +5,7 @@ import Div from "../../basic/Div"
 import Img from "../../basic/Img"
 import P from "../../basic/P"
 import { MdButton } from "../../basic/Button"
-import { useRecoilState } from "recoil"
+import { constSelector, useRecoilState } from "recoil"
 import {
   reportPostIdxState,
   reportChannelEmailState,
@@ -47,11 +47,41 @@ const ThInfoStyle = styled.th`
   padding: 5px;
 `
 
+const ModalBox = styled.nav`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 500px;
+  text-align: center;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background: #c8c8c8;
+  }
+`
+
 const ReportPostModalTable = () => {
   const [open, setOpen] = useState(false)
   const [select, setSelect] = useState(0)
   const [reportPostIdx, setReportPostIdx] = useRecoilState(reportPostIdxState)
   const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [post, setPost] = useState(null)
+
+  useEffect(() => {
+    if (blockSelected) {
+      fetch(`https://api.슛.site/post/${blockSelected.idx}`, {
+        method: "GET",
+        credentials: "include",
+      }).then(async (res) => {
+        const result = await res.json()
+        setPost(result.data)
+        console.log(result.data)
+      })
+    }
+  }, [])
 
   useEffect(() => {
     if (blockSelected) {
@@ -60,82 +90,117 @@ const ReportPostModalTable = () => {
         credentials: "include",
       }).then(async (res) => {
         const result = await res.json()
+        console.log(blockSelected.idx)
         setReportPostIdx(result.data)
       })
     }
   }, [])
 
   return (
-    <React.Fragment>
-      <TableStyle>
-        <tbody>
-          <tr>
-            <ThStyle>신고자</ThStyle>
-            <ThStyle>신고사유</ThStyle>
-            <ThStyle>신고 날짜</ThStyle>
-            <ThStyle></ThStyle>
-          </tr>
-          {reportPostIdx &&
-            reportPostIdx.map(
-              ({
-                report_idx,
-                object,
-                report_channel_email,
-                report_contents,
-                report_time,
-                report_type,
-                reported_channel_email,
-                reported_channel_name,
-                reported_post_idx,
-                reported_post_title,
-                reported_post_upload_time,
-              }) => (
-                <React.Fragment key={report_idx}>
-                  <tr>
-                    <TdStyle>{report_channel_email}</TdStyle>
-                    <TdStyle>{report_type}</TdStyle>
-                    <TdStyle>{report_time}</TdStyle>
-                    <TdStyle>
-                      <Div display="flex" width="100%">
-                        <Div
-                          width="20px"
-                          height="20px"
-                          pointer
-                          onClick={() => {
-                            setSelect(report_idx)
-                            setOpen(true)
-                            open
-                              ? report_idx === select && setOpen(false)
-                              : report_idx === select && setOpen(true)
-                          }}
-                        >
-                          <Img src="/assets/images/downArrow.svg" />
+    <ModalBox>
+      <Div margin="0px 15px 0px 15px">
+        <Div margin="0px 0px 15px 0px">
+          <P fontSize="lg" fontWeight="700">
+            신고된 게시글
+          </P>
+        </Div>
+
+        {post && (
+          <React.Fragment>
+            <Div height="275px" width="156.71px">
+              <Img
+                src={`https://jochong.s3.ap-northeast-2.amazonaws.com/post/${post.post_thumbnail}`}
+              />
+            </Div>
+            <P>게시글 제목</P>
+            <P>{post.post_title ? post.post_title : null}</P>
+            <P>게시글 본문</P>
+            <P>{post.post_description ? post.post_description : null}</P>
+            <P>링크</P>
+            <Div width="380px">
+              <P>{post.link[0].link_name}</P>
+              <P>{post.link[0].link_url}</P>
+            </Div>
+            <Div width="380px">
+              <P>{post.link[1].link_name}</P>
+              <P>{post.link[1].link_url}</P>
+            </Div>
+            <P>투표</P>
+            <P>{post.vote[0].vote_contents}</P>
+            <P>{post.vote[1].vote_contents}</P>
+          </React.Fragment>
+        )}
+
+        <TableStyle>
+          <tbody>
+            <tr>
+              <ThStyle>신고자</ThStyle>
+              <ThStyle>신고사유</ThStyle>
+              <ThStyle>신고 날짜</ThStyle>
+              <ThStyle></ThStyle>
+            </tr>
+            {reportPostIdx &&
+              reportPostIdx.map(
+                ({
+                  report_idx,
+                  object,
+                  report_channel_email,
+                  report_contents,
+                  report_time,
+                  report_type,
+                  reported_channel_email,
+                  reported_channel_name,
+                  reported_post_idx,
+                  reported_post_title,
+                  reported_post_upload_time,
+                }) => (
+                  <React.Fragment key={report_idx}>
+                    <tr>
+                      <TdStyle>{report_channel_email}</TdStyle>
+                      <TdStyle>{report_type}</TdStyle>
+                      <TdStyle>{report_time}</TdStyle>
+                      <TdStyle>
+                        <Div display="flex" width="100%">
+                          <Div
+                            width="20px"
+                            height="20px"
+                            pointer
+                            onClick={() => {
+                              setSelect(report_idx)
+                              setOpen(true)
+                              open
+                                ? report_idx === select && setOpen(false)
+                                : report_idx === select && setOpen(true)
+                            }}
+                          >
+                            <Img src="/assets/images/downArrow.svg" />
+                          </Div>
                         </Div>
-                      </Div>
-                    </TdStyle>
-                  </tr>
-                  {report_idx === select && open && (
-                    <tr key={report_time}>
-                      <ThInfoStyle colSpan="4">
-                        <Div display="flex" width="100%" direction="column">
-                          <P>신고자: {report_channel_email}</P>
-                          <P>신고사유: {report_type}</P>
-                          <P>신고 날짜: {report_time}</P>
-                          <P>신고 내용: {report_contents}</P>
-                        </Div>
-                      </ThInfoStyle>
+                      </TdStyle>
                     </tr>
-                  )}
-                </React.Fragment>
-              )
-            )}
-        </tbody>
-      </TableStyle>
-      <Div display="flex" width="100%">
-        <BlockButton />
-        <CloseButton />
+                    {report_idx === select && open && (
+                      <tr key={report_time}>
+                        <ThInfoStyle colSpan="4">
+                          <Div display="flex" width="100%" direction="column">
+                            <P>신고자: {report_channel_email}</P>
+                            <P>신고사유: {report_type}</P>
+                            <P>신고 날짜: {report_time}</P>
+                            <P>신고 내용: {report_contents}</P>
+                          </Div>
+                        </ThInfoStyle>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                )
+              )}
+          </tbody>
+        </TableStyle>
+        <Div display="flex" width="100%">
+          <BlockButton />
+          <CloseButton />
+        </Div>
       </Div>
-    </React.Fragment>
+    </ModalBox>
   )
 }
 
@@ -146,6 +211,20 @@ const ReportChannelModalTable = () => {
     reportChannelEmailState
   )
   const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [channel, setChannel] = useState(null)
+
+  useEffect(() => {
+    if (blockSelected) {
+      fetch(`https://api.슛.site/channel/${blockSelected.email}`, {
+        method: "GET",
+        credentials: "include",
+      }).then(async (res) => {
+        const result = await res.json()
+        console.log(result.data)
+        setChannel(result.data)
+      })
+    }
+  }, [])
 
   useEffect(() => {
     if (blockSelected) {
@@ -160,74 +239,92 @@ const ReportChannelModalTable = () => {
   }, [])
 
   return (
-    <React.Fragment>
-      <TableStyle>
-        <tbody>
-          <tr>
-            <ThStyle>신고자</ThStyle>
-            <ThStyle>신고사유</ThStyle>
-            <ThStyle>신고 날짜</ThStyle>
-            <ThStyle></ThStyle>
-          </tr>
-          {reportChannelEmail &&
-            reportChannelEmail.map(
-              ({
-                report_idx,
-                object,
-                report_channel_email,
-                report_contents,
-                report_time,
-                report_type,
-                reported_channel_email,
-                channel_name,
-                channel_creation_time,
-              }) => (
-                <React.Fragment key={report_idx}>
-                  <tr>
-                    <TdStyle>{report_channel_email}</TdStyle>
-                    <TdStyle>{report_type}</TdStyle>
-                    <TdStyle>{report_time}</TdStyle>
-                    <TdStyle>
-                      <Div display="flex" width="100%">
-                        <Div
-                          width="20px"
-                          height="20px"
-                          pointer
-                          onClick={() => {
-                            setSelect(report_idx)
-                            setOpen(true)
-                            open
-                              ? report_idx === select && setOpen(false)
-                              : report_idx === select && setOpen(true)
-                          }}
-                        >
-                          <Img src="/assets/images/downArrow.svg" />
-                        </Div>
-                      </Div>
-                    </TdStyle>
-                  </tr>
-                  {report_idx === select && open && (
-                    <tr key={report_time}>
-                      <ThInfoStyle colSpan="4">
-                        <Div display="flex" width="100%" direction="column">
-                          <P>신고자: {report_channel_email}</P>
-                          <P>신고사유: {report_type}</P>
-                          <P>신고 날짜: {report_time}</P>
-                          <P>신고 내용: {report_contents}</P>
-                        </Div>
-                      </ThInfoStyle>
-                    </tr>
-                  )}
-                </React.Fragment>
-              )
+    <ModalBox>
+      <React.Fragment>
+        {channel && (
+          <Div width="100%">
+            {channel.profile_img !== null && (
+              <Div width="100px">
+                <Img
+                  src={`https://jochong.s3.ap-northeast-2.amazonaws.com/channel_img/${channel.profile_img}`}
+                />
+              </Div>
             )}
-        </tbody>
-      </TableStyle>
-      <Div display="flex" width="100%">
-        <BlockButton />
-        <CloseButton />
-      </Div>
-    </React.Fragment>
+
+            <P>{channel.email}</P>
+            <P>{channel.name}</P>
+            <P>채널 설명</P>
+            <P>{channel.description && channel.description}</P>
+          </Div>
+        )}
+        <TableStyle>
+          <tbody>
+            <tr>
+              <ThStyle>신고자</ThStyle>
+              <ThStyle>신고사유</ThStyle>
+              <ThStyle>신고 날짜</ThStyle>
+              <ThStyle></ThStyle>
+            </tr>
+            {reportChannelEmail &&
+              reportChannelEmail.map(
+                ({
+                  report_idx,
+                  object,
+                  report_channel_email,
+                  report_contents,
+                  report_time,
+                  report_type,
+                  reported_channel_email,
+                  channel_name,
+                  channel_creation_time,
+                }) => (
+                  <React.Fragment key={report_idx}>
+                    <tr>
+                      <TdStyle>{report_channel_email}</TdStyle>
+                      <TdStyle>{report_type}</TdStyle>
+                      <TdStyle>{report_time}</TdStyle>
+                      <TdStyle>
+                        <Div display="flex" width="100%">
+                          <Div
+                            width="20px"
+                            height="20px"
+                            pointer
+                            onClick={() => {
+                              setSelect(report_idx)
+                              setOpen(true)
+                              open
+                                ? report_idx === select && setOpen(false)
+                                : report_idx === select && setOpen(true)
+                            }}
+                          >
+                            <Img src="/assets/images/downArrow.svg" />
+                          </Div>
+                        </Div>
+                      </TdStyle>
+                    </tr>
+                    {report_idx === select && open && (
+                      <tr key={report_time}>
+                        <ThInfoStyle colSpan="4">
+                          <Div display="flex" width="100%" direction="column">
+                            <P>신고자: {report_channel_email}</P>
+                            <P>신고사유: {report_type}</P>
+                            <P>신고 날짜: {report_time}</P>
+                            <P>신고 내용: {report_contents}</P>
+                          </Div>
+                        </ThInfoStyle>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                )
+              )}
+          </tbody>
+        </TableStyle>
+        <Div display="flex" width="100%">
+          <BlockButton />
+          <CloseButton />
+        </Div>
+      </React.Fragment>
+    </ModalBox>
   )
 }
 
@@ -251,8 +348,17 @@ const ReportCommentModalTable = () => {
     }
   }, [])
 
+  console.log(reportCommentIdx)
+
   return (
     <React.Fragment>
+      <Div margin="0px 0px 15px 0px">
+        <P fontSize="lg" fontWeight="700">
+          신고된 댓글
+        </P>
+      </Div>
+      <P>댓글 내용</P>
+      <P>{reportCommentIdx[0].reported_comment_contents}</P>
       <TableStyle>
         <tbody>
           <tr>
@@ -351,6 +457,13 @@ const ReportReplyCommentModalTable = () => {
 
   return (
     <React.Fragment>
+      <Div margin="0px 0px 15px 0px">
+        <P fontSize="lg" fontWeight="700">
+          신고된 댓글
+        </P>
+      </Div>
+      <P>댓글 내용</P>
+      <P>{reportReplyCommentIdx[0].reported_reply_comment_contents}</P>
       <TableStyle>
         <tbody>
           <tr>
