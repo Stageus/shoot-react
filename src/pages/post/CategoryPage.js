@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 
 import PostComponent from "../../components/post/PostComponent"
+import { useGetFetch } from "../../hooks/useFetch"
 import { postItemListState } from "../../recoil/postState"
 
 const CategoryPage = () => {
@@ -11,33 +12,27 @@ const CategoryPage = () => {
   const params = useParams()
 
   let categoryInfo = params.categoryId
+
+  const [postGetSources, postGetFetchData] = useGetFetch()
   useEffect(() => {
     categoryInfo = params.categoryId
+    postGetFetchData(`post/all?match-type=category&match=${categoryInfo}`)
+  }, [params])
 
-    alert(
-      `카테고리가 ${categoryInfo}인 post 데이터리스트 받아오는 api 작성 후 post state에 담기`
-    )
-    // 임시 state
-    let tmpPostList = []
-    for (let idx = 1; idx <= 60; idx++) {
-      const postObject = {
-        post_idx: idx * 100,
-        post_title: `이러 저러한 제목 번호${idx}`,
-        post_video: "~~~~",
-        post_thumbnail: "/assets/images/postThumbnail.png",
-        post_view_count: "125만회", //여기 나중에 우리 계산 필요
-        category_name: "게임",
-        upload_channel_email: `asdasdsadasd${idx}@shoot.com`,
-        channel_name: `asdasdsadasd${idx}`,
-        profile_img: "/assets/images/user.svg",
-      }
-      tmpPostList.push(postObject)
+  useEffect(() => {
+    if (postGetSources !== null && postGetSources !== undefined) {
+      const tmpPostList = postGetSources.data
+      setPostItemList(tmpPostList)
     }
+  }, [postGetSources])
 
-    setPostItemList(tmpPostList)
-  })
-
-  return <PostComponent title={categoryInfo} contentType="postList" />
+  return (
+    <PostComponent
+      title={categoryInfo}
+      contentType="postList"
+      emptyMessage="업로드 된 게시글이 없습니다."
+    />
+  )
 }
 
 export default CategoryPage
