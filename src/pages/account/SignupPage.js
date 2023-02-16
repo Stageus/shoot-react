@@ -10,6 +10,7 @@ import AccountEmailFormComponent from "../../components/account/AccountEmailForm
 import AccountPasswordFormComponent from "../../components/account/AccountPasswordFormComponent"
 import AccountPersonalFormComponent from "../../components/account/AccountPersonalFormComponent"
 import { signUpState } from "../../recoil/accountState"
+import AccountHeaderComponent from "../../components/account/AccountHeaderComponent"
 
 const SignupPage = () => {
   const [signUp, setSignUp] = useRecoilState(signUpState)
@@ -21,13 +22,7 @@ const SignupPage = () => {
       direction="column"
       margin="50px 0px 0px 0px"
     >
-      <Link style={{ textDecoration: "none" }} to="/">
-        <Div display="flex" width="100%" margin="20px 0px 20px 0px">
-          <Div width="150px" pointer>
-            <Img src="/assets/images/largeShootLogo.svg" />
-          </Div>
-        </Div>
-      </Link>
+      <AccountHeaderComponent />
 
       <AccountEmailFormComponent />
       <AccountPasswordFormComponent />

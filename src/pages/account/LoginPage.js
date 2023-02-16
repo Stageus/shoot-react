@@ -5,6 +5,7 @@ import Div from "../../components/basic/Div"
 import Img from "../../components/basic/Img"
 import AccountLocalLoginFormComponent from "../../components/account/AccountLocalLoginFormComponent"
 import AccountSocialLoginFormComponent from "../../components/account/AccountSocialLoginFormComponent"
+import AccountHeaderComponent from "../../components/account/AccountHeaderComponent"
 
 const LoginPage = () => {
   return (
@@ -14,13 +15,7 @@ const LoginPage = () => {
       direction="column"
       margin="50px 0px 0px 0px"
     >
-      <Link style={{ textDecoration: "none" }} to="/">
-        <Div display="flex" width="100%" margin="20px 0px 20px 0px">
-          <Div width="150px" pointer>
-            <Img src="/assets/images/largeShootLogo.svg" />
-          </Div>
-        </Div>
-      </Link>
+      <AccountHeaderComponent />
 
       <AccountLocalLoginFormComponent />
       <AccountSocialLoginFormComponent />
