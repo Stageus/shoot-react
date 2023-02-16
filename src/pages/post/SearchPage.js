@@ -29,7 +29,7 @@ const SearchPage = () => {
     } else if (searchType === "channel") {
       postGetFetchData(`channel/all?search=${searchKeyword}`)
     }
-  })
+  }, [params])
 
   useEffect(() => {
     if (postGetSources !== null && postGetSources !== undefined) {
