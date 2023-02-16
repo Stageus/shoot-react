@@ -4,16 +4,18 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Div from "../basic/Div";
 import P from "../basic/P";
 import ChannelVideoContainer from "./ChannelVideoComponent";
-import ChannelnfoComponent from "./ChannelnfoComponent";
+import ChannelInfoComponent from "./ChannelInfoComponent";
+import { channelInfoObject } from "../../recoil/channelState";
+import { useRecoilValue } from "recoil";
 
-const ChannelTab = () => {
+const ChannelTab = (props) => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
-
+  const channel = useRecoilValue(channelInfoObject);
+  // console.log(channel);
   const tabHeaderList = [
-    { header_idx: 0, header: "동영상", link: "/channel" },
-    { header_idx: 1, header: "정보", link: "/channel/info" },
-    { header_idx: 2, header: "통계", link: "/channel/stats" },
+    { header_idx: 0, header: "동영상", link: `/channel/${channel.email}` },
+    { header_idx: 1, header: "정보", link: `/channel/${channel.email}/info` },
   ];
 
   const selectMenuHandler = (index) => {
@@ -50,7 +52,7 @@ const ChannelTab = () => {
         {tabHeader}
       </Div>
       <Div padding="30px">
-        {location === "/channel" ? (
+        {location === `/channel/${channel.email}` ? (
           <ChannelVideoContainer></ChannelVideoContainer>
         ) : (
           ""
