@@ -14,6 +14,10 @@ const SearchChannel = (props) => {
     navigate(`/channel/${email}`)
   }
 
+  const profileImgError = (e) => {
+    e.target.src = "/assets/images/user.svg"
+  }
+
   return (
     <Div
       onClick={moveChannelEvent}
@@ -22,7 +26,10 @@ const SearchChannel = (props) => {
     >
       <Div display="flex">
         <Div width="128px" height="128px" margin="20px 50px 20px 20px">
-          <Img src={profile_img} />
+          <Img
+            src={profile_img || "/assets/images/user.svg"}
+            onError={profileImgError}
+          />
         </Div>
         <Div>
           <Div>
