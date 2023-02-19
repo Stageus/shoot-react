@@ -1,20 +1,18 @@
 import React from "react";
 
-import { Input } from "../basic/Input";
+import { Input, TextArea } from "../basic/Input";
 import Div from "../basic/Div";
 
-const LargeEventInput = (props) => {
+const LargeEventTextarea = (props) => {
   const placeholder = props.placeholder;
   const type = props.type;
   const width = props.width;
-  const height = props.height;
-  const margin = props.margin;
 
   let border;
   {
     props.isFocus
       ? (border = "1.5px solid #FF6B6B")
-      : (border = "1px solid #C8C8C8");
+      : (border = "1.5px solid #C8C8C8");
   }
 
   return (
@@ -22,14 +20,14 @@ const LargeEventInput = (props) => {
       borderRadius="5px"
       border={border}
       fontSize="lg"
-      margin={margin}
+      margin="0px 0px 12px 0px"
       display="flex"
       justifyContent="flex-start"
     >
       <Div display="flex" width={width}>
-        <Input
+        <TextArea
           width="100%"
-          height={height}
+          height="150px"
           fontSize="lg"
           type={type}
           placeholder={placeholder}
@@ -43,4 +41,4 @@ const LargeEventInput = (props) => {
   );
 };
 
-export default LargeEventInput;
+export default LargeEventTextarea;
