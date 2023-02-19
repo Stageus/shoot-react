@@ -12,7 +12,7 @@ import useFocusInput from "../../hooks/useFocusInput";
 import useInput from "../../hooks/useInput";
 import useValidationInput from "../../hooks/useValidationInput";
 import SmallEventInput from "../common/SmallEventInput";
-import LargeEventInput from "../common/LargeEventInput";
+import LargeEventTextarea from "../common/LargeEventTextarea";
 import { MdButton } from "../basic/Button";
 import { modalOpenState, modalInfoState } from "../../recoil/modalState";
 import { channelModifyState, cropImgState } from "../../recoil/uploadState";
@@ -186,9 +186,10 @@ const ChannelModifyComponent = () => {
             <P fontSize="lg">채널 설명</P>
           </Div>
           <Div display="flex" justifyContent="space-between" width="400px">
-            <LargeEventInput
+            <LargeEventTextarea
               placeholder="500글자 이내"
               type="text"
+              width="400px"
               onChange={(e) => {
                 onChangeDescription(e);
                 onChangeDescriptionValidation(e);
