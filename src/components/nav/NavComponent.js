@@ -179,6 +179,7 @@ const Nav = () => {
                   const result = await res.json()
                   console.log(result)
                   console.log(res)
+                  alert("카테고리 요청이 완료되었습니다.")
                 })
               }}
             >

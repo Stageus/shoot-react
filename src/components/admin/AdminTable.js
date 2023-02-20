@@ -113,6 +113,7 @@ const AdminCategoryRequestTable = () => {
                     width="100%"
                     onClick={() => {
                       setCategoryUpdate({ category: request_category_name })
+                      alert("카테고리 추가가 완료되었습니다.")
                     }}
                   >
                     <Div width="20px" height="20px" pointer>
