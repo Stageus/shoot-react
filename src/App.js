@@ -64,8 +64,8 @@ const App = () => {
         <Route path="/channel/:channelEmail" element={<ChannelPage />}>
           <Route path="info" element={<ChannelInfoContainer />} />
         </Route>
+        <Route path="/channel/modify" element={<ChannelModifyComponent />} />
 
-        <Route path="/modify" element={<ChannelModifyComponent />} />
         <Route path="/upload" element={<UploadComponent />} />
 
         <Route path="/" element={<NavComponent />} />
