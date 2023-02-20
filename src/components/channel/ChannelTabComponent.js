@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 
 import Div from "../basic/Div";
 import P from "../basic/P";
@@ -7,12 +8,14 @@ import ChannelVideoContainer from "./ChannelVideoComponent";
 import ChannelInfoComponent from "./ChannelInfoComponent";
 import { channelInfoObject } from "../../recoil/channelState";
 import { useRecoilValue } from "recoil";
+import { useGetFetch } from "../../hooks/useFetch";
+import { postItemListState } from "../../recoil/postState";
+import PostComponent from "../post/PostComponent";
 
 const ChannelTab = (props) => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
   const channel = useRecoilValue(channelInfoObject);
-  // console.log(channel);
   const tabHeaderList = [
     { header_idx: 0, header: "동영상", link: `/channel/${channel.email}` },
     { header_idx: 1, header: "정보", link: `/channel/${channel.email}/info` },
@@ -21,6 +24,27 @@ const ChannelTab = (props) => {
   const selectMenuHandler = (index) => {
     navigate(tabHeaderList[index].link);
   };
+
+  const setPostItemList = useSetRecoilState(postItemListState);
+
+  const [postChannelGetSources, postChannelGetFetchData] = useGetFetch();
+  useEffect(() => {
+    postChannelGetFetchData("post/all/${params.channelEmail}");
+  }, []);
+
+  useEffect(() => {
+    if (postChannelGetSources !== null && postChannelGetSources !== undefined) {
+      const tmpPostList = postChannelGetSources.data;
+      setPostItemList(tmpPostList);
+    }
+  }, [postChannelGetSources]);
+
+  // return (
+  //   <PostComponent
+  //     contentType="postList"
+  //     emptyMessage="등록된 게시글이 없습니다."
+  //   />
+  // );
 
   const tabHeader = tabHeaderList.map((element) => {
     return (
@@ -53,7 +77,10 @@ const ChannelTab = (props) => {
       </Div>
       <Div padding="30px">
         {location === `/channel/${channel.email}` ? (
-          <ChannelVideoContainer></ChannelVideoContainer>
+          <PostComponent
+            contentType="postList"
+            emptyMessage="등록된 게시글이 없습니다."
+          />
         ) : (
           ""
         )}
