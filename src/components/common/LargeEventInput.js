@@ -37,6 +37,7 @@ const LargeEventInput = (props) => {
           onFocus={props.onFocus}
           onBlur={props.onBlur}
           margin="0px 0px 0px -10px"
+          textIndent="20px"
         />
       </Div>
     </Div>
