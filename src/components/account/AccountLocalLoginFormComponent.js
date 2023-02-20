@@ -11,7 +11,7 @@ import EventInput from "../common/EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
-import { localLoginState, userTokenState } from "../../recoil/accountState"
+import { localLoginState } from "../../recoil/accountState"
 
 const AccountLocalLoginFormComponent = () => {
   const navigate = useNavigate()
@@ -24,8 +24,6 @@ const AccountLocalLoginFormComponent = () => {
 
   const [localLogin, setLocalLogin] = useRecoilState(localLoginState)
   const [loginResult, setLoginResult] = useState()
-
-  const [userToken, setUserToken] = useRecoilState(userTokenState)
 
   const isCheckHandler = (e) => {
     if (e.target.checked) {
@@ -43,19 +41,6 @@ const AccountLocalLoginFormComponent = () => {
       autoLogin: isCheck,
     })
   }, [email, password, isCheck])
-
-  const getCookie = (cookie) => {
-    let value = cookie.split("=")
-
-    return value[1]
-  }
-
-  let cookie = getCookie(document.cookie)
-
-  useEffect(() => {
-    setUserToken(cookie)
-    console.log(userToken)
-  }, [cookie])
 
   return (
     <React.Fragment>
@@ -141,10 +126,6 @@ const AccountLocalLoginFormComponent = () => {
             console.log(res.status)
 
             if (res.status === 200) {
-              /* let cookie = getCookie(document.cookie)
-
-              setUserToken(cookie)
-              console.log(userToken) */
               navigate("/")
             } else {
               setLoginResult(result) // 로그인 실패 시 에러 출력
