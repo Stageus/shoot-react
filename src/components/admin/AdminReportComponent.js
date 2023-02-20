@@ -14,14 +14,14 @@ const MainDiv = styled.main`
   top: 60px;
   left: 220px;
   overflow-x: auto;
+  margin-top: 20px;
 `
 
 const SelectBox = styled.select`
-  width: 70px;
+  width: 50px;
   height: 24px;
   font-size: 15px;
   border: none;
-  margin-left: 5px;
   &:focus {
     outline: none;
   }
