@@ -51,7 +51,7 @@ const ThInfoStyle = styled.th`
 const ModalBox = styled.nav`
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 300px;
   width: 100%;
   overflow-y: auto;
   &::-webkit-scrollbar {
@@ -61,6 +61,7 @@ const ModalBox = styled.nav`
     border-radius: 7px;
     background: #c8c8c8;
   }
+  overflow-x: hidden;
 `
 
 const ReportPostModalTable = () => {

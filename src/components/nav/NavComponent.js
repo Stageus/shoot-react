@@ -183,7 +183,7 @@ const Nav = () => {
                 })
               }}
             >
-              <P color="white" fontSize="sm" fontWeight="800">
+              <P color="white" fontSize="sm" fontWeight="700">
                 입력
               </P>
             </SmButton>
