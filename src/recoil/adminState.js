@@ -145,9 +145,9 @@ export const blockState = atom({
   key: "block",
   default: [
     {
-      /*period: int, // 초 단위 ( 0초만 아니면 됨 )
-      reason: NULL || string, // 정지 사유 ( 200글자 까지 )
-      email: string, // 정지할 채널의 이메일 ( 320 글자 까지 )*/
+      period: 1,
+      reason: null,
+      email: null,
     },
   ],
 })
