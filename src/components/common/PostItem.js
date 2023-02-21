@@ -74,11 +74,10 @@ const PostItem = (props) => {
       <ThumbnailDiv
         display="flex"
         onClick={movePostDetailEvent}
-        borderRadius="5px"
         pointer
         width="94%"
         margin="6% 3%"
-        border="1px solid #C8C8C8"
+        border="2px solid #FF6B6B"
       >
         <Img
           src={
