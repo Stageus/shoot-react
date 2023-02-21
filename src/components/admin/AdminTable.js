@@ -113,6 +113,7 @@ const AdminCategoryRequestTable = () => {
                     width="100%"
                     onClick={() => {
                       setCategoryUpdate({ category: request_category_name })
+                      alert("카테고리 추가가 완료되었습니다.")
                     }}
                   >
                     <Div width="20px" height="20px" pointer>
@@ -246,18 +247,20 @@ const AdminReportPostTable = () => {
           <ThStyle>삭제</ThStyle>
         </tr>
         {reportPost.map(
-          ({
-            reported_post_idx,
-            reported_post_title,
-            reported_post_upload_time,
-            reported_channel_email,
-            reported_channel_name,
-            report_count,
-          }) => (
+          (
+            {
+              reported_post_idx,
+              reported_post_title,
+              reported_post_upload_time,
+              reported_channel_email,
+              reported_channel_name,
+              report_count,
+            },
+            index
+          ) => (
             <tr key={reported_post_idx}>
-              <TdStyle>{reported_post_idx}</TdStyle>
+              <TdStyle>{index + 1}</TdStyle>
               <TdStyle
-                // Modal
                 onClick={() => {
                   setModalOpen(true)
                   setModalInfo({
@@ -430,14 +433,17 @@ const AdminReportCommentTable = () => {
           <ThStyle>삭제</ThStyle>
         </tr>
         {reportComment.map(
-          ({
-            post_idx,
-            reported_comment_idx,
-            reported_comment_write_time,
-            reported_channel_email,
-            reported_channel_name,
-            report_count,
-          }) => (
+          (
+            {
+              post_idx,
+              reported_comment_idx,
+              reported_comment_write_time,
+              reported_channel_email,
+              reported_channel_name,
+              report_count,
+            },
+            index
+          ) => (
             <tr key={reported_comment_idx}>
               <TdStyle
                 onClick={() => {
@@ -452,7 +458,7 @@ const AdminReportCommentTable = () => {
                   })
                 }}
               >
-                {reported_comment_idx}
+                {index + 1}
               </TdStyle>
               <TdStyle>{reported_comment_write_time}</TdStyle>
               <TdStyle>{reported_channel_email}</TdStyle>
@@ -522,15 +528,18 @@ const AdminReportReplyCommentTable = () => {
           <ThStyle>삭제</ThStyle>
         </tr>
         {reportReplyComment.map(
-          ({
-            post_idx,
-            reported_reply_comment_idx,
-            reported_reply_comment_contents,
-            reported_reply_comment_write_time,
-            reported_channel_email,
-            reported_channel_name,
-            report_count,
-          }) => (
+          (
+            {
+              post_idx,
+              reported_reply_comment_idx,
+              reported_reply_comment_contents,
+              reported_reply_comment_write_time,
+              reported_channel_email,
+              reported_channel_name,
+              report_count,
+            },
+            index
+          ) => (
             <tr key={reported_reply_comment_idx}>
               <TdStyle
                 onClick={() => {
@@ -545,7 +554,7 @@ const AdminReportReplyCommentTable = () => {
                   })
                 }}
               >
-                {reported_reply_comment_idx}
+                {index + 1}
               </TdStyle>
               <TdStyle>{reported_reply_comment_write_time}</TdStyle>
               <TdStyle>{reported_channel_email}</TdStyle>
@@ -593,20 +602,6 @@ const AdminLogTable = () => {
   const [logIdx, setLogIdx] = useRecoilState(logIdxState)
 
   useEffect(() => {
-    /* let tmpLog = [
-      {
-        id: "1",
-        ip: "123.123.123",
-        req_channel_email: "shoot.naver.com",
-        method: "abc",
-        api_path: "path",
-        req_time: "timestamp",
-        res_time: "timestamp",
-        status_code: 1,
-        result: "string",
-      },
-    ]*/
-
     fetch("https://api.슛.site/log/all", {
       method: "GET",
       credentials: "include",

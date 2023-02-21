@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useRecoilState } from "recoil"
 
 import { LgButton } from "../../components/basic/Button"
@@ -14,6 +14,7 @@ import AccountHeaderComponent from "../../components/account/AccountHeaderCompon
 
 const SignupPage = () => {
   const [signUp, setSignUp] = useRecoilState(signUpState)
+  const navigate = useNavigate()
 
   return (
     <Div
@@ -55,6 +56,10 @@ const SignupPage = () => {
             const result = await res.json()
             console.log(result)
             console.log(res)
+            if (res.status === 200) {
+              navigate("/")
+            }
+            alert("회원가입이 완료되었습니다.")
           })
         }}
       >
