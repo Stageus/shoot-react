@@ -179,7 +179,15 @@ const Nav = () => {
                   const result = await res.json()
                   console.log(result)
                   console.log(res)
-                  alert("카테고리 요청이 완료되었습니다.")
+                  if (res.status === 200) {
+                    alert("카테고리 요청이 완료되었습니다.")
+                  } else if (res.status === 401) {
+                    alert("로그인 후 이용해주세요.")
+                  } else if (res.status === 405) {
+                    alert("이미 추가된 카테고리 입니다.")
+                  } else {
+                    alert("error: 카테고리 오류")
+                  }
                 })
               }}
             >

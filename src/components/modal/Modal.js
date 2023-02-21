@@ -1,23 +1,24 @@
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import React, { useEffect, useRef } from "react"
+import styled from "styled-components"
+import { useSetRecoilState, useRecoilValue } from "recoil"
 
-import ModalContainer from "./ModalContainer";
-import Div from "../basic/Div";
-import AlertModal from "./AlertModal";
-import ConfirmModal from "./ConfirmModal";
-import PostDetailModalComponent from "./post/PostDetailModalComponent";
-import CommentModalComponent from "./post/CommentModalComponent";
-import useOutSideClick from "../../hooks/useOutSideClick";
-import { modalOpenState, modalInfoState } from "../../recoil/modalState";
+import ModalContainer from "./ModalContainer"
+import Div from "../basic/Div"
+import AlertModal from "./AlertModal"
+import ConfirmModal from "./ConfirmModal"
+import PostDetailModalComponent from "./post/PostDetailModalComponent"
+import CommentModalComponent from "./post/CommentModalComponent"
+import useOutSideClick from "../../hooks/useOutSideClick"
+import { modalOpenState, modalInfoState } from "../../recoil/modalState"
 import {
   ReportChannelModalTable,
   ReportCommentModalTable,
   ReportPostModalTable,
   ReportReplyCommentModalTable,
-} from "./admin/AdminModalTable";
-import BlockModalComponent from "./admin/BlockModalComponent";
-import ChannelThumbnailModal from "./channel/ChannelThumbnailModal";
+} from "./admin/AdminModalTable"
+import BlockModalComponent from "./admin/BlockModalComponent"
+import ChannelThumbnailModal from "./channel/ChannelThumbnailModal"
+import AddCategoryModalComponent from "./admin/AddCategoryModalComponent"
 
 const Overlay = styled.div`
   position: fixed;
@@ -29,7 +30,7 @@ const Overlay = styled.div`
   right: 0;
   background: rgba(0, 0, 0, 0.2);
   z-index: 9999;
-`;
+`
 const ModalWrap = styled.div`
   width: fit-content;
   height: fit-content;
@@ -43,24 +44,24 @@ const ModalWrap = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 10000;
-`;
+`
 
 const Modal = () => {
-  const modalRef = useRef(null);
-  const setOpenModal = useSetRecoilState(modalOpenState);
+  const modalRef = useRef(null)
+  const setOpenModal = useSetRecoilState(modalOpenState)
   const closeModal = () => {
-    setOpenModal(false);
-  };
+    setOpenModal(false)
+  }
 
-  const modalInfo = useRecoilValue(modalInfoState);
-  const modalType = modalInfo.type;
+  const modalInfo = useRecoilValue(modalInfoState)
+  const modalType = modalInfo.type
 
   // useOutSideClick(modalRef, closeModal)
   useEffect(() => {
-    const $body = document.querySelector("body");
-    $body.style.overflow = "hidden";
-    return () => ($body.style.overflow = "auto");
-  }, []);
+    const $body = document.querySelector("body")
+    $body.style.overflow = "hidden"
+    return () => ($body.style.overflow = "auto")
+  }, [])
   return (
     <ModalContainer>
       <Overlay onClick={closeModal}></Overlay>
@@ -74,6 +75,7 @@ const Modal = () => {
               (modalType === "alert" && <AlertModal />) ||
               (modalType === "detail" && <PostDetailModalComponent />) ||
               (modalType === "comment" && <CommentModalComponent />) ||
+              (modalType === "addCategory" && <AddCategoryModalComponent />) ||
               (modalType === "ReportPost" && <ReportPostModalTable />) ||
               (modalType === "ReportChannel" && <ReportChannelModalTable />) ||
               (modalType === "ReportComment" && <ReportCommentModalTable />) ||
@@ -86,7 +88,7 @@ const Modal = () => {
         </ModalWrap>
       </Div>
     </ModalContainer>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal
