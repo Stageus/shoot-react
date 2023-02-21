@@ -16,6 +16,8 @@ import {
   userInfoState,
 } from "../../recoil/headerState"
 import { modalInfoState, modalOpenState } from "../../recoil/modalState"
+import { useDeleteFetch, useGetFetch } from "../../hooks/useFetch"
+import { async } from "q"
 
 const HeaderFunctionComponent = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
@@ -33,8 +35,6 @@ const HeaderFunctionComponent = () => {
 
   const moveLoginEvent = () => {
     navigate("/login")
-    // 임시 상태 변경
-    setIsLogin(true)
   }
 
   const moveUploadEvent = () => {
@@ -71,11 +71,10 @@ const HeaderFunctionComponent = () => {
     navigate(`/channel/${email}`)
   }
 
-  const logoutLogic = () => {
-    alert("로그아웃 기능 api")
-    setIsLogin(false)
-    // window.location.reload()
-    setOpenModal(false)
+  const [loginDeleteSources, loginDeleteFetchData] = useDeleteFetch()
+  const logoutLogic = async () => {
+    await loginDeleteFetchData("auth")
+    window.location.reload()
   }
   const logoutClickEvent = () => {
     const modalInfo = {
@@ -91,9 +90,28 @@ const HeaderFunctionComponent = () => {
     e.target.src = "/assets/images/user.svg"
   }
 
+  const [loginSources, logingetFetchData] = useGetFetch()
   useEffect(() => {
+    logingetFetchData("auth")
     return setProfilePopupOpen(false)
   }, [])
+  const [userSources, userFetchData] = useGetFetch()
+  useEffect(() => {
+    if (loginSources !== null && loginSources !== undefined) {
+      if (loginSources.email === undefined) {
+        setIsLogin(false)
+        setUserInfo({})
+      } else {
+        userFetchData("auth/channel")
+      }
+    }
+  }, [loginSources])
+  useEffect(() => {
+    if (userSources !== null && userSources !== undefined) {
+      setIsLogin(true)
+      setUserInfo(userSources.data)
+    }
+  }, [userSources])
 
   return (
     <Div display="flex">

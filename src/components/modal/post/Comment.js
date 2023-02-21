@@ -90,8 +90,7 @@ const Comment = (props) => {
   }
   useEffect(() => {
     if (replyGetSources !== null && replyGetSources !== undefined) {
-      setBackReplyCommentList(replyGetSources.data)
-      const tmpReplyCommentList = [...replyCommentList, ...backReplyCommentList]
+      const tmpReplyCommentList = [...replyCommentList, ...replyGetSources.data]
       setReplyCommentList(tmpReplyCommentList)
     }
   }, [replyGetSources])

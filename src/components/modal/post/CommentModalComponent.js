@@ -25,11 +25,13 @@ const CommentModalComponent = () => {
   let commentModalContent
   if (commentList.length !== 0) {
     commentModalContent = commentList.map((element, Idx) => {
-      return (
-        <Div width="100%" margin="16px 0 0 0">
-          <Comment key={`comment${Idx}`} commentObject={element} />
-        </Div>
-      )
+      if (element != null) {
+        return (
+          <Div width="100%" margin="16px 0 0 0">
+            <Comment key={`comment${Idx}`} commentObject={element} />
+          </Div>
+        )
+      }
     })
   }
 

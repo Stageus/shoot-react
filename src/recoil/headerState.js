@@ -19,16 +19,12 @@ export const profilePopupOpenState = atom({
 // header backEndState
 export const isLoginState = atom({
   key: "isLogin",
-  default: true, //boolean
+  default: false, //boolean
 })
 
 export const userInfoState = atom({
   key: "userInfo",
-  default: {
-    email: "test1@shoot.com",
-    name: "test1",
-    profile_img: "/assets/images/user.svg",
-  }, //object
+  default: {}, //object
 })
 
 export const searchHistoryAutoSaveState = atom({
