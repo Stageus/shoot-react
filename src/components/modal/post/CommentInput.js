@@ -79,17 +79,17 @@ const CommentInput = (props) => {
       } else {
         await commentPutFetchData(`reply-comment/${idx}`, fetchBody)
       }
-      await commentGetFetchData(`comment/all?post-idx=${post_idx}`)
+      setOpenModal(false)
     }
   }
 
-  const setCommentList = useSetRecoilState(commentListState)
-  useEffect(() => {
-    if (commentGetSources !== null && commentGetSources !== undefined) {
-      const tmpCommentList = commentGetSources.data
-      setCommentList(tmpCommentList)
-    }
-  }, [commentGetSources])
+  // const setCommentList = useSetRecoilState(commentListState)
+  // useEffect(() => {
+  //   if (commentGetSources !== null && commentGetSources !== undefined) {
+  //     const tmpCommentList = commentGetSources.data
+  //     setCommentList(tmpCommentList)
+  //   }
+  // }, [commentGetSources])
 
   const textarea = useRef()
 
