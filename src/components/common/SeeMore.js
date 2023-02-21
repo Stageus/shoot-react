@@ -5,6 +5,10 @@ import Div from "../basic/Div"
 import Img from "../basic/Img"
 import { IconText } from "./IconText"
 import useToggle from "../../hooks/useToggle"
+import { useDeleteFetch } from "../../hooks/useFetch"
+import { useNavigate } from "react-router-dom"
+import { useSetRecoilState } from "recoil"
+import { modalInfoState, modalOpenState } from "../../recoil/modalState"
 
 const SeeMoreIcon = styled(Div)`
   &:hover {
@@ -28,28 +32,55 @@ const SeeMore = (props) => {
     // alert 대신에 나중에 url 복사하는 기능으로 바꿔야함
   }
 
-  const moveModifyEvent = () => {
-    alert(
-      `타입이 ${parent}이고 정보가 ${parentInfo}인 것을 수정하는 페이지로 이동`
-    )
-    // alert 대신에 나중에 수정 page로 이동하는 기능으로 바꿔야함
-  }
+  const navigate = useNavigate()
   const clickModifyEvent = () => {
     if (parent === "comment" || parent === "reply_comment") {
       commentModifyEvnet()
     } else {
-      document.getElementById(`modify_${parent}_${parentInfo}`).style.display =
-        "flex"
+      if (parent === "post") {
+        navigate(`/modify/${parentInfo}`)
+      } else if (parent === "channel") {
+        navigate(`/channel/modify`)
+      }
     }
   }
 
-  const deleteEvent = () => {
-    alert(`타입이 ${parent}이고 정보가 ${parentInfo}인 것을 삭제함`)
-    // alert 대신에 나중에 삭제하는 기능으로 바꿔야함
-  }
+  const setOpenModal = useSetRecoilState(modalOpenState)
+  const setModalInfo = useSetRecoilState(modalInfoState)
+
+  const [deleteSources, deleteFetchData] = useDeleteFetch()
   const clickDeleteEvent = () => {
-    document.getElementById(`delete_${parent}_${parentInfo}`).style.display =
-      "flex"
+    let confirmContent
+    let confirmFuc
+    if (parent === "comment") {
+      confirmContent = "댓글을 삭제하시겠습니까?"
+      confirmFuc = () => {
+        deleteFetchData(`comment/${parentInfo}`)
+        setOpenModal(false)
+      }
+    } else if (parent === "reply_comment") {
+      confirmContent = "대댓글을 삭제하시겠습니까?"
+
+      confirmFuc = () => {
+        deleteFetchData(`reply-comment/${parentInfo}`)
+        setOpenModal(false)
+      }
+    } else if (parent === "post") {
+      confirmContent = "게시글을 삭제하시겠습니까?"
+
+      confirmFuc = () => {
+        confirmFuc = deleteFetchData(`post/${parentInfo}`)
+        setOpenModal(false)
+      }
+    }
+
+    const modalInfo = {
+      type: "confirm",
+      content: confirmContent,
+      modalFunc: confirmFuc,
+    }
+    setOpenModal(true)
+    setModalInfo(modalInfo)
   }
 
   const clickAlarmEvent = () => {
