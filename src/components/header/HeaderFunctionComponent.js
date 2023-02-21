@@ -16,7 +16,8 @@ import {
   userInfoState,
 } from "../../recoil/headerState"
 import { modalInfoState, modalOpenState } from "../../recoil/modalState"
-import { useGetFetch } from "../../hooks/useFetch"
+import { useDeleteFetch, useGetFetch } from "../../hooks/useFetch"
+import { async } from "q"
 
 const HeaderFunctionComponent = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
@@ -70,10 +71,10 @@ const HeaderFunctionComponent = () => {
     navigate(`/channel/${email}`)
   }
 
-  const logoutLogic = () => {
-    // setIsLogin(false)
-    // setOpenModal(false)
-    // window.location.reload()
+  const [loginDeleteSources, loginDeleteFetchData] = useDeleteFetch()
+  const logoutLogic = async () => {
+    await loginDeleteFetchData("auth")
+    window.location.reload()
   }
   const logoutClickEvent = () => {
     const modalInfo = {
