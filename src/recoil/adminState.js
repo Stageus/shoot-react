@@ -3,9 +3,7 @@ import { atom } from "recoil"
 // post
 export const categoryUpdateState = atom({
   key: "categoryUpdate",
-  default: {
-    category: "",
-  },
+  default: [],
 })
 
 // get
@@ -134,19 +132,12 @@ export const logState = atom({
 
 export const logIdxState = atom({
   key: "logIdx",
-  default: null /*[
-    {
-      id: "1",
-      ip: "123.123.123",
-      req_channel_email: "shoot.naver.com",
-      method: "abc",
-      api_path: "path",
-      req_time: "timestamp",
-      res_time: "timestamp",
-      status_code: 1,
-      result: "string",
-    },
-  ],*/,
+  default: null,
+})
+
+export const blockSelectedState = atom({
+  key: "blockSelected",
+  default: { idx: null, email: null },
 })
 
 // post
@@ -154,9 +145,9 @@ export const blockState = atom({
   key: "block",
   default: [
     {
-      /*period: int, // 초 단위 ( 0초만 아니면 됨 )
-      reason: NULL || string, // 정지 사유 ( 200글자 까지 )
-      email: string, // 정지할 채널의 이메일 ( 320 글자 까지 )*/
+      period: 1,
+      reason: null,
+      email: null,
     },
   ],
 })

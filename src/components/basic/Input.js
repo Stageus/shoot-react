@@ -14,7 +14,7 @@ const Input = styled.input`
   border: ${(props) => props.border || "none"};
   border-radius: ${(props) => props.borderRadius || "none"};
   display: ${(props) => props.display || "inline-block"};
-
+  text-indent: ${(props) => props.textIndent || 0};
   &:focus {
     outline: none;
   }

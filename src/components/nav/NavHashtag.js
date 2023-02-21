@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useRecoilState } from "recoil"
 
 import Div from "../basic/Div"
@@ -9,6 +9,15 @@ import { topHashtagState } from "../../recoil/navState"
 const NavHashtag = (props) => {
   const idx = props.idx
   const [topHashtag, setTopHashtag] = useRecoilState(topHashtagState)
+
+  useEffect(() => {
+    fetch(`https://api.슛.site/top-hashtag/all?category=${idx}`, {
+      method: "GET",
+    }).then(async (res) => {
+      const result = await res.json()
+      setTopHashtag(result.data)
+    })
+  }, [])
 
   return (
     <Div margin="0px 0px 0px 43px">

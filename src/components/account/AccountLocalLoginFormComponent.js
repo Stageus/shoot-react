@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useRecoilState } from "recoil"
 
 import { Input } from "../basic/Input"
 import { LgButton } from "../basic/Button"
 import Div from "../basic/Div"
 import P from "../basic/P"
-import EventInput from "./EventInput"
+import EventInput from "../common/EventInput"
 import useInput from "../../hooks/useInput"
 import useFocusInput from "../../hooks/useFocusInput"
 
 import { localLoginState } from "../../recoil/accountState"
 
 const AccountLocalLoginFormComponent = () => {
+  const navigate = useNavigate()
+
   const [email, onChangeEmail] = useInput()
   const [emailFocus, onFocusEmail, onBlurEmail] = useFocusInput()
   const [password, onChangePassword] = useInput()
@@ -21,7 +23,6 @@ const AccountLocalLoginFormComponent = () => {
   const [isCheck, setIsCheck] = useState(false)
 
   const [localLogin, setLocalLogin] = useRecoilState(localLoginState)
-
   const [loginResult, setLoginResult] = useState()
 
   const isCheckHandler = (e) => {
@@ -39,7 +40,6 @@ const AccountLocalLoginFormComponent = () => {
       pw: password,
       autoLogin: isCheck,
     })
-    // console.log(JSON.stringify(localLogin))
   }, [email, password, isCheck])
 
   return (
@@ -121,12 +121,15 @@ const AccountLocalLoginFormComponent = () => {
             body: JSON.stringify(localLogin),
           }).then(async (res) => {
             const result = await res.json()
-            // setLoginResult(result) // 로그인 실패 시 에러 출력
-            console.log(result)
-            console.log(res)
 
-            // var cookieData = document.cookie
-            // console.log(cookieData)
+            console.log(result)
+            console.log(res.status)
+
+            if (res.status === 200) {
+              navigate("/")
+            } else {
+              setLoginResult(result) // 로그인 실패 시 에러 출력
+            }
           })
         }}
       >
