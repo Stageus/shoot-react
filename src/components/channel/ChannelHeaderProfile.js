@@ -1,17 +1,17 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 import Profile from "../common/Profile";
+import { channelInfoObject } from "../../recoil/channelState";
 
-const ChannelHeaderProfile = (props) => {
-  console.log(props);
-  const channelProfile = props.channelInfo.profile;
-  const channelName = props.channelInfo.name;
-  const channelIsSubscribe = props.channelInfo.subscribe_state;
+const ChannelHeaderProfile = () => {
+  const channelInfo = useRecoilValue(channelInfoObject);
+
   return (
     <Profile
-      profileObject={channelProfile}
-      name={channelName}
-      isSubscribe={channelIsSubscribe}
+      profileObject={channelInfo}
+      name={channelInfo.name}
+      isSubscribe={channelInfo.subscribe_state}
     />
   );
 };

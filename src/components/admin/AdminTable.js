@@ -9,13 +9,19 @@ import { MdButton } from "../basic/Button"
 
 import {
   categoryRequestState,
+  categoryUpdateState,
   reportChannelState,
   reportPostState,
   reportCommentState,
   reportReplyCommentState,
   logState,
   logIdxState,
+  reportPostSelectState,
+  reportChannelSelectState,
+  blockSelectedState,
 } from "../../recoil/adminState"
+import { categoryMenuState } from "../../recoil/navState"
+import { modalInfoState, modalOpenState } from "../../recoil/modalState"
 
 const TableStyle = styled.table`
   border: 1px solid black;
@@ -49,28 +55,25 @@ const ThInfoStyle = styled.th`
 const AdminCategoryRequestTable = () => {
   const [categoryRequest, setCategoryRequest] =
     useRecoilState(categoryRequestState)
+  const [categoryUpdate, setCategoryUpdate] =
+    useRecoilState(categoryUpdateState)
 
   useEffect(() => {
-    /*let tmpCategoryRequest = [
-      {
-        request_category_name: "경제",
-        request_count: 20,
-        recent_request_time: "2022.12.14",
+    fetch("https://api.슛.site/category", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      {
-        request_category_name: "수학",
-        request_count: 41,
-        recent_request_time: "2022.12.14",
-      },
-      {
-        request_category_name: "과학",
-        request_count: 22,
-        recent_request_time: "2022.12.14",
-      },
-    ]
+      body: JSON.stringify(categoryUpdate),
+    }).then(async (res) => {
+      const result = await res.json()
+      console.log(result)
+      console.log(categoryUpdate)
+    })
+  }, [categoryUpdate])
 
-    setCategoryRequest(tmpCategoryRequest)*/
-
+  useEffect(() => {
     fetch("https://api.슛.site/request-category/all", {
       method: "GET",
       credentials: "include",
@@ -78,7 +81,7 @@ const AdminCategoryRequestTable = () => {
       .then((res) => res.json())
       .then((res) => {
         setCategoryRequest(res.data)
-        console.log(res)
+        console.log(res.data)
       })
   }, [])
 
@@ -99,45 +102,55 @@ const AdminCategoryRequestTable = () => {
               { request_category_name, request_count, recent_request_time },
               index
             ) => (
-              <>
-                <tr key={request_category_name}>
-                  <TdStyle>{index + 1}</TdStyle>
-                  <TdStyle>{request_category_name}</TdStyle>
-                  <TdStyle>{request_count}</TdStyle>
-                  <TdStyle>{recent_request_time}</TdStyle>
-                  <TdStyle>
-                    <Div display="flex" width="100%">
-                      <Div width="20px" height="20px" pointer>
-                        <Img src="/assets/images/add.svg" />
-                      </Div>
+              <tr key={request_category_name}>
+                <TdStyle>{index + 1}</TdStyle>
+                <TdStyle>{request_category_name}</TdStyle>
+                <TdStyle>{request_count}</TdStyle>
+                <TdStyle>{recent_request_time}</TdStyle>
+                <TdStyle>
+                  <Div
+                    display="flex"
+                    width="100%"
+                    onClick={() => {
+                      setCategoryUpdate({ category: request_category_name })
+                      alert("카테고리 추가가 완료되었습니다.")
+                    }}
+                  >
+                    <Div width="20px" height="20px" pointer>
+                      <Img src="/assets/images/add.svg" />
                     </Div>
-                  </TdStyle>
-                  <TdStyle>
-                    <Div
-                      display="flex"
-                      width="100%"
-                      onClick={() => {
-                        fetch(
-                          `https://api.슛.site/request-category/${request_category_name}`,
-                          {
-                            method: "DELETE",
-                            credentials: "include",
-                          }
-                        )
-                          .then((res) => res.json())
-                          .then((res) => {
-                            setCategoryRequest(res.data)
-                            console.log(res)
-                          })
-                      }}
-                    >
-                      <Div width="20px" height="20px" pointer>
-                        <Img src="/assets/images/delete.svg" />
-                      </Div>
+                  </Div>
+                </TdStyle>
+                <TdStyle>
+                  <Div
+                    display="flex"
+                    width="100%"
+                    onClick={() => {
+                      fetch(
+                        `https://api.슛.site/request-category/${request_category_name}`,
+                        {
+                          method: "DELETE",
+                          credentials: "include",
+                        }
+                      )
+                        .then((res) => res.json())
+                        .then((res) => {
+                          const filteredData = categoryRequest.filter(
+                            (element) =>
+                              request_category_name !==
+                              element.request_category_name
+                          )
+                          console.log(filteredData)
+                          setCategoryRequest(filteredData)
+                        })
+                    }}
+                  >
+                    <Div width="20px" height="20px" pointer>
+                      <Img src="/assets/images/delete.svg" />
                     </Div>
-                  </TdStyle>
-                </tr>
-              </>
+                  </Div>
+                </TdStyle>
+              </tr>
             )
           )}
       </tbody>
@@ -146,37 +159,16 @@ const AdminCategoryRequestTable = () => {
 }
 
 const AdminCategoryUpdateTable = () => {
-  const [categoryUpdate, setCategoryUpdate] =
-    useRecoilState(categoryRequestState)
+  const [categoryMenu, setCategoryMenu] = useRecoilState(categoryMenuState)
 
   useEffect(() => {
-    /*let tmpCategoryUpdate = [
-      {
-        request_category_name: "수학",
-        request_count: 41,
-        recent_request_time: "2022.12.14",
-      },
-      {
-        request_category_name: "과학",
-        request_count: 22,
-        recent_request_time: "2022.12.14",
-      },
-      {
-        request_category_name: "경제",
-        request_count: 20,
-        recent_request_time: "2022.12.14",
-      },
-    ]
-
-    setCategoryUpdate(tmpCategoryUpdate)*/
-    fetch("https://api.슛.site/request-category/all", {
-      method: "GET",
+    fetch("https://api.슛.site/category/all", {
       credentials: "include",
+      method: "GET",
     })
       .then((res) => res.json())
       .then((res) => {
-        setCategoryUpdate(res.data)
-        console.log(res)
+        setCategoryMenu(res.data)
       })
   }, [])
 
@@ -189,28 +181,37 @@ const AdminCategoryUpdateTable = () => {
           <ThStyle>추가 날짜</ThStyle>
           <ThStyle>삭제</ThStyle>
         </tr>
-        {categoryUpdate &&
-          categoryUpdate.map(
-            (
-              { request_category_name, request_count, recent_request_time },
-              index
-            ) => (
-              <>
-                <tr key={index}>
-                  <TdStyle>{index + 1}</TdStyle>
-                  <TdStyle>{request_category_name}</TdStyle>
-                  <TdStyle>{recent_request_time}</TdStyle>
-                  <TdStyle>
-                    <MdButton backgroundColor="red">
-                      <P color="white" fontSize="sm">
-                        삭제하기
-                      </P>
-                    </MdButton>
-                  </TdStyle>
-                </tr>
-              </>
-            )
-          )}
+        {categoryMenu &&
+          categoryMenu.map(({ category_idx, category_name, category_time }) => (
+            <tr key={category_idx}>
+              <TdStyle>{category_idx}</TdStyle>
+              <TdStyle>{category_name}</TdStyle>
+              <TdStyle>{category_time}</TdStyle>
+              <TdStyle>
+                <MdButton
+                  backgroundColor="red"
+                  onClick={() => {
+                    fetch(`https://api.슛.site/category/${category_idx}`, {
+                      method: "DELETE",
+                      credentials: "include",
+                    })
+                      .then((res) => res.json())
+                      .then((res) => {
+                        const filteredData = categoryMenu.filter(
+                          (element) => category_idx !== element.category_idx
+                        )
+                        console.log(filteredData)
+                        setCategoryMenu(filteredData)
+                      })
+                  }}
+                >
+                  <P color="white" fontSize="sm">
+                    삭제하기
+                  </P>
+                </MdButton>
+              </TdStyle>
+            </tr>
+          ))}
       </tbody>
     </TableStyle>
   )
@@ -218,20 +219,19 @@ const AdminCategoryUpdateTable = () => {
 
 const AdminReportPostTable = () => {
   const [reportPost, setReportPost] = useRecoilState(reportPostState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
 
   useEffect(() => {
-    let tmpReportPost = [
-      {
-        reported_post_idx: 4,
-        reported_post_title: "hello",
-        reported_post_upload_time: "2022-11-12",
-        reported_channel_email: "shoot.naver.com",
-        reported_channel_name: "qwerr",
-        report_count: 2,
-      },
-    ]
-
-    setReportPost(tmpReportPost)
+    fetch("https://api.슛.site/report/post/all", {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReportPost(res.data)
+      })
   }, [])
 
   return (
@@ -247,31 +247,66 @@ const AdminReportPostTable = () => {
           <ThStyle>삭제</ThStyle>
         </tr>
         {reportPost.map(
-          ({
-            reported_post_idx,
-            reported_post_title,
-            reported_post_upload_time,
-            reported_channel_email,
-            reported_channel_name,
-            report_count,
-          }) => (
-            <>
-              <tr key={reported_post_idx}>
-                <TdStyle>{reported_post_idx}</TdStyle>
-                <TdStyle>{reported_post_title}</TdStyle>
-                <TdStyle>{reported_post_upload_time}</TdStyle>
-                <TdStyle>{reported_channel_email}</TdStyle>
-                <TdStyle>{reported_channel_name}</TdStyle>
-                <TdStyle>{report_count}</TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/delete.svg" />
-                    </Div>
+          (
+            {
+              reported_post_idx,
+              reported_post_title,
+              reported_post_upload_time,
+              reported_channel_email,
+              reported_channel_name,
+              report_count,
+            },
+            index
+          ) => (
+            <tr key={reported_post_idx}>
+              <TdStyle>{index + 1}</TdStyle>
+              <TdStyle
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportPost",
+                  })
+                  setBlockSelected({
+                    idx: reported_post_idx,
+                    email: reported_channel_email,
+                  })
+                }}
+              >
+                {reported_post_title}
+              </TdStyle>
+              <TdStyle>{reported_post_upload_time}</TdStyle>
+              <TdStyle>{reported_channel_email}</TdStyle>
+              <TdStyle>{reported_channel_name}</TdStyle>
+              <TdStyle>{report_count}</TdStyle>
+              <TdStyle>
+                <Div
+                  display="flex"
+                  width="100%"
+                  onClick={() => {
+                    fetch(
+                      `https://api.슛.site/report?group=post&idx=${reported_post_idx}`,
+                      {
+                        method: "DELETE",
+                        credentials: "include",
+                      }
+                    ).then(async (res) => {
+                      const result = await res.json()
+                      const filteredData = reportPost.filter(
+                        (element) =>
+                          reported_post_idx !== element.reported_post_idx
+                      )
+
+                      setReportPost(filteredData)
+                    })
+                  }}
+                >
+                  <Div width="20px" height="20px" pointer>
+                    <Img src="/assets/images/delete.svg" />
                   </Div>
-                </TdStyle>
-              </tr>
-            </>
+                </Div>
+              </TdStyle>
+            </tr>
           )
         )}
       </tbody>
@@ -281,24 +316,19 @@ const AdminReportPostTable = () => {
 
 const AdminReportChannelTable = () => {
   const [reportChannel, setReportChannel] = useRecoilState(reportChannelState)
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
 
   useEffect(() => {
-    let tmpReportChannel = [
-      {
-        reported_channel_email: "shoot.naver.com",
-        reported_channel_time: "2022-12-23",
-        reported_channel_name: "qwerr",
-        report_count: 5,
-      },
-      {
-        reported_channel_email: "stageus.naver.com",
-        reported_channel_time: "2022-12-28",
-        reported_channel_name: "poiu12",
-        report_count: 10,
-      },
-    ]
-
-    setReportChannel(tmpReportChannel)
+    fetch("https://api.슛.site/report/channel/all", {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReportChannel(res.data)
+      })
   }, [])
 
   return (
@@ -322,22 +352,52 @@ const AdminReportChannelTable = () => {
             },
             index
           ) => (
-            <>
-              <tr key={index}>
-                <TdStyle>{index + 1}</TdStyle>
-                <TdStyle>{reported_channel_email}</TdStyle>
-                <TdStyle>{reported_channel_time}</TdStyle>
-                <TdStyle>{reported_channel_name}</TdStyle>
-                <TdStyle>{report_count}</TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/delete.svg" />
-                    </Div>
+            <tr key={reported_channel_time}>
+              <TdStyle>{index + 1}</TdStyle>
+              <TdStyle
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportChannel",
+                  })
+                  setBlockSelected({ email: reported_channel_email })
+                }}
+              >
+                {reported_channel_email}
+              </TdStyle>
+              <TdStyle>{reported_channel_time}</TdStyle>
+              <TdStyle>{reported_channel_name}</TdStyle>
+              <TdStyle>{report_count}</TdStyle>
+              <TdStyle>
+                <Div
+                  display="flex"
+                  width="100%"
+                  onClick={() => {
+                    fetch(
+                      `https://api.슛.site/report?group=channel&idx=${reported_channel_email}`,
+                      {
+                        method: "DELETE",
+                        credentials: "include",
+                      }
+                    ).then(async (res) => {
+                      const result = await res.json()
+                      const filteredData = reportChannel.filter(
+                        (element) =>
+                          reported_channel_email !==
+                          element.reported_channel_email
+                      )
+
+                      setReportChannel(filteredData)
+                    })
+                  }}
+                >
+                  <Div width="20px" height="20px" pointer>
+                    <Img src="/assets/images/delete.svg" />
                   </Div>
-                </TdStyle>
-              </tr>
-            </>
+                </Div>
+              </TdStyle>
+            </tr>
           )
         )}
       </tbody>
@@ -347,21 +407,19 @@ const AdminReportChannelTable = () => {
 
 const AdminReportCommentTable = () => {
   const [reportComment, setReportComment] = useRecoilState(reportCommentState)
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
 
   useEffect(() => {
-    let tmpReportComment = [
-      {
-        post_idx: 33,
-        reported_comment_idx: 2,
-        reported_comment_contents: "helloheool",
-        reported_comment_write_time: "2023-01-12",
-        reported_channel_email: "shoot.naver.com",
-        reported_channel_name: "qwerr",
-        report_count: 5,
-      },
-    ]
-
-    setReportComment(tmpReportComment)
+    fetch("https://api.슛.site/report/comment/all", {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReportComment(res.data)
+      })
   }, [])
 
   return (
@@ -375,29 +433,64 @@ const AdminReportCommentTable = () => {
           <ThStyle>삭제</ThStyle>
         </tr>
         {reportComment.map(
-          ({
-            post_idx,
-            reported_comment_idx,
-            reported_comment_write_time,
-            reported_channel_email,
-            reported_channel_name,
-            report_count,
-          }) => (
-            <>
-              <tr key={post_idx}>
-                <TdStyle>{post_idx}</TdStyle>
-                <TdStyle>{reported_comment_write_time}</TdStyle>
-                <TdStyle>{reported_channel_email}</TdStyle>
-                <TdStyle>{report_count}</TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/delete.svg" />
-                    </Div>
+          (
+            {
+              post_idx,
+              reported_comment_idx,
+              reported_comment_write_time,
+              reported_channel_email,
+              reported_channel_name,
+              report_count,
+            },
+            index
+          ) => (
+            <tr key={reported_comment_idx}>
+              <TdStyle
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportComment",
+                  })
+                  setBlockSelected({
+                    idx: reported_comment_idx,
+                    email: reported_channel_email,
+                  })
+                }}
+              >
+                {index + 1}
+              </TdStyle>
+              <TdStyle>{reported_comment_write_time}</TdStyle>
+              <TdStyle>{reported_channel_email}</TdStyle>
+              <TdStyle>{report_count}</TdStyle>
+              <TdStyle>
+                <Div
+                  display="flex"
+                  width="100%"
+                  onClick={() => {
+                    fetch(
+                      `https://api.슛.site/report?group=comment&idx=${reported_comment_idx}`,
+                      {
+                        method: "DELETE",
+                        credentials: "include",
+                      }
+                    ).then(async (res) => {
+                      const result = await res.json()
+                      const filteredData = reportComment.filter(
+                        (element) =>
+                          reported_comment_idx !== element.reported_comment_idx
+                      )
+
+                      setReportComment(filteredData)
+                    })
+                  }}
+                >
+                  <Div width="20px" height="20px" pointer>
+                    <Img src="/assets/images/delete.svg" />
                   </Div>
-                </TdStyle>
-              </tr>
-            </>
+                </Div>
+              </TdStyle>
+            </tr>
           )
         )}
       </tbody>
@@ -409,21 +502,19 @@ const AdminReportReplyCommentTable = () => {
   const [reportReplyComment, setReportReplyComment] = useRecoilState(
     reportReplyCommentState
   )
+  const [blockSelected, setBlockSelected] = useRecoilState(blockSelectedState)
+  const [modalOpen, setModalOpen] = useRecoilState(modalOpenState)
+  const [modalInfo, setModalInfo] = useRecoilState(modalInfoState)
 
   useEffect(() => {
-    let tmpReportReplyComment = [
-      {
-        post_idx: 23,
-        reported_reply_comment_idx: 2,
-        reported_reply_comment_contents: "helloheool",
-        reported_reply_comment_write_time: "2023-01-12",
-        reported_channel_email: "shoot.naver.com",
-        reported_channel_name: "qwerr",
-        report_count: 5,
-      },
-    ]
-
-    setReportReplyComment(tmpReportReplyComment)
+    fetch("https://api.슛.site/report/reply-comment/all", {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReportReplyComment(res.data)
+      })
   }, [])
 
   return (
@@ -437,30 +528,66 @@ const AdminReportReplyCommentTable = () => {
           <ThStyle>삭제</ThStyle>
         </tr>
         {reportReplyComment.map(
-          ({
-            post_idx,
-            reported_reply_comment_idx,
-            reported_reply_comment_contents,
-            reported_reply_comment_write_time,
-            reported_channel_email,
-            reported_channel_name,
-            report_count,
-          }) => (
-            <>
-              <tr key={post_idx}>
-                <TdStyle>{post_idx}</TdStyle>
-                <TdStyle>{reported_reply_comment_write_time}</TdStyle>
-                <TdStyle>{reported_channel_email}</TdStyle>
-                <TdStyle>{report_count}</TdStyle>
-                <TdStyle>
-                  <Div display="flex" width="100%">
-                    <Div width="20px" height="20px" pointer>
-                      <Img src="/assets/images/delete.svg" />
-                    </Div>
+          (
+            {
+              post_idx,
+              reported_reply_comment_idx,
+              reported_reply_comment_contents,
+              reported_reply_comment_write_time,
+              reported_channel_email,
+              reported_channel_name,
+              report_count,
+            },
+            index
+          ) => (
+            <tr key={reported_reply_comment_idx}>
+              <TdStyle
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalInfo({
+                    ...modalInfo,
+                    type: "ReportReplyComment",
+                  })
+                  setBlockSelected({
+                    idx: reported_reply_comment_idx,
+                    email: reported_channel_email,
+                  })
+                }}
+              >
+                {index + 1}
+              </TdStyle>
+              <TdStyle>{reported_reply_comment_write_time}</TdStyle>
+              <TdStyle>{reported_channel_email}</TdStyle>
+              <TdStyle>{report_count}</TdStyle>
+              <TdStyle>
+                <Div
+                  display="flex"
+                  width="100%"
+                  onClick={() => {
+                    fetch(
+                      `https://api.슛.site/report?group=reply-comment&idx=${reported_reply_comment_idx}`,
+                      {
+                        method: "DELETE",
+                        credentials: "include",
+                      }
+                    ).then(async (res) => {
+                      const result = await res.json()
+                      const filteredData = reportReplyComment.filter(
+                        (element) =>
+                          reported_reply_comment_idx !==
+                          element.reported_reply_comment_idx
+                      )
+
+                      setReportReplyComment(filteredData)
+                    })
+                  }}
+                >
+                  <Div width="20px" height="20px" pointer>
+                    <Img src="/assets/images/delete.svg" />
                   </Div>
-                </TdStyle>
-              </tr>
-            </>
+                </Div>
+              </TdStyle>
+            </tr>
           )
         )}
       </tbody>
@@ -475,20 +602,6 @@ const AdminLogTable = () => {
   const [logIdx, setLogIdx] = useRecoilState(logIdxState)
 
   useEffect(() => {
-    /* let tmpLog = [
-      {
-        id: "1",
-        ip: "123.123.123",
-        req_channel_email: "shoot.naver.com",
-        method: "abc",
-        api_path: "path",
-        req_time: "timestamp",
-        res_time: "timestamp",
-        status_code: 1,
-        result: "string",
-      },
-    ]*/
-
     fetch("https://api.슛.site/log/all", {
       method: "GET",
       credentials: "include",
@@ -513,19 +626,22 @@ const AdminLogTable = () => {
         </tr>
         {log &&
           log.map(
-            ({
-              id,
-              ip,
-              req_channel_email,
-              method,
-              api_path,
-              req_time,
-              res_time,
-              status_code,
-              result,
-            }) => (
-              <React.Fragment>
-                <tr key={id}>
+            (
+              {
+                id,
+                ip,
+                req_channel_email,
+                method,
+                api_path,
+                req_time,
+                res_time,
+                status_code,
+                result,
+              },
+              index
+            ) => (
+              <React.Fragment key={req_time}>
+                <tr>
                   <TdStyle>{req_channel_email}</TdStyle>
                   <TdStyle>{ip}</TdStyle>
                   <TdStyle>{api_path}</TdStyle>
@@ -545,10 +661,12 @@ const AdminLogTable = () => {
                             .then((res) => res.json())
                             .then((res) => {
                               setLogIdx(res.data)
-                              console.log(res)
                             })
                           setSelect(id)
                           setOpen(true)
+                          open
+                            ? id === select && setOpen(false)
+                            : id === select && setOpen(true)
                         }}
                       >
                         <Img src="../assets/images/downArrow.svg" />

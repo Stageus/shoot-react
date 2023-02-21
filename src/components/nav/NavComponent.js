@@ -12,6 +12,7 @@ import NavItem from "./NavItem"
 import NavCategoryItem from "./NavCategoryItem"
 import { categoryMenuState, categoryState } from "../../recoil/navState"
 import useInput from "../../hooks/useInput"
+import { userTokenState } from "../../recoil/accountState"
 
 const NavBox = styled.nav`
   position: fixed;
@@ -71,18 +72,23 @@ const Nav = () => {
   const [category, setCategory] = useRecoilState(categoryState)
   const [isCategoryRequest, setIsCategoryRequest] = useState(true)
 
-  useEffect(() => {
-    /* if (isCategoryRequest) {
-      setCategory({ category: categoryRequest })
-    } */
+  const [userToken, setUserToken] = useRecoilState(userTokenState)
 
+  useEffect(() => {
+    if (isCategoryRequest) {
+      // 요청 카테고리 글자 수 제한 필요
+      console.log(categoryRequest)
+      setCategory({ category: categoryRequest })
+    }
+  }, [categoryRequest])
+
+  useEffect(() => {
     fetch("https://api.슛.site/category/all", {
       credentials: "include",
       method: "GET",
     })
       .then((res) => res.json())
       .then((res) => {
-        setCategoryMenu(res.data)
         setCategoryMenu(res.data)
       })
   }, [])
@@ -154,15 +160,12 @@ const Nav = () => {
               padding="0px 0px 0px 10px"
               onChange={(e) => {
                 onChangeCategoryRequest(e)
-                setCategory({ category: categoryRequest })
               }}
             />
             <SmButton
               backgroundColor="primary"
               margin="5px"
               onClick={() => {
-                // setIsCategoryRequest(true)
-
                 console.log(category)
                 console.log(categoryRequest)
                 fetch("https://api.슛.site/request-category", {
@@ -176,10 +179,11 @@ const Nav = () => {
                   const result = await res.json()
                   console.log(result)
                   console.log(res)
+                  alert("카테고리 요청이 완료되었습니다.")
                 })
               }}
             >
-              <P color="white" fontSize="sm" fontWeight="800">
+              <P color="white" fontSize="sm" fontWeight="700">
                 입력
               </P>
             </SmButton>

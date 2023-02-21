@@ -21,13 +21,7 @@ const AdminCategoryUpdateComponent = () => {
       <MainDiv>
         <H1 fontSize="lg">카테고리 추가</H1>
         <AdminCategoryUpdateTable />
-        <Div display="flex" width="100%" margin="0px 0px 20px 0px">
-          <MdButton backgroundColor="gray">
-            <P color="white" fontSize="sm">
-              + 추가하기
-            </P>
-          </MdButton>
-        </Div>
+        <Div display="flex" width="100%" margin="0px 0px 20px 0px"></Div>
       </MainDiv>
     </React.Fragment>
   )
