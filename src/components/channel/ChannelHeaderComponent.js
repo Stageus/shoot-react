@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 
-import Div from "../basic/Div";
-import P from "../basic/P";
-import SeeMore from "../common/SeeMore";
-import ChannelHeaderProfile from "./ChannelHeaderProfile";
+import Div from "../basic/Div"
+import P from "../basic/P"
+import SeeMore from "../common/SeeMore"
+import ChannelHeaderProfile from "./ChannelHeaderProfile"
 
 const ChannelHeader = () => {
   const tmpChannelInfo = {
@@ -21,7 +21,7 @@ const ChannelHeader = () => {
     channel_date: "2022-12-31",
     birth: "2033-1-1",
     subscribe_state: false,
-  };
+  }
 
   return (
     <Div width="100%">
@@ -30,7 +30,7 @@ const ChannelHeader = () => {
           <Div padding="10px 20px">
             <ChannelHeaderProfile channelInfo={tmpChannelInfo} />
           </Div>
-          <SeeMore alarm report />
+          <SeeMore alarm report parent="channel" />
         </Div>
         <Div display="flex" padding="0 20px">
           <Div margin="0 20px 0 0">
@@ -45,7 +45,7 @@ const ChannelHeader = () => {
         </Div>
       </Div>
     </Div>
-  );
-};
+  )
+}
 
-export default ChannelHeader;
+export default ChannelHeader
