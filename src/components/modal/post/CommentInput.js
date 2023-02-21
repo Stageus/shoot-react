@@ -51,7 +51,7 @@ const CommentInput = (props) => {
   const [commentGetSources, commentGetFetchData] = useGetFetch()
   const [commentPostSources, commentPostFetchData] = usePostFetch()
   const [commentPutSources, commentPutFetchData] = usePutFetch()
-  const EnterCommentEvent = (e) => {
+  const EnterCommentEvent = async (e) => {
     if (isLogin === false) {
       const modalInfo = {
         type: "confirm",
@@ -68,15 +68,18 @@ const CommentInput = (props) => {
         contents: CommentInputValue,
       }
       if (commentType === "comment") {
-        commentPostFetchData(`comment?post-idx=${idx}`, fetchBody)
+        await commentPostFetchData(`comment?post-idx=${idx}`, fetchBody)
       } else if (commentType === "reply") {
-        commentPostFetchData(`reply-comment?comment-idx=${idx}`, fetchBody)
+        await commentPostFetchData(
+          `reply-comment?comment-idx=${idx}`,
+          fetchBody
+        )
       } else if (commentType === "changeComment") {
-        commentPutFetchData(`comment/${idx}`, fetchBody)
+        await commentPutFetchData(`comment/${idx}`, fetchBody)
       } else {
-        commentPutFetchData(`reply-comment/${idx}`, fetchBody)
+        await commentPutFetchData(`reply-comment/${idx}`, fetchBody)
       }
-      commentGetFetchData(`comment/all?post-idx=${post_idx}`)
+      await commentGetFetchData(`comment/all?post-idx=${post_idx}`)
     }
   }
 

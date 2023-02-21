@@ -41,6 +41,7 @@ const CommentModalComponent = () => {
   const [commentGetSources, commentGetFetchData] = useGetFetch()
   useEffect(() => {
     commentGetFetchData(`comment/all?post-idx=${post_idx}`)
+    setCommentList([])
   }, [postInfo])
 
   useEffect(() => {

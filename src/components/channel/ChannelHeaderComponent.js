@@ -1,3 +1,4 @@
+import React from "react"
 import { useRecoilValue } from "recoil";
 
 import { useGetFetch } from "../../hooks/useFetch";
@@ -9,6 +10,7 @@ import { channelInfoObject } from "../../recoil/channelState";
 
 const ChannelHeader = () => {
   const channelInfo = useRecoilValue(channelInfoObject);
+
   return (
     <Div width="100%">
       <Div width="100%">
@@ -16,7 +18,7 @@ const ChannelHeader = () => {
           <Div padding="10px 20px">
             <ChannelHeaderProfile />
           </Div>
-          <SeeMore alarm report />
+          <SeeMore alarm report parent="channel" />
         </Div>
         <Div display="flex" padding="0 20px">
           <Div margin="0 20px 0 0">
@@ -28,7 +30,7 @@ const ChannelHeader = () => {
         </Div>
       </Div>
     </Div>
-  );
-};
+  )
+}
 
-export default ChannelHeader;
+export default ChannelHeader

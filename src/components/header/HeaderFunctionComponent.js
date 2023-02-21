@@ -68,7 +68,7 @@ const HeaderFunctionComponent = () => {
   }
 
   const moveMyChannelEvent = () => {
-    navigate(`channel/${email}`)
+    navigate(`/channel/${email}`)
   }
 
   const logoutLogic = () => {
